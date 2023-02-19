@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:petme/firebaseAuthe/auth_page.dart';
-import 'package:petme/screens/login_page.dart';
+// import 'package:petme/screens/login_page.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
@@ -24,21 +26,19 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
         backgroundColor: Colors.pink[200],
         body: Center(
-          child: Container(
-            child: Image.asset(
-              'assets/petLogo.png',
-              // child: Center(
-              //   child: Text(
-              //     'Pet Me',
-              //     style: TextStyle(
-              //         fontSize: 58,
-              //         fontWeight: FontWeight.bold,
-              //         color: Colors.white,
-              //
-              //     ),
-              //   ),
-              // ),
-            ),
+          child: Image.asset(
+            'assets/petLogo.png',
+            // child: Center(
+            //   child: Text(
+            //     'Pet Me',
+            //     style: TextStyle(
+            //         fontSize: 58,
+            //         fontWeight: FontWeight.bold,
+            //         color: Colors.white,
+            //
+            //     ),
+            //   ),
+            // ),
           ),
         ));
   }
