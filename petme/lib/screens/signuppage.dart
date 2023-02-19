@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:petme/screens/adopterSignUp.dart';
+import 'package:petme/screens/home_page.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -18,7 +19,8 @@ class _SignUpState extends State<SignUp> {
     await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: emailController.text.trim(),
       password: passwordController.text.trim(),
-    );
+    ).then((value) => Navigator.push(context,
+        MaterialPageRoute(builder: (context) => HomePage())));
   }
 
   // disposing controllers

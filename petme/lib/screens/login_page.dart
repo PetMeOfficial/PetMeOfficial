@@ -8,9 +8,6 @@ class MyLogin extends StatefulWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  // Sign-In Method
-
-
   @override
   State<MyLogin> createState() => _MyLoginState();
 }
@@ -19,6 +16,7 @@ class _MyLoginState extends State<MyLogin> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  //Sign In method
   Future signIn() async {
     await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: emailController.text.trim(),
@@ -71,7 +69,7 @@ class _MyLoginState extends State<MyLogin> {
                           hintText: 'Email id',
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10))),
-                    ),
+                    ), // Email
                     const SizedBox(
                       height: 35,
                     ),
@@ -82,7 +80,7 @@ class _MyLoginState extends State<MyLogin> {
                           hintText: 'Password',
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10))),
-                    ),
+                    ), // Password
                     const SizedBox(
                       height: 28,
                     ),
@@ -134,7 +132,8 @@ class _MyLoginState extends State<MyLogin> {
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold),
-                              ))
+                              )
+                          )
                         ],
                       ),
                     )
