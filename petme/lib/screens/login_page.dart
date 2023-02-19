@@ -1,13 +1,45 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MyLogin extends StatefulWidget {
-  const MyLogin({Key? key}) : super(key: key);
+   MyLogin({Key? key}) : super(key: key);
+
+   // text editing controllers
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  // Sign-In Method
+  void signUserIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+    );
+  }
 
   @override
   State<MyLogin> createState() => _MyLoginState();
 }
 
 class _MyLoginState extends State<MyLogin> {
+
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  Future signIn() async{
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+    );
+  }
+
+  // disposing controllers
+  @override
+  void dispose(){
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,6 +63,7 @@ class _MyLoginState extends State<MyLogin> {
                   child: Column(
                     children: [
                       TextField(
+                        controller: emailController,
                         decoration: InputDecoration(
                             hintText: 'Email id',
                           border: OutlineInputBorder(
@@ -42,6 +75,7 @@ class _MyLoginState extends State<MyLogin> {
                         height: 35,
                       ),
                       TextField(
+                        controller: passwordController,
                         obscureText: true,
                         decoration: InputDecoration(
                             hintText: 'Password',
@@ -70,34 +104,33 @@ class _MyLoginState extends State<MyLogin> {
                             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black ),
                           )
                           )
-                          // Text(
-                          //   'Sign Up',
-                          //   style: TextStyle(
-                          //     fontSize: 24,
-                          //     fontWeight: FontWeight.bold,
-                          //   ),
-                          // )
                         ],
                       ),
                       SizedBox(
                         height: 120,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton(onPressed: (){}, child: Text(
-                            'LOGIN' ,
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                            style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.fromLTRB(141, 10, 141, 10),
-                          backgroundColor: Colors.pink[400],
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)
-                          ),
-                          )
-                          )
-                        ],
+                      GestureDetector(
+                        onTap: signIn,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(onPressed: (){
+                              signIn();
+                            },
+                                child: Text(
+                              'LOGIN' ,
+                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                              style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.fromLTRB(141, 10, 141, 10),
+                            backgroundColor: Colors.pink[400],
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0)
+                            ),
+                            )
+                            )
+                          ],
+                        ),
                       )
                     ],
                   ),
