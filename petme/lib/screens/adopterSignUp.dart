@@ -155,7 +155,7 @@ class _adopterSignUpState extends State<adopterSignUp> {
                                 }));
                               },
                               child: Text(
-                                'Pet',
+                                'Go To Pet',
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
