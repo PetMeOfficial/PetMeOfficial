@@ -121,7 +121,7 @@ class _MyLoginState extends State<MyLogin> {
                               },
                               style: ElevatedButton.styleFrom(
                                 padding: const EdgeInsets.fromLTRB(
-                                    141, 10, 141, 10),
+                                    130, 10, 130, 10),
                                 backgroundColor: Colors.pink[400],
                                 shape: RoundedRectangleBorder(
                                     borderRadius:

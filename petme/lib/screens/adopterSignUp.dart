@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:petme/screens/signuppage.dart';
-
 import 'home_page.dart';
 
 class adopterSignUp extends StatefulWidget {
@@ -154,7 +153,7 @@ class _adopterSignUpState extends State<adopterSignUp> {
                               },
                               style: ElevatedButton.styleFrom(
                                 padding:
-                                    const EdgeInsets.fromLTRB(100, 10, 100, 10),
+                                    const EdgeInsets.fromLTRB(85, 10, 85, 10),
                                 backgroundColor: Colors.pink[400],
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0)),
