@@ -154,7 +154,7 @@ class _SignUpState extends State<SignUp> {
                               },
                               style: ElevatedButton.styleFrom(
                                 padding:
-                                    const EdgeInsets.fromLTRB(85, 10, 85, 10),
+                                    const EdgeInsets.fromLTRB(85, 10, 75, 10),
                                 backgroundColor: Colors.pink[400],
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0)),
