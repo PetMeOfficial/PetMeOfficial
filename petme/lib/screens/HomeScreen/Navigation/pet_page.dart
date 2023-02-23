@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 
-class PetPage extends StatelessWidget {
+class PetPage extends StatefulWidget {
   const PetPage({Key? key}) : super(key: key);
 
   @override
+  State<PetPage> createState() => _PetPageState();
+}
+
+class _PetPageState extends State<PetPage> {
+  @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Text(
+      'Pet',
+    );
   }
 }

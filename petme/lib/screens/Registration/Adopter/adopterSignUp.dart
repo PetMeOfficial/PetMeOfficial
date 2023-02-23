@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:petme/screens/Login/login_page.dart';
 import 'package:petme/screens/Registration/Pet/signuppage.dart';
 import 'package:get/get.dart';
-import '../../HomeScreen/home_page.dart';
+import '../../HomeScreen/main_page.dart';
 
 class adopterSignUp extends StatefulWidget {
   const adopterSignUp({super.key});
