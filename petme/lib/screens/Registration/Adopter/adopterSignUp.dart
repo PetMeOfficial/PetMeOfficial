@@ -1,30 +1,71 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:petme/screens/Registration/adopterSignUp.dart';
-import 'package:petme/screens/HomeScreen/home_page.dart';
+import 'package:petme/screens/Login/login_page.dart';
+import 'package:petme/screens/Registration/Pet/signuppage.dart';
+import 'package:get/get.dart';
+import '../../HomeScreen/home_page.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({Key? key}) : super(key: key);
+class adopterSignUp extends StatefulWidget {
+  const adopterSignUp({super.key});
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<adopterSignUp> createState() => _adopterSignUpState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _adopterSignUpState extends State<adopterSignUp> {
   final phoneNumber = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final nameController = TextEditingController();
+  final _form = GlobalKey<FormState>();
+
+  final db = FirebaseFirestore.instance;
 
   Future signUp() async {
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: emailController.text.trim(),
-      password: passwordController.text.trim(),
-    ).then((value) => Navigator.push(context,
-        MaterialPageRoute(builder: (context) => HomePage()
+    // For Storing Data on Database
+    // CollectionReference reference = FirebaseFirestore.instance.collection("Users");
+    // Map<String,String> userdata = {
+    //   "Name": nameController.text.trim(),
+    //   "Email": emailController.text.trim(),
+    //   "Phone No": phoneNumber.text.trim(),
+    // };
+
+    // For Creating user on Auth
+    // Create User
+    await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim(),
         )
-    )
+        .then((value) => Navigator.pushNamed(context, 'login')
     );
+
+    await db.collection('users').add({
+      'Name': nameController.text.trim(),
+      'E-mail': emailController.text.trim(),
+      'Phone-No': int.parse(phoneNumber.text.trim()),
+    })
+    ;
+
+    //add user details
+    addUserDetails(
+        nameController.text.trim(),
+        emailController.text.trim(),
+        int.parse(phoneNumber.text.trim()
+        )
+    );
+  }
+
+  CollectionReference users = FirebaseFirestore.instance.collection("users");
+  Future<void> addUserDetails(String name, String email, int phoneNo) async {
+    await db.collection("users")
+        .add({
+      'Name': name,
+      'E-mail': email,
+      'Phone-No': phoneNo,
+    })
+    ;
   }
 
   // disposing controllers
@@ -50,19 +91,30 @@ class _SignUpState extends State<SignUp> {
                 ),
                 TextButton(
                     onPressed: () {
-                      // Navigator.pushNamed(c ontext, 'adopter');
+                      // Navigator.pushNamed(context, 'adopter');
                       Navigator.push(context, PageRouteBuilder(pageBuilder:
                           (BuildContext context, Animation<double> animation1,
                               Animation<double> animation2) {
                         return const adopterSignUp();
                       }));
                     },
-                    child: const Text(
-                      'Adopter',
-                      style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                        bottom: 4, // Space between underline and text
+                      ),
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                        color: Colors.pink[400]!,
+                        width: 2.0, // Underline thickness
+                      ))),
+                      child: const Text(
+                        "Adopter",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 32,
+                        ),
                       ),
                     )), // Adopter Text
                 const SizedBox(
@@ -78,25 +130,13 @@ class _SignUpState extends State<SignUp> {
                         return const SignUp();
                       }));
                     },
-                    child: Container(
-                      padding: const EdgeInsets.only(
-                        bottom: 4, // Space between underline and text
-                      ),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                        color: Colors.pink[400]!,
-                        width: 2.0, // Underline thickness
-                      ))),
-                      child: const Text(
-                        "Pet",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
+                    child: const Text(
+                      'Pet',
+                      style: TextStyle(
                           fontSize: 32,
-                        ),
-                      ),
-                    )) // Pet text
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    )), // Pet Text
               ],
             ),
             Center(
@@ -106,9 +146,11 @@ class _SignUpState extends State<SignUp> {
                     right: 35,
                     left: 35),
                 child: Form(
+                  key: _form,
                   child: Column(
                     children: [
                       TextFormField(
+                        controller: nameController,
                         decoration: InputDecoration(
                             label: const Text('Name'),
                             labelStyle: TextStyle(color: Colors.pink[400]),
@@ -119,9 +161,9 @@ class _SignUpState extends State<SignUp> {
                             // hintText: 'Name',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
-                              borderSide: const BorderSide(width: 2.0,color: Colors.pink),
-                            )
-                        ),
+                              borderSide: const BorderSide(
+                                  width: 2.0, color: Colors.pink),
+                            )),
                       ), // Name
                       const SizedBox(
                         height: 35,
@@ -138,9 +180,9 @@ class _SignUpState extends State<SignUp> {
                             // hintText: 'Email',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
-                              borderSide: const BorderSide(width: 2.0,color: Colors.pink),
-                            )
-                        ),
+                              borderSide: const BorderSide(
+                                  width: 2.0, color: Colors.pink),
+                            )),
                       ), // Email
                       const SizedBox(
                         height: 35,
@@ -157,9 +199,9 @@ class _SignUpState extends State<SignUp> {
                             // hintText: 'Email',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
-                              borderSide: const BorderSide(width: 2.0,color: Colors.pink),
-                            )
-                        ),
+                              borderSide: const BorderSide(
+                                  width: 2.0, color: Colors.pink),
+                            )),
                       ),
                       const SizedBox(
                         height: 35,
@@ -177,9 +219,9 @@ class _SignUpState extends State<SignUp> {
                             // hintText: 'Password',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
-                              borderSide: const BorderSide(width: 2.0,color: Colors.pink),
-                            )
-                        ),
+                              borderSide: const BorderSide(
+                                  width: 2.0, color: Colors.pink),
+                            )),
                       ), // Password
                       const SizedBox(
                         height: 50,
@@ -198,12 +240,14 @@ class _SignUpState extends State<SignUp> {
                                       const EdgeInsets.fromLTRB(85, 10, 85, 10),
                                   backgroundColor: Colors.pink[400],
                                   shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0)),
+                                      borderRadius:
+                                          BorderRadius.circular(10.0)),
                                 ),
                                 child: const Text(
                                   'Create Account',
                                   style: TextStyle(
-                                      fontSize: 20, fontWeight: FontWeight.bold),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
                                 )),
                           ],
                         ),
@@ -213,25 +257,33 @@ class _SignUpState extends State<SignUp> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton(
-                              onPressed: () {
-                                Navigator.pushNamed(context, 'login');
-                              },
-                              style: ElevatedButton.styleFrom(
-                                padding:
-                                    const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                                backgroundColor: Colors.black87,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0)),
-                              ),
-                              child: const Text(
-                                'Return to Log In',
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ))
+                        children: const [
+                          // Commented code refers to removed button 'Go To Pet Page'
+                          // ElevatedButton(
+                          //     onPressed: () {
+                          //       // Navigator.pushNamed(context, 'login');
+                          //       Navigator.push(context, PageRouteBuilder(
+                          //           pageBuilder: (BuildContext context,
+                          //               Animation<double> animation1,
+                          //               Animation<double> animation2) {
+                          //         return const SignUp();
+                          //       }));
+                          //     },
+                          //     style: ElevatedButton.styleFrom(
+                          //       padding:
+                          //           const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                          //       backgroundColor: Colors.black87,
+                          //       shape: RoundedRectangleBorder(
+                          //           borderRadius: BorderRadius.circular(10.0)),
+                          //     ),
+                          //     child: const Text(
+                          //       'Go To Pet',
+                          //       style: TextStyle(
+                          //           fontSize: 20, fontWeight: FontWeight.bold),
+                          //     )
+                          // ) // go to pet //
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),

@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:petme/screens/HomeScreen/Navigation/chat_page.dart';
+import 'package:petme/screens/HomeScreen/Navigation/settings_page.dart';
+
+import 'Navigation/pet_page.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
+  // List pages = [
+  //   PetPage(),
+  //   ChatPage(),
+  //   SettingsPage(),
+  // ];
+
 
   final user = FirebaseAuth.instance.currentUser!;
 
@@ -33,6 +45,27 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: const GNav(
+        gap: 20,
+        tabs: [
+          GButton(
+            icon: Icons.home,
+            text: 'Home',
+          ),
+          GButton(
+            icon: Icons.pets_outlined,
+            text: 'Pet',
+          ),
+          GButton(
+              icon: Icons.search,
+              text: 'Search',
+          ),
+          GButton(
+              icon: Icons.settings,
+            text: 'Settings',
+          ),
+        ],
       ),
     );
   }
