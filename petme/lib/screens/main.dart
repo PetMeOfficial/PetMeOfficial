@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:petme/screens/adopterSignUp.dart';
-import 'package:petme/screens/login_page.dart';
-import 'package:petme/screens/signuppage.dart';
-import 'package:petme/screens/splash_screen.dart';
+import 'package:petme/screens/Registration/adopterSignUp.dart';
+import 'package:petme/screens/Login/login_page.dart';
+import 'package:petme/screens/Registration/signuppage.dart';
+import 'package:petme/screens/SplashScreen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
