@@ -257,31 +257,25 @@ class _adopterSignUpState extends State<adopterSignUp> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          // Commented code refers to removed button 'Go To Pet Page'
-                          // ElevatedButton(
-                          //     onPressed: () {
-                          //       // Navigator.pushNamed(context, 'login');
-                          //       Navigator.push(context, PageRouteBuilder(
-                          //           pageBuilder: (BuildContext context,
-                          //               Animation<double> animation1,
-                          //               Animation<double> animation2) {
-                          //         return const SignUp();
-                          //       }));
-                          //     },
-                          //     style: ElevatedButton.styleFrom(
-                          //       padding:
-                          //           const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                          //       backgroundColor: Colors.black87,
-                          //       shape: RoundedRectangleBorder(
-                          //           borderRadius: BorderRadius.circular(10.0)),
-                          //     ),
-                          //     child: const Text(
-                          //       'Go To Pet',
-                          //       style: TextStyle(
-                          //           fontSize: 20, fontWeight: FontWeight.bold),
-                          //     )
-                          // ) // go to pet //
+                        children: [
+                          const Text(
+                            'Already have an account?',
+                            style: TextStyle(
+                              fontSize: 17,
+                              color: Colors.grey,
+                            ),
+                          ), // 'Don\'t have an account?',
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, 'login');
+                              },
+                              child: const Text(
+                                'Log In',
+                                style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                              ))
                         ],
                       ),
                     ],

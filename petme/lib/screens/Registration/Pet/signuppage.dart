@@ -8,6 +8,7 @@ class SignUp extends StatefulWidget {
 
   @override
   State<SignUp> createState() => _SignUpState();
+
 }
 
 class _SignUpState extends State<SignUp> {
