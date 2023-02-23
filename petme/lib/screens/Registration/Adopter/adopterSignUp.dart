@@ -26,10 +26,7 @@ class _adopterSignUpState extends State<adopterSignUp> {
     // For Storing Data on Database
     // CollectionReference reference = FirebaseFirestore.instance.collection("Users");
     // Map<String,String> userdata = {
-    //   "Name": nameController.text.trim(),
-    //   "Email": emailController.text.trim(),
-    //   "Phone No": phoneNumber.text.trim(),
-    // };
+    
 
     // For Creating user on Auth
     // Create User
