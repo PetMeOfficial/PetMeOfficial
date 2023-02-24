@@ -272,7 +272,8 @@ class _adopterSignUpState extends State<adopterSignUp> {
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black),
-                              ))
+                              )
+                          )
                         ],
                       ),
                     ],
