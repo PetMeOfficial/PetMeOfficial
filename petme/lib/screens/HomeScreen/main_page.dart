@@ -34,7 +34,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.pink,
+        backgroundColor: Colors.pink[300],
         actions: [
           IconButton(
               onPressed: signUserOut,
@@ -58,15 +58,15 @@ class _MainPageState extends State<MainPage> {
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 7),
             child: GNav(
-              gap: 20,
-              duration: Duration(microseconds: 9),
-              backgroundColor: Colors.white,
-              color: Colors.pink,
+              gap: 30,
+              duration: const Duration(microseconds: 9),
+              backgroundColor: Colors.white54,
+              color: Colors.pink[200],
               activeColor: Colors.pink,
-              tabBackgroundColor: Colors.black,
-              padding: const EdgeInsets.all(15),
+              // tabBackgroundColor: Colors.black,
+              padding: const EdgeInsets.all(10),
               tabs: const [
                 GButton(
                   icon: Icons.home,
@@ -77,8 +77,8 @@ class _MainPageState extends State<MainPage> {
                   text: 'Pets',
                 ),
                 GButton(
-                  icon: Icons.search,
-                  text: 'Search',
+                  icon: Icons.chat,
+                  text: 'Chat',
                 ),
                 GButton(
                   icon: Icons.settings,
