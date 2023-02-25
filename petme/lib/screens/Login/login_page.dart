@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MyLogin extends StatefulWidget {
   MyLogin({Key? key}) : super(key: key);
@@ -20,13 +21,22 @@ class _MyLoginState extends State<MyLogin> {
 
   //Sign In method
   Future signIn() async {
-    try{
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+    debugPrint("Clicked");
+
+
+      final loginResult = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
+    );
+      if(loginResult.user == null){
+        debugPrint("Login Error");
+      } else {
+        debugPrint("Login Successfully done");
+        Navigator.pushNamed(context, 'home');
+        super.dispose();
+      }
 
-    ).then((value) => super.dispose());
-    }catch(_){}
+
   }
 
   // disposing controllers
@@ -69,13 +79,15 @@ class _MyLoginState extends State<MyLogin> {
                       left: 35),
                   child: Column(
                     children: [
-                      TextField(
+                      TextFormField(
+
                         controller: emailController,
                         decoration: InputDecoration(
                             hintText: 'Email id',
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10))),
                       ), // Email
+
                       const SizedBox(
                         height: 35,
                       ),

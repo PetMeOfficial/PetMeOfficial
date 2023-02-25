@@ -14,6 +14,7 @@ class adopterSignUp extends StatefulWidget {
 }
 
 class _adopterSignUpState extends State<adopterSignUp> {
+  final username = TextEditingController();
   final phoneNumber = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -23,46 +24,27 @@ class _adopterSignUpState extends State<adopterSignUp> {
   final db = FirebaseFirestore.instance;
 
   Future signUp() async {
-    // For Storing Data on Database
-    // CollectionReference reference = FirebaseFirestore.instance.collection("Users");
-    // Map<String,String> userdata = {
-    
-
-    // For Creating user on Auth
-    // Create User
-    await FirebaseAuth.instance
+    final createResult = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim(),
-        )
-        .then((value) => Navigator.pushNamed(context, 'login')
-    );
+        );
+    if(createResult.user == null){
+      debugPrint("Error creating database");
+    }
+    else{
+      debugPrint("User database created successful");
 
-    await db.collection('users').add({
-      'Name': nameController.text.trim(),
-      'E-mail': emailController.text.trim(),
-      'Phone-No': int.parse(phoneNumber.text.trim()),
-    })
-    ;
+      await db.collection("users").add({
+        'user namee':username.text.trim(),
+        'Name': nameController.text.trim(),
+        'E-mail': emailController.text.trim(),
+        'Phone-No': int.parse(phoneNumber.text.trim()),
+      });
 
-    //add user details
-    addUserDetails(
-        nameController.text.trim(),
-        emailController.text.trim(),
-        int.parse(phoneNumber.text.trim()
-        )
-    );
-  }
+      Navigator.pushNamed(context, 'login');
 
-  CollectionReference users = FirebaseFirestore.instance.collection("users");
-  Future<void> addUserDetails(String name, String email, int phoneNo) async {
-    await db.collection("users")
-        .add({
-      'Name': name,
-      'E-mail': email,
-      'Phone-No': phoneNo,
-    })
-    ;
+    }
   }
 
   // disposing controllers
@@ -147,12 +129,31 @@ class _adopterSignUpState extends State<adopterSignUp> {
                   child: Column(
                     children: [
                       TextFormField(
+                        controller: username,
+                        decoration: InputDecoration(
+                            label: const Text('Username'),
+                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            prefixIcon: Icon(
+                              Icons.person,
+                              color: Colors.pink[400],
+                            ),
+                            // hintText: 'User Name',
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(13),
+                              borderSide: const BorderSide(
+                                  width: 2.0, color: Colors.pink),
+                            )),
+                      ),
+                      const SizedBox(
+                        height: 35,
+                      ),
+                      TextFormField(
                         controller: nameController,
                         decoration: InputDecoration(
                             label: const Text('Name'),
                             labelStyle: TextStyle(color: Colors.pink[400]),
                             prefixIcon: Icon(
-                              Icons.person_outline_rounded,
+                              Icons.person_2_outlined,
                               color: Colors.pink[400],
                             ),
                             // hintText: 'Name',

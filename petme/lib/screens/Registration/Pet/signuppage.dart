@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:petme/screens/Registration/Adopter/adopterSignUp.dart';
 import 'package:petme/screens/HomeScreen/main_page.dart';
 
@@ -12,20 +14,41 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  final username = TextEditingController();
+  final petname = TextEditingController();
+  final category = TextEditingController();
+  final breed = TextEditingController();
   final phoneNumber = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final nameController = TextEditingController();
 
+  final db = FirebaseFirestore.instance;
+
   Future signUp() async {
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    final createResult = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
       email: emailController.text.trim(),
       password: passwordController.text.trim(),
-    ).then((value) => Navigator.push(context,
-        MaterialPageRoute(builder: (context) => MainPage()
-        )
-    )
     );
+    if(createResult.user == null){
+      debugPrint("Error creating database");
+    }
+    else{
+      debugPrint("User database created successful");
+      await db.collection("users").add({
+        'user name': username.text.trim(),
+        'pet name' :petname.text.trim(),
+        'breed' : breed.text.trim(),
+        'category':category.text.trim(),
+        'Name': nameController.text.trim(),
+        'E-mail': emailController.text.trim(),
+        'Phone-No': int.parse(phoneNumber.text.trim()),
+      });
+
+      Navigator.pushNamed(context, 'login');
+
+    }
   }
 
   // disposing controllers
@@ -33,6 +56,7 @@ class _SignUpState extends State<SignUp> {
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    nameController.dispose();
     super.dispose();
   }
 
@@ -110,8 +134,85 @@ class _SignUpState extends State<SignUp> {
                   child: Column(
                     children: [
                       TextFormField(
+                        controller: username,
                         decoration: InputDecoration(
-                            label: const Text('Name'),
+                            label: const Text('Username'),
+                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            prefixIcon: Icon(
+                              Icons.person,
+                              color: Colors.pink[400],
+                            ),
+                            // hintText: 'Email',
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(13),
+                              borderSide: const BorderSide(width: 2.0,color: Colors.pink),
+                            )
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 35,
+                      ),
+                      TextFormField(
+                        controller: petname,
+                        decoration: InputDecoration(
+                            label: const Text('Pet Name'),
+                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            prefixIcon: Icon(
+                              Icons.pets,
+                              color: Colors.pink[400],
+                            ),
+                            // hintText: 'Email',
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(13),
+                              borderSide: const BorderSide(width: 2.0,color: Colors.pink),
+                            )
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 35,
+                      ),
+                      TextFormField(
+                        controller: category,
+                        decoration: InputDecoration(
+                            label: const Text('Category'),
+                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            prefixIcon: Icon(
+                              Icons.category,
+                              color: Colors.pink[400],
+                            ),
+                            // hintText: 'Email',
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(13),
+                              borderSide: const BorderSide(width: 2.0,color: Colors.pink),
+                            )
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 35,
+                      ),
+                      TextFormField(
+                        controller: breed,
+                        decoration: InputDecoration(
+                            label: const Text('Breed'),
+                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            prefixIcon: Icon(
+                              Icons.catching_pokemon_outlined,
+                              color: Colors.pink[400],
+                            ),
+                            // hintText: 'Email',
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(13),
+                              borderSide: const BorderSide(width: 2.0,color: Colors.pink),
+                            )
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 35,
+                      ),
+                      TextFormField(
+                        controller: nameController,
+                        decoration: InputDecoration(
+                            label: const Text('Owner Name'),
                             labelStyle: TextStyle(color: Colors.pink[400]),
                             prefixIcon: Icon(
                               Icons.person_outline_rounded,
@@ -130,7 +231,7 @@ class _SignUpState extends State<SignUp> {
                       TextFormField(
                         controller: emailController,
                         decoration: InputDecoration(
-                            label: const Text('Email'),
+                            label: const Text('Owner Email'),
                             labelStyle: TextStyle(color: Colors.pink[400]),
                             prefixIcon: Icon(
                               Icons.email_outlined,
