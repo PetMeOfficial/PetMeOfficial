@@ -34,6 +34,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        title: const Text('PetMe'),
         backgroundColor: Colors.pink[300],
         actions: [
           IconButton(

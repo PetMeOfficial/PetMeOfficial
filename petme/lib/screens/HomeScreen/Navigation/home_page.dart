@@ -12,21 +12,24 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: StreamBuilder(
+    return Container(
+      decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(18), topRight: Radius.circular(18))),
+      child: Scaffold(
+        body: StreamBuilder(
           stream: FirebaseFirestore.instance.collection('Adopters').snapshots(),
           builder: (context,
-              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot ){
-            if (snapshot.connectionState==ConnectionState.waiting){
-              return const Center(
-                  child: CircularProgressIndicator()
-              );
+              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
             }
             return ListView.builder(
-                itemCount: snapshot.data!.docs.length,
-                itemBuilder: (context, index) => const PostCard(),
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, index) => const PostCard(),
             );
           },
+        ),
       ),
     );
   }
