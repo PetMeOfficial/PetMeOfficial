@@ -151,16 +151,16 @@ class _MyLoginState extends State<MyLogin> {
                               Navigator.pushNamed(context, 'forgot');
                             },
                             style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
-                              backgroundColor: Colors.pinkAccent[100],
+                              padding: const EdgeInsets.symmetric(horizontal: 25,vertical: 5),
+                              backgroundColor: Colors.black,
                               shape: RoundedRectangleBorder(
                                   borderRadius:
-                                  BorderRadius.circular(10.0)),
+                                  BorderRadius.circular(50.0)),
                             ),
                             child: const Text(
                               'Forgot Password',
                               style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 22,
                                   fontWeight: FontWeight.bold),
                             )
                         ),

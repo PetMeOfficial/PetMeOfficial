@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:petme/Widgets/post_card.dart';
 
@@ -11,8 +12,22 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: PostCard(),
+    return Scaffold(
+      body: StreamBuilder(
+          stream: FirebaseFirestore.instance.collection('Adopters').snapshots(),
+          builder: (context,
+              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot ){
+            if (snapshot.connectionState==ConnectionState.waiting){
+              return const Center(
+                  child: CircularProgressIndicator()
+              );
+            }
+            return ListView.builder(
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index) => const PostCard(),
+            );
+          },
+      ),
     );
   }
 }
