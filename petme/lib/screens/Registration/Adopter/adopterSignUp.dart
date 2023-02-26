@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:petme/screens/Login/login_page.dart';
-import 'package:petme/screens/Registration/Pet/signuppage.dart';
+import 'package:petme/screens/Registration/Pet/petSignUp.dart';
 import 'package:get/get.dart';
 import '../../HomeScreen/main_page.dart';
 
@@ -14,6 +14,7 @@ class adopterSignUp extends StatefulWidget {
 }
 
 class _adopterSignUpState extends State<adopterSignUp> {
+  final username = TextEditingController();
   final phoneNumber = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -23,46 +24,28 @@ class _adopterSignUpState extends State<adopterSignUp> {
   final db = FirebaseFirestore.instance;
 
   Future signUp() async {
-    // For Storing Data on Database
-    // CollectionReference reference = FirebaseFirestore.instance.collection("Users");
-    // Map<String,String> userdata = {
-    
-
-    // For Creating user on Auth
-    // Create User
-    await FirebaseAuth.instance
+    final createResult = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(
-          email: emailController.text.trim(),
-          password: passwordController.text.trim(),
-        )
-        .then((value) => Navigator.pushNamed(context, 'login')
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
     );
+    if(createResult.user == null){
+      debugPrint("Error creating database");
+    }
+    else{
+      debugPrint("User database created successful");
 
-    await db.collection('users').add({
-      'Name': nameController.text.trim(),
-      'E-mail': emailController.text.trim(),
-      'Phone-No': int.parse(phoneNumber.text.trim()),
-    })
-    ;
+      /// below code commented just for optimizing
+      // await db.collection("Adopters").add({
+      //   'user namee':username.text.trim(),
+      //   'Name': nameController.text.trim(),
+      //   'E-mail': emailController.text.trim(),
+      //   'Phone-No': int.parse(phoneNumber.text.trim()),
+      // });
 
-    //add user details
-    addUserDetails(
-        nameController.text.trim(),
-        emailController.text.trim(),
-        int.parse(phoneNumber.text.trim()
-        )
-    );
-  }
+      Navigator.pushNamed(context, 'login');
 
-  CollectionReference users = FirebaseFirestore.instance.collection("users");
-  Future<void> addUserDetails(String name, String email, int phoneNo) async {
-    await db.collection("users")
-        .add({
-      'Name': name,
-      'E-mail': email,
-      'Phone-No': phoneNo,
-    })
-    ;
+    }
   }
 
   // disposing controllers
@@ -91,7 +74,7 @@ class _adopterSignUpState extends State<adopterSignUp> {
                       // Navigator.pushNamed(context, 'adopter');
                       Navigator.push(context, PageRouteBuilder(pageBuilder:
                           (BuildContext context, Animation<double> animation1,
-                              Animation<double> animation2) {
+                          Animation<double> animation2) {
                         return const adopterSignUp();
                       }));
                     },
@@ -102,9 +85,9 @@ class _adopterSignUpState extends State<adopterSignUp> {
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
-                        color: Colors.pink[400]!,
-                        width: 2.0, // Underline thickness
-                      ))),
+                                color: Colors.pink[400]!,
+                                width: 2.0, // Underline thickness
+                              ))),
                       child: const Text(
                         "Adopter",
                         style: TextStyle(
@@ -123,7 +106,7 @@ class _adopterSignUpState extends State<adopterSignUp> {
                       // Navigator.pushNamed(context, 'adopter');
                       Navigator.push(context, PageRouteBuilder(pageBuilder:
                           (BuildContext context, Animation<double> animation1,
-                              Animation<double> animation2) {
+                          Animation<double> animation2) {
                         return const SignUp();
                       }));
                     },
@@ -147,12 +130,31 @@ class _adopterSignUpState extends State<adopterSignUp> {
                   child: Column(
                     children: [
                       TextFormField(
+                        controller: username,
+                        decoration: InputDecoration(
+                            label: const Text('Username'),
+                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            prefixIcon: Icon(
+                              Icons.person,
+                              color: Colors.pink[400],
+                            ),
+                            // hintText: 'User Name',
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(13),
+                              borderSide: const BorderSide(
+                                  width: 2.0, color: Colors.pink),
+                            )),
+                      ),
+                      const SizedBox(
+                        height: 35,
+                      ),
+                      TextFormField(
                         controller: nameController,
                         decoration: InputDecoration(
                             label: const Text('Name'),
                             labelStyle: TextStyle(color: Colors.pink[400]),
                             prefixIcon: Icon(
-                              Icons.person_outline_rounded,
+                              Icons.person_2_outlined,
                               color: Colors.pink[400],
                             ),
                             // hintText: 'Name',
@@ -230,15 +232,28 @@ class _adopterSignUpState extends State<adopterSignUp> {
                           children: [
                             ElevatedButton(
                                 onPressed: () {
-                                  signUp();
+                                  var uname = username.text.trim();
+                                  var ownerN = nameController.text.trim();
+                                  var ownerE = emailController.text.trim();
+                                  var phoneN = phoneNumber.text.trim();
+                                  signUp().then((value) => db.collection("Adopters")
+                                      .doc('Data')
+                                      .set({
+                                    'Username': uname,
+                                    'Name': ownerN,
+                                    'E-mail': ownerE,
+                                    'Phone-No': int.parse(phoneN),
+                                  })
+                                  )
+                                  ;
                                 },
                                 style: ElevatedButton.styleFrom(
                                   padding:
-                                      const EdgeInsets.fromLTRB(85, 10, 85, 10),
+                                  const EdgeInsets.fromLTRB(85, 10, 85, 10),
                                   backgroundColor: Colors.pink[400],
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
-                                          BorderRadius.circular(10.0)),
+                                      BorderRadius.circular(10.0)),
                                 ),
                                 child: const Text(
                                   'Create Account',
@@ -272,8 +287,7 @@ class _adopterSignUpState extends State<adopterSignUp> {
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black),
-                              )
-                          )
+                              ))
                         ],
                       ),
                     ],

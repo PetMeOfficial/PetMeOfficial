@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:petme/screens/Registration/Adopter/adopterSignUp.dart';
 import 'package:petme/screens/HomeScreen/main_page.dart';
 
@@ -8,24 +10,42 @@ class SignUp extends StatefulWidget {
 
   @override
   State<SignUp> createState() => _SignUpState();
-
 }
 
 class _SignUpState extends State<SignUp> {
+  final username = TextEditingController();
+  final petname = TextEditingController();
+  final category = TextEditingController();
+  final breed = TextEditingController();
   final phoneNumber = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final nameController = TextEditingController();
 
+  final db = FirebaseFirestore.instance;
+
   Future signUp() async {
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    final createResult =
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: emailController.text.trim(),
       password: passwordController.text.trim(),
-    ).then((value) => Navigator.push(context,
-        MaterialPageRoute(builder: (context) => MainPage()
-        )
-    )
     );
+    if (createResult.user == null) {
+      debugPrint("Error creating database");
+    } else {
+      debugPrint("User database created successful");
+      await db.collection("users").add({
+        'Username': username.text.trim(),
+        'Pet name': petname.text.trim(),
+        'Breed': breed.text.trim(),
+        'Category': category.text.trim(),
+        'Name': nameController.text.trim(),
+        'E-mail': emailController.text.trim(),
+        'Phone-No': int.parse(phoneNumber.text.trim()),
+      });
+
+      Navigator.pushNamed(context, 'login');
+    }
   }
 
   // disposing controllers
@@ -33,6 +53,7 @@ class _SignUpState extends State<SignUp> {
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    nameController.dispose();
     super.dispose();
   }
 
@@ -110,8 +131,85 @@ class _SignUpState extends State<SignUp> {
                   child: Column(
                     children: [
                       TextFormField(
+                        controller: username,
                         decoration: InputDecoration(
-                            label: const Text('Name'),
+                            label: const Text('Username'),
+                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            prefixIcon: Icon(
+                              Icons.person,
+                              color: Colors.pink[400],
+                            ),
+                            // hintText: 'Email',
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(13),
+                              borderSide: const BorderSide(
+                                  width: 2.0, color: Colors.pink),
+                            )),
+                      ),
+                      const SizedBox(
+                        height: 35,
+                      ),
+                      TextFormField(
+                        controller: petname,
+                        decoration: InputDecoration(
+                            label: const Text('Pet Name'),
+                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            prefixIcon: Icon(
+                              Icons.pets,
+                              color: Colors.pink[400],
+                            ),
+                            // hintText: 'Email',
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(13),
+                              borderSide: const BorderSide(
+                                  width: 2.0, color: Colors.pink),
+                            )),
+                      ),
+                      const SizedBox(
+                        height: 35,
+                      ),
+                      TextFormField(
+                        controller: category,
+                        decoration: InputDecoration(
+                            label: const Text('Category'),
+                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            prefixIcon: Icon(
+                              Icons.category,
+                              color: Colors.pink[400],
+                            ),
+                            // hintText: 'Email',
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(13),
+                              borderSide: const BorderSide(
+                                  width: 2.0, color: Colors.pink),
+                            )),
+                      ),
+                      const SizedBox(
+                        height: 35,
+                      ),
+                      TextFormField(
+                        controller: breed,
+                        decoration: InputDecoration(
+                            label: const Text('Breed'),
+                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            prefixIcon: Icon(
+                              Icons.catching_pokemon_outlined,
+                              color: Colors.pink[400],
+                            ),
+                            // hintText: 'Email',
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(13),
+                              borderSide: const BorderSide(
+                                  width: 2.0, color: Colors.pink),
+                            )),
+                      ),
+                      const SizedBox(
+                        height: 35,
+                      ),
+                      TextFormField(
+                        controller: nameController,
+                        decoration: InputDecoration(
+                            label: const Text('Owner Name'),
                             labelStyle: TextStyle(color: Colors.pink[400]),
                             prefixIcon: Icon(
                               Icons.person_outline_rounded,
@@ -120,9 +218,9 @@ class _SignUpState extends State<SignUp> {
                             // hintText: 'Name',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
-                              borderSide: const BorderSide(width: 2.0,color: Colors.pink),
-                            )
-                        ),
+                              borderSide: const BorderSide(
+                                  width: 2.0, color: Colors.pink),
+                            )),
                       ), // Name
                       const SizedBox(
                         height: 35,
@@ -130,7 +228,7 @@ class _SignUpState extends State<SignUp> {
                       TextFormField(
                         controller: emailController,
                         decoration: InputDecoration(
-                            label: const Text('Email'),
+                            label: const Text('Owner Email'),
                             labelStyle: TextStyle(color: Colors.pink[400]),
                             prefixIcon: Icon(
                               Icons.email_outlined,
@@ -139,9 +237,9 @@ class _SignUpState extends State<SignUp> {
                             // hintText: 'Email',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
-                              borderSide: const BorderSide(width: 2.0,color: Colors.pink),
-                            )
-                        ),
+                              borderSide: const BorderSide(
+                                  width: 2.0, color: Colors.pink),
+                            )),
                       ), // Email
                       const SizedBox(
                         height: 35,
@@ -158,9 +256,9 @@ class _SignUpState extends State<SignUp> {
                             // hintText: 'Email',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
-                              borderSide: const BorderSide(width: 2.0,color: Colors.pink),
-                            )
-                        ),
+                              borderSide: const BorderSide(
+                                  width: 2.0, color: Colors.pink),
+                            )),
                       ),
                       const SizedBox(
                         height: 35,
@@ -178,9 +276,9 @@ class _SignUpState extends State<SignUp> {
                             // hintText: 'Password',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
-                              borderSide: const BorderSide(width: 2.0,color: Colors.pink),
-                            )
-                        ),
+                              borderSide: const BorderSide(
+                                  width: 2.0, color: Colors.pink),
+                            )),
                       ), // Password
                       const SizedBox(
                         height: 50,
@@ -192,19 +290,40 @@ class _SignUpState extends State<SignUp> {
                           children: [
                             ElevatedButton(
                                 onPressed: () {
-                                  signUp();
+                                  var uname = username.text.trim();
+                                  var pname = petname.text.trim();
+                                  var categ = category.text.trim();
+                                  var breeds = breed.text.trim();
+                                  var ownerN = nameController.text.trim();
+                                  var ownerE = emailController.text.trim();
+                                  var phoneN = phoneNumber.text.trim();
+                                  signUp().then((value) => db.collection("Pets")
+                                  .doc('Data')
+                                  .set({
+                                    'Username': uname,
+                                    'Pet name': pname,
+                                    'Breed': breeds,
+                                    'Category': categ,
+                                    'Name': ownerN,
+                                    'E-mail': ownerE,
+                                    'Phone-No': int.parse(phoneN),
+                                  })
+                                  )
+                                  ;
                                 },
                                 style: ElevatedButton.styleFrom(
                                   padding:
                                       const EdgeInsets.fromLTRB(85, 10, 85, 10),
                                   backgroundColor: Colors.pink[400],
                                   shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0)),
+                                      borderRadius:
+                                          BorderRadius.circular(10.0)),
                                 ),
                                 child: const Text(
                                   'Create Account',
                                   style: TextStyle(
-                                      fontSize: 20, fontWeight: FontWeight.bold),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
                                 )),
                           ],
                         ),

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:petme/screens/HomeScreen/main_page.dart';
 // import 'package:petme/firebaseAuthe/auth_page.dart';
 import 'package:petme/screens/Login/login_page.dart';
-import 'package:petme/screens/Registration/Pet/signuppage.dart';
-// import 'package:petme/screens/signuppage.dart';
+import 'package:petme/screens/Registration/Pet/petSignUp.dart';
+// import 'package:petme/screens/petSignUp.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({Key? key}) : super(key: key);
