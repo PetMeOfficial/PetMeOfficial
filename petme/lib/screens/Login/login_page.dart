@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+
 class MyLogin extends StatefulWidget {
   MyLogin({Key? key}) : super(key: key);
 
@@ -153,6 +154,27 @@ class _MyLoginState extends State<MyLogin> {
                                 )
                             )
                           ],
+                        ),
+                      ),
+                      const SizedBox(height: 60,),
+                      Container(
+                        child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, 'forgot');
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              backgroundColor: Colors.pinkAccent[100],
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                  BorderRadius.circular(10.0)),
+                            ),
+                            child: const Text(
+                              'Forgot Password',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            )
                         ),
                       )
                     ],
