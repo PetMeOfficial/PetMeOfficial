@@ -33,7 +33,7 @@ class PostCard extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
-                          Text('Eevie', style: TextStyle(fontWeight: FontWeight.bold),)
+                          Text('Username', style: TextStyle(fontWeight: FontWeight.bold),)
                         ],
                       ),
                     )
@@ -85,15 +85,25 @@ class PostCard extends StatelessWidget {
           ),
           //Description
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
+            padding: const EdgeInsets.only(
+              top: 8,
+              left: 8,
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-
-              ],
+            width: double.infinity,
+            child: RichText(
+              text: const TextSpan(
+                style: TextStyle(color: Colors.black),
+                children: [
+                  TextSpan(
+                    text: 'Username',
+                    style: TextStyle(fontWeight: FontWeight.bold,)
+                  ),
+                  TextSpan(
+                      text: '  Here is some description for replacement in the near future',
+                      // style: TextStyle(fontWeight: FontWeight.bold,)
+                  )
+                ]
+              ),
             ),
           ),
         ],

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
+import 'package:petme/screens/Login/login_page.dart';
 
 class ForgotPass extends StatefulWidget {
   const ForgotPass({Key? key}) : super(key: key);
@@ -62,16 +64,17 @@ class _ForgotPassState extends State<ForgotPass> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ElevatedButton(
-                                onPressed: () {
+                                onPressed: () async {
                                   var forgotEmail =
                                       emailController.text.trim();
 
                                   try {
-                                    FirebaseAuth.instance
+                                    await FirebaseAuth.instance
                                         .sendPasswordResetEmail(
                                             email: forgotEmail)
                                         .then((value) =>
-                                            debugPrint("Email Sent"));
+                                            Get.off(() => MyLogin()),
+                                    );
                                   } on FirebaseAuthException catch (e) {
                                     debugPrint("Error $e");
                                   }
