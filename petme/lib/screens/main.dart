@@ -4,6 +4,7 @@ import 'package:petme/screens/Login/login_page.dart';
 import 'package:petme/screens/Registration/Pet/petSignUp.dart';
 import 'package:petme/screens/SplashScreen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:petme/screens/Login/forgotPass.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -19,6 +20,7 @@ void main() async {
       'signup': (context) => SignUp(),
       'splash': (context) => SplashScreen(),
       'adopter': (context) => adopterSignUp(),
+      'forgot': (context) => ForgotPass(),
     },
   ));
 }
