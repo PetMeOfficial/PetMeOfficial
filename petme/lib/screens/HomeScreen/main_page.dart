@@ -5,6 +5,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:petme/screens/HomeScreen/Navigation/chat_page.dart';
 import 'package:petme/screens/HomeScreen/Navigation/home_page.dart';
 import 'package:petme/screens/HomeScreen/Navigation/settings_page.dart';
+import 'package:petme/screens/HomeScreen/Navigation/upload_post.dart';
 
 import 'Navigation/pet_page.dart';
 
@@ -21,6 +22,7 @@ class _MainPageState extends State<MainPage> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     PetPage(),
+    UploadPosts(),
     ChatPage(),
     SettingsPage(),
   ];
@@ -59,9 +61,9 @@ class _MainPageState extends State<MainPage> {
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 7),
+            padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 7),
             child: GNav(
-              gap: 30,
+              gap: 10,
               duration: const Duration(microseconds: 9),
               backgroundColor: Colors.white54,
               color: Colors.pink[200],
@@ -76,6 +78,10 @@ class _MainPageState extends State<MainPage> {
                 GButton(
                   icon: Icons.pets_outlined,
                   text: 'Pets',
+                ),
+                GButton(
+                  icon: Icons.camera_alt_outlined,
+                  text: 'Post',
                 ),
                 GButton(
                   icon: Icons.chat,
