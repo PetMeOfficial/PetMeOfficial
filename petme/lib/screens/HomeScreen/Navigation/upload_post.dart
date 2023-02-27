@@ -32,7 +32,7 @@ class _UploadPostsState extends State<UploadPosts> {
             backgroundColor: Colors.black87,
             title: const Text(
               "Create Post",style: TextStyle(
-                fontSize: 25,
+                fontSize: 26,
                 fontWeight: FontWeight.bold,
                 color: Colors.white
             ),
