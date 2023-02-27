@@ -13,11 +13,11 @@ class _UploadPostsState extends State<UploadPosts> {
   Uint8List? _file;
 
   pickImage(ImageSource source) async {
-    final ImagePicker _imagepicker = ImagePicker();
-    XFile? _file = await _imagepicker.pickImage(source: source);
+    final ImagePicker imagepicker = ImagePicker();
+    XFile? file = await imagepicker.pickImage(source: source);
 
-    if(_file != null){
-      return await _file.readAsBytes();
+    if(file != null){
+      return await file.readAsBytes();
     }
     debugPrint("No Image Selected");
   }
@@ -27,7 +27,16 @@ class _UploadPostsState extends State<UploadPosts> {
         context: parentContext,
         builder: (context){
           return SimpleDialog(
-            title: const Text("Create Post"),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            elevation: 1,
+            backgroundColor: Colors.black87,
+            title: const Text(
+              "Create Post",style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: Colors.white
+            ),
+            ),
             children: <Widget>[
               SimpleDialogOption(
                 onPressed:  () async {
@@ -37,7 +46,7 @@ class _UploadPostsState extends State<UploadPosts> {
                     _file = file;
                   });
                 },
-                child: const Text("from Camera"),
+                child: const Text("From Camera",style: TextStyle(fontSize: 20,color: Colors.white),),
               ),
               SimpleDialogOption(
                 onPressed: () async {
@@ -47,10 +56,11 @@ class _UploadPostsState extends State<UploadPosts> {
                     _file = file;
                   });
                 },
-                child: const Text("from Gallery"),
+                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+                child: const Text("From Gallery",style: TextStyle(fontSize: 20,color: Colors.white),),
               ),
               SimpleDialogOption(
-                child: const Text("Cancel"),
+                child: const Text("Cancel",style: TextStyle(fontSize: 20,color: Colors.white),),
                 onPressed: () => Navigator.pop(context),
               ),
             ],
