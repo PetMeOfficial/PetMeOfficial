@@ -79,7 +79,7 @@ class _UploadPostsState extends State<UploadPosts> {
           icon: const Icon(Icons.camera_alt),
           iconSize: 50,
           color: Colors.pink,
-          onPressed: (){},
+          onPressed: () => selectImage(context),
         )
       ],
     );
