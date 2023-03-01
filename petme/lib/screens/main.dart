@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petme/screens/HomeScreen/main_page.dart';
 import 'package:petme/screens/Registration/Adopter/adopterSignUp.dart';
 import 'package:petme/screens/Login/login_page.dart';
 import 'package:petme/screens/Registration/Pet/petSignUp.dart';
@@ -17,10 +18,11 @@ void main() async {
     initialRoute: 'splash',
     routes: {
       'login': (context) => MyLogin(),
-      'signup': (context) => SignUp(),
-      'splash': (context) => SplashScreen(),
-      'adopter': (context) => adopterSignUp(),
-      'forgot': (context) => ForgotPass(),
+      'signup': (context) => const SignUp(),
+      'splash': (context) => const SplashScreen(),
+      'adopter': (context) => const adopterSignUp(),
+      'forgot': (context) => const ForgotPass(),
+      'mainPage': (context) => const MainPage(),
     },
   ));
 }

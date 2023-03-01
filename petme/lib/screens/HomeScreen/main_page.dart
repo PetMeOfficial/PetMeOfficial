@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:petme/screens/HomeScreen/Navigation/chat_page.dart';
 import 'package:petme/screens/HomeScreen/Navigation/home_page.dart';
@@ -64,10 +65,12 @@ class _MainPageState extends State<MainPage> {
             padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 7),
             child: GNav(
               gap: 10,
-              duration: const Duration(microseconds: 9),
+              duration: const Duration(microseconds: 100),
               backgroundColor: Colors.white54,
               color: Colors.pink[200],
               activeColor: Colors.pink,
+              curve: Curves.bounceIn,
+              // tabBorder: Border.all(color: Colors.black87),
               // tabBackgroundColor: Colors.black,
               padding: const EdgeInsets.all(10),
               tabs: const [

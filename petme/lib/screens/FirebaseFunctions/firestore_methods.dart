@@ -13,8 +13,7 @@ class FirestoreMethods{
   Future<String> uploadPost(Uint8List file) async {
     String res = "some error occured";
     try{
-      final storageMethods = StorageMethods();
-      String photoUrl = await storageMethods.uploadImageToStorage('posts', file, true);
+      String photoUrl = await StorageMethods().uploadImageToStorage('posts', file, true);
 
       Post post = Post(
         datePublished: DateTime.now(),
