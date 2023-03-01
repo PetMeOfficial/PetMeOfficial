@@ -10,8 +10,11 @@ class PetPage extends StatefulWidget {
 class _PetPageState extends State<PetPage> {
   @override
   Widget build(BuildContext context) {
-    return const Text(
-      'Pet',
+    return Scaffold(
+      backgroundColor: Colors.deepPurple[100],
+      body: const Text(
+        'PetPage',
+      ),
     );
   }
 }

@@ -10,8 +10,11 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
-    return const Text(
-      'ChatPage',
+    return Scaffold(
+      backgroundColor: Colors.deepPurple[100],
+      body: const Text(
+        'ChatPage',
+      ),
     );
   }
 }
