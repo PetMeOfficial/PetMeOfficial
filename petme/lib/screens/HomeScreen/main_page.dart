@@ -5,7 +5,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:petme/screens/HomeScreen/Navigation/chat_page.dart';
 import 'package:petme/screens/HomeScreen/Navigation/home_page.dart';
 import 'package:petme/screens/HomeScreen/Navigation/settings_page.dart';
-import 'package:petme/screens/HomeScreen/Navigation/upload_post.dart';
+import 'package:petme/screens/HomeScreen/Navigation/add_post_screen.dart';
 
 import 'Navigation/pet_page.dart';
 
@@ -22,7 +22,7 @@ class _MainPageState extends State<MainPage> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     PetPage(),
-    UploadPosts(),
+    AddPostScreen(),
     ChatPage(),
     SettingsPage(),
   ];
