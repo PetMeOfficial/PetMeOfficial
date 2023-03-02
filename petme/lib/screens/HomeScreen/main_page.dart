@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:petme/screens/HomeScreen/Navigation/chat_page.dart';
 import 'package:petme/screens/HomeScreen/Navigation/home_page.dart';
-import 'package:petme/screens/HomeScreen/Navigation/settings_page.dart';
+import 'package:petme/screens/HomeScreen/Navigation/setting/settings_page.dart';
 import 'package:petme/screens/HomeScreen/Navigation/upload_post.dart';
 
 import 'Navigation/pet_page.dart';
