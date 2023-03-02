@@ -9,8 +9,6 @@ import 'package:petme/screens/HomeScreen/Navigation/pet_page.dart';
 import 'package:petme/screens/HomeScreen/Navigation/settings_page.dart';
 import 'package:petme/screens/HomeScreen/main_page.dart';
 
-import 'chat_page.dart';
-import 'home_page.dart';
 
 class AddPostScreen extends StatefulWidget {
   const AddPostScreen({Key? key}) : super(key: key);
