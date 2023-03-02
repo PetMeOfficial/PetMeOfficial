@@ -7,7 +7,7 @@ class PostCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.deepPurple[100],
+      color: Colors.white,
       padding: const EdgeInsets.symmetric(
         vertical: 10
       ),
