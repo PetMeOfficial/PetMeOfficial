@@ -17,7 +17,7 @@ class _MyLoginState extends State<MyLogin> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  final user = FirebaseAuth.instance.currentUser!;
+  // final user = FirebaseAuth.instance.currentUser!; // Null Error Line!!!!
 
   //Sign In method
   Future signIn() async {

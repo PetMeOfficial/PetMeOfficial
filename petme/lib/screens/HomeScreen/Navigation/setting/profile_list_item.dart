@@ -36,23 +36,23 @@ class _ProfileListItemState extends State<ProfileListItem> {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(kSpacingUnit.w * 3),
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).colorScheme.background,
       ),
       child: Row(
         children: <Widget>[
           Icon(
-            this.widget.icon,
+            widget.icon,
             size: kSpacingUnit.w * 2.5,
           ),
           SizedBox(width: kSpacingUnit.w * 1.5),
           Text(
-            this.widget.text,
+            widget.text,
             style: kTitleTextStyle.copyWith(
               fontWeight: FontWeight.w500,
             ),
           ),
-          Spacer(),
-          if (this.widget.hasNavigation)
+          const Spacer(),
+          if (widget.hasNavigation)
             Icon(
               LineAwesomeIcons.angle_right,
               size: kSpacingUnit.w * 2.5,

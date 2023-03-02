@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:get/get.dart';
 import 'package:petme/firebaseAuthe/auth_page.dart';
 // import 'package:petme/screens/login_page.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(const Duration(seconds: 4), () {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => const AuthPage()));
+      // Get.put(AuthPage());
     });
   }
 

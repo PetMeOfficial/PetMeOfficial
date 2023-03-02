@@ -30,6 +30,7 @@ class _MainPageState extends State<MainPage> {
 
   void signUserOut() {
     FirebaseAuth.instance.signOut();
+    Navigator.pushNamed(context, 'login');
   }
 
   @override
@@ -41,7 +42,9 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: Colors.pink[300],
         actions: [
           IconButton(
-              onPressed: signUserOut,
+              onPressed: (){
+                signUserOut();
+              },
               icon: const Icon(Icons.logout
               )
           )

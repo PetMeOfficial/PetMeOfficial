@@ -55,7 +55,7 @@ class ProfileScreenState extends StatelessWidget {
               children: <Widget>[
                 CircleAvatar(
                   radius: kSpacingUnit.w * 5,
-                  backgroundImage: const AssetImage('images/avatar.png'),
+                  backgroundImage: const AssetImage('assets/avatar.png'),
                 ),
                 Align(
                   alignment: Alignment.bottomRight,
