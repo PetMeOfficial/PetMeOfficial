@@ -74,7 +74,7 @@ class AuthPage extends GetxController {
             email: owneremail,
             password: password
         );
-        petModel.petUser user = petModel.petUser(
+        petModel.PetUser user = petModel.PetUser(
           username: username,
           petname: petname,
           breed: breed,

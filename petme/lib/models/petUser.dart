@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class petUser {
+class PetUser {
   final String username;
   final String petname;
   final String category;
@@ -11,7 +11,7 @@ class petUser {
   final String password;
   final String uid;
 
-  const petUser(
+  const PetUser(
       {
         required this.username,
         required this.petname,
@@ -25,10 +25,10 @@ class petUser {
       }
       );
 
-  static petUser fromSnap(DocumentSnapshot snap) {
+  static PetUser fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
 
-    return petUser(
+    return PetUser(
       username: snapshot["username"],
       petname: snapshot["petname"],
       category: snapshot["category"],
