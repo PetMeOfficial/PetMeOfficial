@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:petme/firebaseAuthe/auth_page.dart';
 import 'package:petme/screens/HomeScreen/main_page.dart';
 import 'package:petme/screens/Registration/Adopter/adopterSignUp.dart';
 import 'package:petme/screens/Login/login_page.dart';
@@ -12,10 +16,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(MaterialApp(
+  ).then((value) => Get.put(AuthPage()));
+  runApp(
+      GetMaterialApp(
     debugShowCheckedModeBanner: false,
-    initialRoute: 'splash',
+    initialRoute: 'login',
     routes: {
       'login': (context) => MyLogin(),
       'signup': (context) => const SignUp(),

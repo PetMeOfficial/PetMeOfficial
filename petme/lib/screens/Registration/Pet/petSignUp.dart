@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:petme/screens/Registration/Adopter/adopterSignUp.dart';
 import 'package:petme/screens/HomeScreen/main_page.dart';
 
+import '../../../firebaseAuthe/auth_page.dart';
+
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
 
@@ -13,21 +15,22 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  var authController = AuthPage.instance;
   final username = TextEditingController();
   final petname = TextEditingController();
   final category = TextEditingController();
   final breed = TextEditingController();
   final phoneNumber = TextEditingController();
-  final emailController = TextEditingController();
+  final owneremail = TextEditingController();
   final passwordController = TextEditingController();
-  final nameController = TextEditingController();
+  final ownername = TextEditingController();
 
   final db = FirebaseFirestore.instance;
 
   Future signUp() async {
     final createResult =
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: emailController.text.trim(),
+      email: owneremail.text.trim(),
       password: passwordController.text.trim(),
     );
     if (createResult.user == null) {
@@ -39,8 +42,8 @@ class _SignUpState extends State<SignUp> {
         'Pet name': petname.text.trim(),
         'Breed': breed.text.trim(),
         'Category': category.text.trim(),
-        'Name': nameController.text.trim(),
-        'E-mail': emailController.text.trim(),
+        'Name': ownername.text.trim(),
+        'E-mail': owneremail.text.trim(),
         'Phone-No': int.parse(phoneNumber.text.trim()),
       });
 
@@ -51,9 +54,9 @@ class _SignUpState extends State<SignUp> {
   // disposing controllers
   @override
   void dispose() {
-    emailController.dispose();
+    owneremail.dispose();
     passwordController.dispose();
-    nameController.dispose();
+    ownername.dispose();
     super.dispose();
   }
 
@@ -207,7 +210,7 @@ class _SignUpState extends State<SignUp> {
                         height: 35,
                       ),
                       TextFormField(
-                        controller: nameController,
+                        controller: ownername,
                         decoration: InputDecoration(
                             label: const Text('Owner Name'),
                             labelStyle: TextStyle(color: Colors.pink[400]),
@@ -226,7 +229,7 @@ class _SignUpState extends State<SignUp> {
                         height: 35,
                       ),
                       TextFormField(
-                        controller: emailController,
+                        controller: owneremail,
                         decoration: InputDecoration(
                             label: const Text('Owner Email'),
                             labelStyle: TextStyle(color: Colors.pink[400]),
@@ -289,27 +292,17 @@ class _SignUpState extends State<SignUp> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ElevatedButton(
-                                onPressed: () {
-                                  var uname = username.text.trim();
-                                  var pname = petname.text.trim();
-                                  var categ = category.text.trim();
-                                  var breeds = breed.text.trim();
-                                  var ownerN = nameController.text.trim();
-                                  var ownerE = emailController.text.trim();
-                                  var phoneN = phoneNumber.text.trim();
-                                  signUp().then((value) => db.collection("Pets")
-                                  .doc('Data')
-                                  .set({
-                                    'Username': uname,
-                                    'Pet name': pname,
-                                    'Breed': breeds,
-                                    'Category': categ,
-                                    'Name': ownerN,
-                                    'E-mail': ownerE,
-                                    'Phone-No': int.parse(phoneN),
-                                  })
-                                  )
-                                  ;
+                                onPressed: (){
+                                  authController.registerUserPet(
+                                  username.text,
+                                  petname.text,
+                                  category.text,
+                                  breed.text,
+                                  ownername.text,
+                                  owneremail.text,
+                                  passwordController.text,
+                                  phoneNumber.text,
+                                  );
                                 },
                                 style: ElevatedButton.styleFrom(
                                   padding:

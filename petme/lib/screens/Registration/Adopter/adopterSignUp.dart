@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:petme/screens/Login/login_page.dart';
 import 'package:petme/screens/Registration/Pet/petSignUp.dart';
+import 'package:petme/firebaseAuthe/auth_page.dart';
 import 'package:get/get.dart';
 import '../../HomeScreen/main_page.dart';
 
@@ -14,7 +15,8 @@ class adopterSignUp extends StatefulWidget {
 }
 
 class _adopterSignUpState extends State<adopterSignUp> {
-  final username = TextEditingController();
+  var authController = AuthPage.instance;
+  final usernameController = TextEditingController();
   final phoneNumber = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -130,7 +132,7 @@ class _adopterSignUpState extends State<adopterSignUp> {
                   child: Column(
                     children: [
                       TextFormField(
-                        controller: username,
+                        controller: usernameController,
                         decoration: InputDecoration(
                             label: const Text('Username'),
                             labelStyle: TextStyle(color: Colors.pink[400]),
@@ -226,27 +228,43 @@ class _adopterSignUpState extends State<adopterSignUp> {
                         height: 50,
                       ),
                       GestureDetector(
-                        onTap: signUp,
+                        onTap: () => authController.registerUserAdopter(
+                            usernameController.text,
+                            nameController.text,
+                            emailController.text,
+                            passwordController.text,
+                            phoneNumber.text
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ElevatedButton(
-                                onPressed: () {
-                                  var uname = username.text.trim();
-                                  var ownerN = nameController.text.trim();
-                                  var ownerE = emailController.text.trim();
-                                  var phoneN = phoneNumber.text.trim();
-                                  signUp().then((value) => db.collection("Adopters")
-                                      .doc('Data')
-                                      .set({
-                                    'Username': uname,
-                                    'Name': ownerN,
-                                    'E-mail': ownerE,
-                                    'Phone-No': int.parse(phoneN),
-                                  })
-                                  )
-                                  ;
+                                onPressed: (){
+                                  authController.registerUserAdopter(
+                                      usernameController.text,
+                                      nameController.text,
+                                      emailController.text,
+                                      passwordController.text,
+                                      phoneNumber.text
+                                  );
                                 },
+                                //     () {
+                                //   var uname = usernameController.text.trim();
+                                //   var ownerN = nameController.text.trim();
+                                //   var ownerE = emailController.text.trim();
+                                //   var phoneN = phoneNumber.text.trim();
+                                //   signUp().then((value) => db.collection("Adopters")
+                                //       .doc('Data')
+                                //       .set({
+                                //     'Username': uname,
+                                //     'Name': ownerN,
+                                //     'E-mail': ownerE,
+                                //     'Phone-No': int.parse(phoneN),
+                                //   })
+                                //   )
+                                //   ;
+                                // },
+
                                 style: ElevatedButton.styleFrom(
                                   padding:
                                   const EdgeInsets.fromLTRB(85, 10, 85, 10),

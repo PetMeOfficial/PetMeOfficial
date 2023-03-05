@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../firebaseAuthe/auth_page.dart';
+
 
 class MyLogin extends StatefulWidget {
   MyLogin({Key? key}) : super(key: key);
@@ -14,6 +16,8 @@ class MyLogin extends StatefulWidget {
 }
 
 class _MyLoginState extends State<MyLogin> {
+  var authController = AuthPage.instance;
+
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -118,13 +122,13 @@ class _MyLoginState extends State<MyLogin> {
                         height: 120,
                       ),
                       GestureDetector(
-                        onTap: signIn,
+                        onTap: () => authController.loginUser(emailController.text, passwordController.text),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ElevatedButton(
                                 onPressed: () {
-                                  signIn();
+                                  authController.loginUser(emailController.text, passwordController.text);
                                 },
                                 style: ElevatedButton.styleFrom(
                                   padding: const EdgeInsets.fromLTRB(

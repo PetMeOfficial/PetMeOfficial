@@ -36,10 +36,14 @@ class _ProfileScreenState extends  State<ProfileScreen>{
 }
 
 
-class ProfileScreenState extends StatelessWidget {
+class ProfileScreenState extends StatefulWidget {
   const ProfileScreenState({super.key});
 
+  @override
+  State<ProfileScreenState> createState() => _ProfileScreenStateState();
+}
 
+class _ProfileScreenStateState extends State<ProfileScreenState> {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, height: MediaQuery.of(context).size.height, width: MediaQuery.of(context).size.width, allowFontScaling: true);
@@ -50,7 +54,7 @@ class ProfileScreenState extends StatelessWidget {
           Container(
             height: kSpacingUnit.w * 10,
             width: kSpacingUnit.w * 10,
-            margin: EdgeInsets.only(top: kSpacingUnit.w * 3),
+            margin: EdgeInsets.only(top: kSpacingUnit.w * 1),
             child: Stack(
               children: <Widget>[
                 CircleAvatar(
@@ -82,12 +86,12 @@ class ProfileScreenState extends StatelessWidget {
           ),
           SizedBox(height: kSpacingUnit.w * 2),
           const Text(
-            'vish',
+            'Kasi',
             style: kTitleTextStyle,
           ),
           SizedBox(height: kSpacingUnit.w * 0.5),
           const Text(
-            'vish@gmail.com',
+            'kasi@gmail.com',
             style: kCaptionTextStyle,
           ),
           SizedBox(height: kSpacingUnit.w * 2),
@@ -160,7 +164,7 @@ class ProfileScreenState extends StatelessWidget {
           return Scaffold(
             body: Column(
               children: <Widget>[
-                SizedBox(height: kSpacingUnit.w * 5),
+                SizedBox(height: kSpacingUnit.w * 2),
                 header,
                 Expanded(
                   child: ListView(
@@ -188,7 +192,7 @@ class ProfileScreenState extends StatelessWidget {
                       ProfileListItem(
                         icon: LineAwesomeIcons.alternate_sign_out,
                         text: 'Logout',
-                        hasNavigation: false,
+                        // hasNavigation: false,
                       ),
                     ],
                   ),

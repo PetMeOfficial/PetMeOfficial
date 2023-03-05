@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:petme/providers/user_provider.dart';
+import 'package:petme/screens/HomeScreen/Navigation/home_page.dart';
+import 'package:provider/provider.dart';
+
+import '../models/user.dart';
 
 class PostCard extends StatelessWidget {
   const PostCard({Key? key}) : super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +40,7 @@ class PostCard extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
-                          Text('Username', style: TextStyle(fontWeight: FontWeight.bold),)
+                          Text("Username", style: TextStyle(fontWeight: FontWeight.bold),)
                         ],
                       ),
                     )
