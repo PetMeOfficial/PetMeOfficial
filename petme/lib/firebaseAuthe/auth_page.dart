@@ -13,7 +13,6 @@ import 'package:petme/screens/Registration/Pet/petSignUp.dart';
 class AuthPage extends GetxController {
   static AuthPage instance = Get.find();
   late Rx<User?> _user;
-
   // const AuthPage({Key? key}) : super(key: key);
 
   void registerUserAdopter(String username, String name, String email,
@@ -121,11 +120,16 @@ class AuthPage extends GetxController {
   }
 
   _setInitialScreen(User? user) {
-    if (user == null) {
-      Get.offAll(() => MyLogin());
-    } else {
-      Get.offAll(() => const MainPage());
-    }
+    Future.delayed(const Duration(seconds: 3), () {
+      if (user == null) {
+        Get.offAll(() => MyLogin());
+      } else {
+        Get.offAll(() => const MainPage());
+      }
+
+
+    });
+
   }
 }
 //   @override

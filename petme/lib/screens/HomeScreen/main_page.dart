@@ -7,7 +7,9 @@ import 'package:petme/screens/HomeScreen/Navigation/chat_page.dart';
 import 'package:petme/screens/HomeScreen/Navigation/home_page.dart';
 import 'package:petme/screens/HomeScreen/Navigation/settings_page.dart';
 import 'package:petme/screens/HomeScreen/Navigation/add_post_screen.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/user_provider.dart';
 import 'Navigation/pet_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -18,6 +20,18 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+
+  @override
+  void initState(){
+    addData();
+    super.initState();
+  }
+
+  addData() async {
+    UserProvider userProvider = Provider.of(context, listen: false);
+    await userProvider.refreshUser();
+  }
+
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
@@ -50,8 +64,8 @@ class _MainPageState extends State<MainPage> {
           )
         ],
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      body: PageView(
+        children: [_widgetOptions.elementAt(_selectedIndex)],
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(

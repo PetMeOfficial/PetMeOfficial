@@ -14,14 +14,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String username = "";
+  // String username = "";
 
-  @override
-  void initState() {
-    super.initState();
-    getUsername();
-    addData();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getUsername();
+  //   addData();
+  // }
 
   addData() async {
     UserProvider _userProvider = Provider.of(context, listen: false);
@@ -29,19 +29,19 @@ class _HomePageState extends State<HomePage> {
   }
 
   // Gets username of current logged in user
-  void getUsername() async {
-    DocumentSnapshot snap = await FirebaseFirestore.instance
-        .collection("Adopers")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get();
-
-    debugPrint(snap.data() as String?);
-
-    setState(() {
-      username = (snap.data() as Map<String, dynamic>)["Username"];
-
-    });
-  }
+  // void getUsername() async {
+  //   DocumentSnapshot snap = await FirebaseFirestore.instance
+  //       .collection("Adopers")
+  //       .doc(FirebaseAuth.instance.currentUser!.uid)
+  //       .get();
+  //
+  //   debugPrint(snap.data() as String?);
+  //
+  //   setState(() {
+  //     username = (snap.data() as Map<String, dynamic>)["Username"];
+  //
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {

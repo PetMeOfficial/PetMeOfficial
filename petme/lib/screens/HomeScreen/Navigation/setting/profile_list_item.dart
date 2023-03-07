@@ -27,9 +27,9 @@ class _ProfileListItemState extends State<ProfileListItem> {
     return Container(
       height: kSpacingUnit.w * 5.5,
       margin: EdgeInsets.symmetric(
-        horizontal: kSpacingUnit.w * 4,
+        horizontal: kSpacingUnit.w * 5,
       ).copyWith(
-        bottom: kSpacingUnit.w * 2,
+        bottom: kSpacingUnit.w * 4,
       ),
       padding: EdgeInsets.symmetric(
         horizontal: kSpacingUnit.w * 2,
@@ -42,20 +42,21 @@ class _ProfileListItemState extends State<ProfileListItem> {
         children: <Widget>[
           Icon(
             widget.icon,
-            size: kSpacingUnit.w * 2.5,
+            size: kSpacingUnit.w * 4.0,
           ),
-          SizedBox(width: kSpacingUnit.w * 1.5),
+          SizedBox(width: kSpacingUnit.w * 2.5),
           Text(
             widget.text,
             style: kTitleTextStyle.copyWith(
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w600,
+              fontSize: 15
             ),
           ),
           const Spacer(),
           if (widget.hasNavigation)
             Icon(
               LineAwesomeIcons.angle_right,
-              size: kSpacingUnit.w * 2.5,
+              size: kSpacingUnit.w * 3.0,
             ),
         ],
       ),

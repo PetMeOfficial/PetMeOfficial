@@ -1,10 +1,14 @@
 
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:petme/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 import 'constant.dart';
 import 'profile_list_item.dart';
+import 'package:petme/models/user.dart' as model;
 
 
 
@@ -16,9 +20,10 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 class _ProfileScreenState extends  State<ProfileScreen>{
-  @override
+
   @override
   Widget build(BuildContext context) {
+    model.User user = Provider.of<UserProvider>(context).getUser;
     return ThemeProvider(
       initTheme: kDarkTheme,
       child: Builder(
@@ -46,19 +51,20 @@ class ProfileScreenState extends StatefulWidget {
 class _ProfileScreenStateState extends State<ProfileScreenState> {
   @override
   Widget build(BuildContext context) {
+    model.User user = Provider.of<UserProvider>(context).getUser;
     ScreenUtil.init(context, height: MediaQuery.of(context).size.height, width: MediaQuery.of(context).size.width, allowFontScaling: true);
 
     var profileInfo = Expanded(
       child: Column(
         children: <Widget>[
           Container(
-            height: kSpacingUnit.w * 10,
-            width: kSpacingUnit.w * 10,
+            height: kSpacingUnit.w * 9,
+            width: kSpacingUnit.w * 9,
             margin: EdgeInsets.only(top: kSpacingUnit.w * 1),
             child: Stack(
               children: <Widget>[
                 CircleAvatar(
-                  radius: kSpacingUnit.w * 5,
+                  radius: kSpacingUnit.w * 4.5,
                   backgroundImage: const AssetImage('assets/avatar.png'),
                 ),
                 Align(
@@ -84,17 +90,17 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
               ],
             ),
           ),
-          SizedBox(height: kSpacingUnit.w * 2),
-          const Text(
-            'Kasi',
+          SizedBox(height: kSpacingUnit.w * 1),
+          Text(
+            user.username.toUpperCase(),
             style: kTitleTextStyle,
           ),
           SizedBox(height: kSpacingUnit.w * 0.5),
-          const Text(
-            'kasi@gmail.com',
+          Text(
+            user.email,
             style: kCaptionTextStyle,
           ),
-          SizedBox(height: kSpacingUnit.w * 2),
+          SizedBox(height: kSpacingUnit.w * 1.5),
           // Container(
           //   height: kSpacingUnit.w * 4,
           //   width: kSpacingUnit.w * 20,
@@ -152,7 +158,7 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
         ),
         profileInfo,
         themeSwitcher,
-        SizedBox(width: kSpacingUnit.w * 3),
+        SizedBox(width: kSpacingUnit.w * 2),
       ],
     );
 
@@ -168,31 +174,49 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
                 header,
                 Expanded(
                   child: ListView(
-                    children: const <Widget>[
-                      ProfileListItem(
-                        icon: LineAwesomeIcons.user_shield,
-                        text: 'Privacy',
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: (){},
+                        child: const ProfileListItem(
+                          icon: LineAwesomeIcons.user_shield,
+                          text: 'Privacy',
+                        ),
                       ),
-                      ProfileListItem(
-                        icon: LineAwesomeIcons.history,
-                        text: 'Adpotion History',
+                      GestureDetector(
+                        onTap: (){},
+                        child: const ProfileListItem(
+                          icon: LineAwesomeIcons.history,
+                          text: 'Adpotion History',
+                        ),
                       ),
-                      ProfileListItem(
-                        icon: LineAwesomeIcons.question_circle,
-                        text: 'Help & Support',
+                      GestureDetector(
+                        onTap: (){},
+                        child: const ProfileListItem(
+                          icon: LineAwesomeIcons.question_circle,
+                          text: 'Help & Support',
+                        ),
                       ),
-                      ProfileListItem(
-                        icon: LineAwesomeIcons.cog,
-                        text: 'Settings',
+                      GestureDetector(
+                        onTap: (){},
+                        child: const ProfileListItem(
+                          icon: LineAwesomeIcons.cog,
+                          text: 'Settings',
+                        ),
                       ),
-                      ProfileListItem(
-                        icon: LineAwesomeIcons.user_plus,
-                        text: 'Invite a Friend',
+                      GestureDetector(
+                        onTap: (){},
+                        child: const ProfileListItem(
+                          icon: LineAwesomeIcons.user_plus,
+                          text: 'Invite a Friend',
+                        ),
                       ),
-                      ProfileListItem(
-                        icon: LineAwesomeIcons.alternate_sign_out,
-                        text: 'Logout',
-                        // hasNavigation: false,
+                      GestureDetector(
+                        onTap: () => FirebaseAuth.instance.signOut(),
+                        child: const ProfileListItem(
+                          icon: LineAwesomeIcons.alternate_sign_out,
+                          text: 'Logout',
+                          // hasNavigation: false,
+                        ),
                       ),
                     ],
                   ),

@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../firebaseAuthe/auth_page.dart';
 
@@ -107,8 +109,10 @@ class _MyLoginState extends State<MyLogin> {
                           ), // 'Don\'t have an account?',
                           TextButton(
                               onPressed: () {
-                                Navigator.pushNamed(context, 'adopter');
+                                // Navigator.pushNamed(context, 'adopter');
+                                Get.toNamed('adopter');
                               },
+
                               child: const Text(
                                 'Sign Up',
                                 style: TextStyle(
@@ -149,25 +153,24 @@ class _MyLoginState extends State<MyLogin> {
                         ),
                       ),
                       const SizedBox(height: 60,),
-                      Container(
-                        child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, 'forgot');
-                            },
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(horizontal: 25,vertical: 5),
-                              backgroundColor: Colors.black,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(50.0)),
-                            ),
-                            child: const Text(
-                              'Forgot Password',
-                              style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold),
-                            )
-                        ),
+                      ElevatedButton(
+                          onPressed: () {
+                            // Navigator.pushNamed(context, 'forgot');
+                            Get.toNamed('forgot');
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(horizontal: 25,vertical: 5),
+                            backgroundColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.circular(50.0)),
+                          ),
+                          child: const Text(
+                            'Forgot Password',
+                            style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold),
+                          )
                       )
                     ],
                   ),
