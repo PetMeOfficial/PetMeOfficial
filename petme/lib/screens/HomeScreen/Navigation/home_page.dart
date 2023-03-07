@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:petme/Widgets/post_card.dart';
-import 'package:provider/provider.dart';
 
-import '../../../providers/user_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -37,6 +34,7 @@ class _HomePageState extends State<HomePage> {
   //   });
   // }
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,12 +42,12 @@ class _HomePageState extends State<HomePage> {
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(18), topRight: Radius.circular(18))),
       child: Scaffold(
+        backgroundColor: const Color(0xFF212121),
         body: StreamBuilder(
           stream: FirebaseFirestore.instance.collection('posts').snapshots(),
-          builder: (context,
-              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+          builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+              return Center(child: CircularProgressIndicator(backgroundColor: Colors.pink[400],));
             }
             return ListView.builder(
               itemCount: snapshot.data!.docs.length,

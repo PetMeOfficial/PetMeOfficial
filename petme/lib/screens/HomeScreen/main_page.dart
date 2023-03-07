@@ -3,14 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:petme/screens/HomeScreen/Navigation/chat_page.dart';
+import 'package:petme/screens/HomeScreen/Navigation/map_page.dart';
 import 'package:petme/screens/HomeScreen/Navigation/home_page.dart';
 import 'package:petme/screens/HomeScreen/Navigation/settings_page.dart';
 import 'package:petme/screens/HomeScreen/Navigation/add_post_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/user_provider.dart';
-import 'Navigation/pet_page.dart';
+import 'Navigation/meetings_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -36,9 +36,9 @@ class _MainPageState extends State<MainPage> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    PetPage(),
+    MeetingsPage(),
     AddPostScreen(),
-    ChatPage(),
+    MapPage(),
     SettingsPage(),
   ];
 
@@ -51,12 +51,15 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('PetMe'),
+        title: Text('PetMe', style: GoogleFonts.anton(textStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 25,),),),
+        // title: Text('PetMe', style: GoogleFonts.exo2(textStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 25,),),),
         backgroundColor: Colors.pink[300],
         actions: [
           IconButton(
               onPressed: (){
                 signUserOut();
+                Get.snackbar(
+                    "Sign Out Success", "Log In to Continue");
               },
               icon: const Icon(Icons.logout
               )
@@ -103,8 +106,8 @@ class _MainPageState extends State<MainPage> {
                   text: 'Post',
                 ),
                 GButton(
-                  icon: Icons.chat,
-                  text: 'Chat',
+                  icon: Icons.map,
+                  text: 'Map',
                 ),
                 GButton(
                   icon: Icons.settings,

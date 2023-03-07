@@ -1,12 +1,8 @@
 import 'dart:typed_data';
 import 'package:avatar_glow/avatar_glow.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:petme/screens/FirebaseFunctions/firestore_methods.dart';
-import 'package:petme/screens/HomeScreen/Navigation/pet_page.dart';
-import 'package:petme/screens/HomeScreen/Navigation/settings_page.dart';
 import 'package:petme/models/user.dart' as model;
 import 'package:petme/screens/HomeScreen/main_page.dart';
 import 'package:provider/provider.dart';
@@ -27,12 +23,13 @@ class _AddPostScreenState extends State<AddPostScreen> {
   final TextEditingController descriptionController = TextEditingController();
   PageController pageController = PageController();
 
-  void postImage(String username) async {
+  void postImage(String username, String uid) async {
     try {
       String res = await FirestoreMethods().uploadPost(
         _file!,
         descriptionController.text,
         username,
+        uid,
       );
 
       if (res == "Success") {
@@ -192,7 +189,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
               actions: <Widget>[
                 TextButton(
                   onPressed: () {
-                    postImage(user.username);
+                    postImage(user.username,user.uid);
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

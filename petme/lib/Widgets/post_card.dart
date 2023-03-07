@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:petme/providers/user_provider.dart';
-import 'package:petme/screens/HomeScreen/Navigation/home_page.dart';
-import 'package:provider/provider.dart';
-
-import '../models/user.dart';
 
 class PostCard extends StatelessWidget {
   final snap;
@@ -28,11 +22,11 @@ class PostCard extends StatelessWidget {
             ).copyWith(right: 0),
             child: Row(
               children:  [
-                CircleAvatar(
-                  radius: 20,
+                const CircleAvatar(
+                  radius: 18,
                   backgroundImage:
                   // snap['postUrl']
-                  AssetImage('assets/eevie.png')
+                  AssetImage('assets/eevie.png'),
                 ),
                 Expanded(
                     child: Padding(
@@ -56,7 +50,9 @@ class PostCard extends StatelessWidget {
                       children: [
                         'Delete',
                       ].map((e) => InkWell(
-                        onTap: (){  },
+                        onTap: (){
+
+                        },
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 16),
                           child: Text(e),
@@ -66,6 +62,7 @@ class PostCard extends StatelessWidget {
                   ));
                 }, icon: const Icon(Icons.more_vert)),
               ],
+
             ),
           ),
           SizedBox(
@@ -73,7 +70,7 @@ class PostCard extends StatelessWidget {
             width: double.infinity,
             child: Image.network(
               // 'assets/eevie.png',
-              snap['postUrl'],
+              snap['postUrl'].toString(),
               fit: BoxFit.cover,),
           ),
           //Likes and Comments section
@@ -98,8 +95,8 @@ class PostCard extends StatelessWidget {
           //Description
           Container(
             padding: const EdgeInsets.only(
-              top: 8,
-              left: 8,
+              top: 1,
+              left: 12,
             ),
             width: double.infinity,
             child: RichText(

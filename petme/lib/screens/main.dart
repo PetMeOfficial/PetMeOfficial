@@ -12,7 +12,6 @@ import 'package:petme/screens/SplashScreen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:petme/screens/Login/forgotPass.dart';
 import 'package:provider/provider.dart';
-import '../models/user.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -30,7 +29,8 @@ void main() async {
     child: GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/splash',
-      defaultTransition: Transition.rightToLeft,
+      defaultTransition: Transition.zoom,
+      transitionDuration: const Duration(seconds: 1),
       // routes: {
       //   'login': (context) => MyLogin(),
       //   'signup': (context) => const SignUp(),

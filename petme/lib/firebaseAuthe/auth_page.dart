@@ -7,7 +7,6 @@ import 'package:petme/models/petUser.dart' as petModel;
 import 'package:petme/screens/HomeScreen/main_page.dart';
 // import 'package:petme/firebaseAuthe/auth_page.dart';
 import 'package:petme/screens/Login/login_page.dart';
-import 'package:petme/screens/Registration/Pet/petSignUp.dart';
 // import 'package:petme/screens/petSignUp.dart';
 
 class AuthPage extends GetxController {
@@ -102,12 +101,13 @@ class AuthPage extends GetxController {
       if (email.isNotEmpty && password.isNotEmpty) {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: email, password: password);
+        Get.snackbar("Authentication Complete", "Signing In", colorText: Colors.greenAccent[400], backgroundColor: Colors.white);
       } else {
         Get.snackbar("Error Logging in", "Please Enter All The Fields");
       }
     } catch (e) {
       Get.snackbar("Error Logging In", e.toString());
-      debugPrint(e as String?);
+      debugPrint(e.toString());
     }
   }
 

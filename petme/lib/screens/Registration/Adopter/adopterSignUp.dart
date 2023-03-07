@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:petme/screens/Login/login_page.dart';
 import 'package:petme/screens/Registration/Pet/petSignUp.dart';
 import 'package:petme/firebaseAuthe/auth_page.dart';
 import 'package:get/get.dart';
-import '../../HomeScreen/main_page.dart';
 
 class adopterSignUp extends StatefulWidget {
   const adopterSignUp({super.key});
@@ -55,6 +53,9 @@ class _adopterSignUpState extends State<adopterSignUp> {
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    usernameController.dispose();
+    nameController.dispose();
+    phoneNumber.dispose();
     super.dispose();
   }
 
@@ -247,6 +248,7 @@ class _adopterSignUpState extends State<adopterSignUp> {
                                       passwordController.text,
                                       phoneNumber.text
                                   );
+                                  Get.snackbar("Success", "Registration Complete");
                                 },
                                 //     () {
                                 //   var uname = usernameController.text.trim();
@@ -297,7 +299,7 @@ class _adopterSignUpState extends State<adopterSignUp> {
                           ), // 'Don\'t have an account?',
                           TextButton(
                               onPressed: () {
-                                Navigator.pushNamed(context, 'login');
+                                Get.toNamed('login');
                               },
                               child: const Text(
                                 'Log In',
@@ -307,6 +309,9 @@ class _adopterSignUpState extends State<adopterSignUp> {
                                     color: Colors.black),
                               ))
                         ],
+                      ),
+                      const SizedBox(
+                        height: 18,
                       ),
                     ],
                   ),

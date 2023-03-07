@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
         backgroundColor: Colors.pink[300],
         body: Center(
           child: Image.asset(
-            'assets/doggo.png',
+            'assets/PetMe_Logo.png',
           ),
         ));
   }

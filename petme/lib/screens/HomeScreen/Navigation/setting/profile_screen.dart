@@ -3,6 +3,8 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:petme/providers/user_provider.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +25,6 @@ class _ProfileScreenState extends  State<ProfileScreen>{
 
   @override
   Widget build(BuildContext context) {
-    model.User user = Provider.of<UserProvider>(context).getUser;
     return ThemeProvider(
       initTheme: kDarkTheme,
       child: Builder(
@@ -128,16 +129,20 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
               ? CrossFadeState.showFirst
               : CrossFadeState.showSecond,
           firstChild: GestureDetector(
-            onTap: () =>
-                ThemeSwitcher.of(context).changeTheme(theme: kLightTheme),
+            onTap: () {
+                ThemeSwitcher.of(context).changeTheme(theme: kLightTheme);
+                Get.snackbar("Light Mode", "Enabled");
+                },
             child: Icon(
               LineAwesomeIcons.sun,
               size: ScreenUtil().setSp(kSpacingUnit.w * 3) as double,
             ),
           ),
           secondChild: GestureDetector(
-            onTap: () =>
-                ThemeSwitcher.of(context).changeTheme(theme: kDarkTheme),
+            onTap: () {
+                ThemeSwitcher.of(context).changeTheme(theme: kDarkTheme);
+                Get.snackbar("Dark Mode", "Enabled");
+                },
             child: Icon(
               LineAwesomeIcons.moon,
               size: ScreenUtil().setSp(kSpacingUnit.w * 3) as double,
@@ -211,7 +216,10 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () => FirebaseAuth.instance.signOut(),
+                        onTap: () {
+                          FirebaseAuth.instance.signOut().then((value) => Get.snackbar(
+                            "Signing Out", "Log in to Continue"));
+                          },
                         child: const ProfileListItem(
                           icon: LineAwesomeIcons.alternate_sign_out,
                           text: 'Logout',

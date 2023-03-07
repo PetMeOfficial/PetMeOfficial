@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:petme/screens/Registration/Adopter/adopterSignUp.dart';
-import 'package:petme/screens/HomeScreen/main_page.dart';
 
 import '../../../firebaseAuthe/auth_page.dart';
 
@@ -57,6 +57,11 @@ class _SignUpState extends State<SignUp> {
     owneremail.dispose();
     passwordController.dispose();
     ownername.dispose();
+    username.dispose();
+    phoneNumber.dispose();
+    category.dispose();
+    breed.dispose();
+    petname.dispose();
     super.dispose();
   }
 
@@ -303,6 +308,7 @@ class _SignUpState extends State<SignUp> {
                                   passwordController.text,
                                   phoneNumber.text,
                                   );
+                                  Get.snackbar("Success", "Registration Complete");
                                 },
                                 style: ElevatedButton.styleFrom(
                                   padding:
@@ -327,24 +333,29 @@ class _SignUpState extends State<SignUp> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          ElevatedButton(
+                          const Text(
+                            'Already have an account?',
+                            style: TextStyle(
+                              fontSize: 17,
+                              color: Colors.grey,
+                            ),
+                          ), // 'Don\'t have an account?',
+                          TextButton(
                               onPressed: () {
-                                Navigator.pushNamed(context, 'login');
+                                Get.toNamed('login');
                               },
-                              style: ElevatedButton.styleFrom(
-                                padding:
-                                    const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                                backgroundColor: Colors.black87,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0)),
-                              ),
                               child: const Text(
-                                'Return to Log In',
+                                'Log In',
                                 style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
                               ))
                         ],
-                      )
+                      ),
+                      const SizedBox(
+                        height: 18,
+                      ),
                     ],
                   ),
                 ),
