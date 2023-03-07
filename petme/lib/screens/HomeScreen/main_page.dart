@@ -44,7 +44,6 @@ class _MainPageState extends State<MainPage> {
 
   void signUserOut() {
     FirebaseAuth.instance.signOut();
-    Navigator.pushNamed(context, 'login');
   }
 
   @override
@@ -96,8 +95,8 @@ class _MainPageState extends State<MainPage> {
                   text: 'Home',
                 ),
                 GButton(
-                  icon: Icons.pets_outlined,
-                  text: 'Pets',
+                  icon: Icons.people_alt,
+                  text: 'Meetings',
                 ),
                 GButton(
                   icon: Icons.camera_alt_outlined,

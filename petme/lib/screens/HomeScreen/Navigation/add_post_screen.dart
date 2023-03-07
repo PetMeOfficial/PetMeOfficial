@@ -7,7 +7,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:petme/screens/FirebaseFunctions/firestore_methods.dart';
 import 'package:petme/screens/HomeScreen/Navigation/pet_page.dart';
 import 'package:petme/screens/HomeScreen/Navigation/settings_page.dart';
+import 'package:petme/models/user.dart' as model;
 import 'package:petme/screens/HomeScreen/main_page.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/user_provider.dart';
 
 
 class AddPostScreen extends StatefulWidget {
@@ -20,12 +24,15 @@ class AddPostScreen extends StatefulWidget {
 class _AddPostScreenState extends State<AddPostScreen> {
 
   Uint8List? _file;
+  final TextEditingController descriptionController = TextEditingController();
   PageController pageController = PageController();
 
-  void postImage() async {
+  void postImage(String username) async {
     try {
       String res = await FirestoreMethods().uploadPost(
         _file!,
+        descriptionController.text,
+        username,
       );
 
       if (res == "Success") {
@@ -137,7 +144,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final UserProvider userProvider = Provider.of<UserProvider>(context);
+    model.User user = Provider.of<UserProvider>(context).getUser;
     return _file == null
         ? Container(
           color: Colors.deepPurple[100],
@@ -170,7 +177,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
               ],
             ),
         )
-        : Scaffold(
+        : // OR Statement
+        Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.black,
               leading: IconButton(
@@ -184,7 +192,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
               actions: <Widget>[
                 TextButton(
                   onPressed: () {
-                    postImage();
+                    postImage(user.username);
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -216,36 +224,64 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 )
               ],
             ),
+            backgroundColor: Colors.white60,
             // POST FORM
-            body: Column(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: SizedBox(
-                        height: 300.0,
-                        width: 300.0,
-                        child: AspectRatio(
-                          aspectRatio: 16 / 9,
-                          child: Container(
-                            // height: 500,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                              fit: BoxFit.fill,
-                              alignment: FractionalOffset.center,
-                              image: MemoryImage(_file!),
-                            )),
+            body: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  const Divider(),
+                  SingleChildScrollView(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.1,
+                          child: Text(user.username, style: const TextStyle(fontWeight: FontWeight.bold),),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: TextField(
+                            controller: descriptionController,
+                            decoration: const InputDecoration(
+                              hintText: 'Write A Caption...',
+                              border: InputBorder.none,
+                            ),
+                            maxLines: 3,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: SizedBox(
+                          height: 300.0,
+                          width: 300.0,
+                          child: AspectRatio(
+                            aspectRatio: 16 / 9,
+                            child: Container(
+                              // height: 500,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                fit: BoxFit.fill,
+                                alignment: FractionalOffset.center,
+                                image: MemoryImage(_file!),
+                              )),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const Divider(),
-              ],
+                    ],
+
+                  ),
+                  const Divider(),
+                ],
+              ),
             ),
           );
   }

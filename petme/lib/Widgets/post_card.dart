@@ -7,7 +7,8 @@ import 'package:provider/provider.dart';
 import '../models/user.dart';
 
 class PostCard extends StatelessWidget {
-  const PostCard({Key? key}) : super(key: key);
+  final snap;
+  const PostCard({Key? key, required this.snap}) : super(key: key);
 
 
 
@@ -27,9 +28,11 @@ class PostCard extends StatelessWidget {
             ).copyWith(right: 0),
             child: Row(
               children:  [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 20,
-                  backgroundImage: AssetImage('assets/eevie.png')
+                  backgroundImage:
+                  // snap['postUrl']
+                  AssetImage('assets/eevie.png')
                 ),
                 Expanded(
                     child: Padding(
@@ -39,8 +42,8 @@ class PostCard extends StatelessWidget {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text("Username", style: TextStyle(fontWeight: FontWeight.bold),)
+                        children: [
+                          Text(snap['username'], style: const TextStyle(fontWeight: FontWeight.bold),)
                         ],
                       ),
                     )
@@ -66,9 +69,11 @@ class PostCard extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height*0.35,
+            height: MediaQuery.of(context).size.height*0.36,
             width: double.infinity,
-            child: Image.asset('assets/eevie.png',
+            child: Image.network(
+              // 'assets/eevie.png',
+              snap['postUrl'],
               fit: BoxFit.cover,),
           ),
           //Likes and Comments section
@@ -98,15 +103,15 @@ class PostCard extends StatelessWidget {
             ),
             width: double.infinity,
             child: RichText(
-              text: const TextSpan(
-                style: TextStyle(color: Colors.black),
+              text: TextSpan(
+                style: const TextStyle(color: Colors.black),
                 children: [
                   TextSpan(
-                    text: 'Username',
-                    style: TextStyle(fontWeight: FontWeight.bold,)
+                    text: snap['username'],
+                    style: const TextStyle(fontWeight: FontWeight.bold,)
                   ),
                   TextSpan(
-                      text: '  Here is some description for replacement in the near future',
+                      text: '  ${snap['description']}',
                       // style: TextStyle(fontWeight: FontWeight.bold,)
                   )
                 ]

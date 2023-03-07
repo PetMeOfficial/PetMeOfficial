@@ -10,13 +10,15 @@ class FirestoreMethods{
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   // Upload Posts
-  Future<String> uploadPost(Uint8List file) async {
+  Future<String> uploadPost(Uint8List file, String description, String username) async {
     String res = "some error occured";
     try{
       String photoUrl = await StorageMethods().uploadImageToStorage('posts', file, true);
 
       Post post = Post(
         datePublished: DateTime.now(),
+        description: description,
+        username: username,
         postUrl: photoUrl,
       );
       _firestore.collection('posts').doc().set(post.toJson(),);

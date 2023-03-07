@@ -14,8 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // String username = "";
-
   // @override
   // void initState() {
   //   super.initState();
@@ -23,10 +21,6 @@ class _HomePageState extends State<HomePage> {
   //   addData();
   // }
 
-  addData() async {
-    UserProvider _userProvider = Provider.of(context, listen: false);
-    await _userProvider.refreshUser();
-  }
 
   // Gets username of current logged in user
   // void getUsername() async {
@@ -51,7 +45,7 @@ class _HomePageState extends State<HomePage> {
               topLeft: Radius.circular(18), topRight: Radius.circular(18))),
       child: Scaffold(
         body: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('Adopters').snapshots(),
+          stream: FirebaseFirestore.instance.collection('posts').snapshots(),
           builder: (context,
               AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -59,7 +53,9 @@ class _HomePageState extends State<HomePage> {
             }
             return ListView.builder(
               itemCount: snapshot.data!.docs.length,
-              itemBuilder: (context, index) => const PostCard(),
+              itemBuilder: (context, index) => PostCard(
+                snap : snapshot.data!.docs[index].data(),
+              ),
             );
           },
         ),
