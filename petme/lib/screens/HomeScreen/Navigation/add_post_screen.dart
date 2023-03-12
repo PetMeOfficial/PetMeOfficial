@@ -23,13 +23,14 @@ class _AddPostScreenState extends State<AddPostScreen> {
   final TextEditingController descriptionController = TextEditingController();
   PageController pageController = PageController();
 
-  void postImage(String username, String uid) async {
+  void postImage(String username, String uid, String profilePicUrl) async {
     try {
       String res = await FirestoreMethods().uploadPost(
         _file!,
         descriptionController.text,
         username,
         uid,
+        profilePicUrl,
       );
 
       if (res == "Success") {
@@ -189,7 +190,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
               actions: <Widget>[
                 TextButton(
                   onPressed: () {
-                    postImage(user.username,user.uid);
+                    postImage(user.username,user.uid,user.profilePicUrl);
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

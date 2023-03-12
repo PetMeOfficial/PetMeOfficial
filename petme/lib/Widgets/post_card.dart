@@ -28,7 +28,7 @@ class PostCard extends StatelessWidget {
                   backgroundImage:
                   // snap['postUrl']
                   NetworkImage(
-                      snap2['profilePicUrl'],
+                      snap['profilePicUrl'],
                   )
                 ),
                 Expanded(

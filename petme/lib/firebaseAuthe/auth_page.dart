@@ -30,7 +30,8 @@ class AuthPage extends GetxController {
           name.isNotEmpty &&
           email.isNotEmpty &&
           password.isNotEmpty &&
-          phoneNumber.isNotEmpty
+          phoneNumber.isNotEmpty &&
+          file.isNotEmpty
       ) {
         UserCredential cred = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(

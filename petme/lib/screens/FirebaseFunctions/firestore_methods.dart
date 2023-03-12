@@ -9,7 +9,7 @@ class FirestoreMethods{
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   // Upload Posts
-  Future<String> uploadPost(Uint8List file, String description, String username, String uid) async {
+  Future<String> uploadPost(Uint8List file, String description, String username, String uid, String profilePicUrl) async {
     String res = "some error occured";
     try{
       String photoUrl = await StorageMethods().uploadImageToStorage('posts', file, true);
@@ -20,6 +20,7 @@ class FirestoreMethods{
         username: username,
         uid: uid,
         postUrl: photoUrl,
+        profilePicUrl: profilePicUrl,
       );
       _firestore.collection('posts').doc().set(post.toJson(),);
       res = "Success";
