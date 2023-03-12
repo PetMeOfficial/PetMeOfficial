@@ -29,8 +29,8 @@ void main() async {
     child: GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/splash',
-      defaultTransition: Transition.zoom,
-      transitionDuration: const Duration(seconds: 1),
+      defaultTransition: Transition.size,
+      transitionDuration: const Duration(milliseconds: 400),
       // routes: {
       //   'login': (context) => MyLogin(),
       //   'signup': (context) => const SignUp(),

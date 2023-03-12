@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class PostCard extends StatelessWidget {
   final snap;
-  const PostCard({Key? key, required this.snap}) : super(key: key);
+  final snap2;
+  const PostCard({Key? key, required this.snap, required this.snap2}) : super(key: key);
 
 
 
@@ -22,11 +23,13 @@ class PostCard extends StatelessWidget {
             ).copyWith(right: 0),
             child: Row(
               children:  [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 18,
                   backgroundImage:
                   // snap['postUrl']
-                  AssetImage('assets/eevie.png'),
+                  NetworkImage(
+                      snap2['profilePicUrl'],
+                  )
                 ),
                 Expanded(
                     child: Padding(

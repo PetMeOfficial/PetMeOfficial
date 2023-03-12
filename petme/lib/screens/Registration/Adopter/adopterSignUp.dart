@@ -1,9 +1,14 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:petme/screens/Registration/Pet/petSignUp.dart';
 import 'package:petme/firebaseAuthe/auth_page.dart';
 import 'package:get/get.dart';
+
+import '../../../utils/utils.dart';
 
 class adopterSignUp extends StatefulWidget {
   const adopterSignUp({super.key});
@@ -20,6 +25,7 @@ class _adopterSignUpState extends State<adopterSignUp> {
   final passwordController = TextEditingController();
   final nameController = TextEditingController();
   final _form = GlobalKey<FormState>();
+  Uint8List? _image;
 
   final db = FirebaseFirestore.instance;
 
@@ -57,6 +63,13 @@ class _adopterSignUpState extends State<adopterSignUp> {
     nameController.dispose();
     phoneNumber.dispose();
     super.dispose();
+  }
+
+  void selectImage() async {
+    Uint8List im = await pickImage(ImageSource.gallery);
+    setState(() {
+      _image = im;
+    });
   }
 
   @override
@@ -132,6 +145,32 @@ class _adopterSignUpState extends State<adopterSignUp> {
                   key: _form,
                   child: Column(
                     children: [
+                      Stack(
+                        children: [
+                          _image != null
+                              ? CircleAvatar(
+                            radius: 64,
+                            backgroundImage: MemoryImage(_image!),
+                            backgroundColor: Colors.red,
+                          )
+                              : const CircleAvatar(
+                            radius: 64,
+                            backgroundImage: AssetImage('assets/no_profile.png'),
+                            backgroundColor: Colors.red,
+                          ),
+                          Positioned(
+                            bottom: -10,
+                            left: 80,
+                            child: IconButton(
+                              onPressed: selectImage,
+                              icon: const Icon(Icons.add_a_photo),
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 35,
+                      ),
                       TextFormField(
                         controller: usernameController,
                         decoration: InputDecoration(
@@ -234,7 +273,8 @@ class _adopterSignUpState extends State<adopterSignUp> {
                             nameController.text,
                             emailController.text,
                             passwordController.text,
-                            phoneNumber.text
+                            phoneNumber.text,
+                            _image!,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -246,7 +286,8 @@ class _adopterSignUpState extends State<adopterSignUp> {
                                       nameController.text,
                                       emailController.text,
                                       passwordController.text,
-                                      phoneNumber.text
+                                      phoneNumber.text,
+                                    _image!,
                                   );
                                   Get.snackbar("Success", "Registration Complete");
                                 },

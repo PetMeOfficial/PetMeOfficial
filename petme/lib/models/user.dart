@@ -7,6 +7,8 @@ class User {
   final String password;
   final String phoneNumber;
   final String uid;
+  final String profilePicUrl;
+
 
   const User(
       {required this.username,
@@ -16,6 +18,7 @@ class User {
         required this.password,
         required this.phoneNumber,
         required this.uid,
+        required this.profilePicUrl,
         });
 
   static User fromSnap(DocumentSnapshot snap) {
@@ -29,6 +32,7 @@ class User {
       phoneNumber: snapshot["phoneNumber"],
       // photoUrl: snapshot["photoUrl"],
       uid: snapshot["uid"],
+      profilePicUrl: snapshot["profilePicUrl"],
 
     );
   }
@@ -40,6 +44,7 @@ class User {
     "password": password,
     "phoneNumber": phoneNumber,
     "uid": uid,
+    "profilePicUrl": profilePicUrl,
     // "photoUrl": photoUrl,
   };
 }

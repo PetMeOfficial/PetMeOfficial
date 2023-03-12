@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.pink[300],
+        // backgroundColor: Colors.pink[300],
         body: Center(
           child: Image.asset(
             'assets/PetMe_Logo.png',

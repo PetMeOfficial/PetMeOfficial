@@ -10,6 +10,7 @@ class PetUser {
   final String ownerphoneNumber;
   final String password;
   final String uid;
+  final String profilePicUrl;
 
   const PetUser(
       {
@@ -22,6 +23,7 @@ class PetUser {
         required this.ownerphoneNumber,
         required this.password,
         required this.uid,
+        required this.profilePicUrl,
       }
       );
 
@@ -38,6 +40,7 @@ class PetUser {
       ownerphoneNumber: snapshot["ownerphoneNumber"],
       password: snapshot["password"],
       uid: snapshot["uid"],
+      profilePicUrl: snapshot["profilePicUrl"],
 
     );
   }
@@ -52,6 +55,7 @@ class PetUser {
     "ownerphoneNumber": ownerphoneNumber,
     "password": password,
     "uid": uid,
+    "profilePicUrl": profilePicUrl,
     // "photoUrl": photoUrl,
   };
 }

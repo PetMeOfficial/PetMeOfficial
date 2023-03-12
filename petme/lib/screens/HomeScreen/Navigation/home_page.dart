@@ -43,20 +43,35 @@ class _HomePageState extends State<HomePage> {
               topLeft: Radius.circular(18), topRight: Radius.circular(18))),
       child: Scaffold(
         backgroundColor: const Color(0xFF212121),
+
+
         body: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('posts').snapshots(),
-          builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator(backgroundColor: Colors.pink[400],));
-            }
-            return ListView.builder(
-              itemCount: snapshot.data!.docs.length,
-              itemBuilder: (context, index) => PostCard(
-                snap : snapshot.data!.docs[index].data(),
-              ),
+          stream: FirebaseFirestore.instance.collection('Adopters').snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot2) {
+            return StreamBuilder(
+              stream: FirebaseFirestore.instance.collection('posts').snapshots(),
+              builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator(backgroundColor: Colors.pink[400],));
+                }
+                return ListView.builder(
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (context, index) => PostCard(
+                    snap : snapshot.data!.docs[index].data(),
+                    snap2 : snapshot2.data!.docs[index].data(),
+
+                  ),
+                );
+              },
             );
-          },
+          }
+
         ),
+
+
+
+
+
       ),
     );
   }

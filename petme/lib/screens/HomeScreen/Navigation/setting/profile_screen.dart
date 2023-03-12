@@ -64,9 +64,14 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
             margin: EdgeInsets.only(top: kSpacingUnit.w * 1),
             child: Stack(
               children: <Widget>[
-                CircleAvatar(
-                  radius: kSpacingUnit.w * 4.5,
-                  backgroundImage: const AssetImage('assets/avatar.png'),
+                Stack(
+                  children: [
+                    CircleAvatar(
+                      radius: kSpacingUnit.w * 4.5,
+                      // backgroundImage: AssetImage('assets/avatar.png'),
+                      backgroundImage: NetworkImage(user.profilePicUrl),
+                    )
+                  ],
                 ),
                 Align(
                   alignment: Alignment.bottomRight,
