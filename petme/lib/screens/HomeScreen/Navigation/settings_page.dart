@@ -27,7 +27,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.deepPurple[100],
-      body: const ProfileScreen()
+      body: ProfileScreen()
     );
   }
 }

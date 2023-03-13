@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:petme/Widgets/post_card.dart';
-
+import 'chatbot.dart';
+import 'package:lottie/lottie.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -11,41 +13,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   getUsername();
-  //   addData();
-  // }
-
-
-  // Gets username of current logged in user
-  // void getUsername() async {
-  //   DocumentSnapshot snap = await FirebaseFirestore.instance
-  //       .collection("Adopers")
-  //       .doc(FirebaseAuth.instance.currentUser!.uid)
-  //       .get();
-  //
-  //   debugPrint(snap.data() as String?);
-  //
-  //   setState(() {
-  //     username = (snap.data() as Map<String, dynamic>)["Username"];
-  //
-  //   });
-  // }
 
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(18), topRight: Radius.circular(18))),
-      child: Scaffold(
-        backgroundColor: const Color(0xFF212121),
-
-
-        body: StreamBuilder(
+    return Scaffold(
+      backgroundColor: const Color(0xFF212121),
+      body: StreamBuilder(
           stream: FirebaseFirestore.instance.collection('Adopters').snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot2) {
             return StreamBuilder(
@@ -65,14 +39,39 @@ class _HomePageState extends State<HomePage> {
               },
             );
           }
-
-        ),
-
-
-
-
-
       ),
+      floatingActionButton: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ChatBot()),
+          );
+        },
+        child: Container(
+          width: 60,
+          height: 60,
+          child: Stack(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.pink[400],
+                ),
+              ),
+              Center(
+                child: Lottie.network(
+                  'https://assets9.lottiefiles.com/private_files/lf30_emulvclw.json',
+                  repeat: true,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+
+
+
     );
   }
 }

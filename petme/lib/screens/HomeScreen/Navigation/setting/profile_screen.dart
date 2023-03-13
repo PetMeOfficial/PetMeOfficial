@@ -7,20 +7,26 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:petme/providers/user_provider.dart';
+import 'package:petme/screens/HomeScreen/Navigation/setting/help.dart';
+import 'package:petme/screens/HomeScreen/Navigation/setting/inviteafrd.dart';
 import 'package:provider/provider.dart';
 import 'constant.dart';
 import 'profile_list_item.dart';
 import 'package:petme/models/user.dart' as model;
+import 'privacy.dart';
+import 'package:get/get.dart';
+
 
 
 
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  ProfileScreen({Key? key}) : super(key: key);
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
+
 class _ProfileScreenState extends  State<ProfileScreen>{
 
   @override
@@ -40,6 +46,7 @@ class _ProfileScreenState extends  State<ProfileScreen>{
   }
 
 }
+
 
 
 class ProfileScreenState extends StatefulWidget {
@@ -70,9 +77,74 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
                       radius: kSpacingUnit.w * 4.5,
                       // backgroundImage: AssetImage('assets/avatar.png'),
                       backgroundImage: NetworkImage(user.profilePicUrl),
+
                     )
                   ],
                 ),
+                GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return Container(
+                          child: Wrap(
+                            children: <Widget>[
+                              ListTile(
+                                leading: Icon(Icons.photo_library),
+                                title: Text('Photo Library'),
+                                onTap: () {
+                                  // TODO: Implement selecting image from photo library
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              ListTile(
+                                leading: Icon(Icons.camera_alt),
+                                title: Text('Camera'),
+                                onTap: () {
+                                  // TODO: Implement taking a new photo using the camera
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: Stack(
+                    children: <Widget>[
+                      Stack(
+                        children: [
+                          CircleAvatar(
+                            radius: kSpacingUnit.w * 4.5,
+                            backgroundImage: NetworkImage(user.profilePicUrl),
+                          )
+                        ],
+                      ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Container(
+                          height: kSpacingUnit.w * 2.5,
+                          width: kSpacingUnit.w * 2.5,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).accentColor,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Center(
+                            heightFactor: kSpacingUnit.w * 1.5,
+                            widthFactor: kSpacingUnit.w * 1.5,
+                            child: Icon(
+                              LineAwesomeIcons.pen,
+                              color: kDarkPrimaryColor,
+                              size: ScreenUtil().setSp(kSpacingUnit.w * 1.5) as double,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Container(
@@ -107,20 +179,6 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
             style: kCaptionTextStyle,
           ),
           SizedBox(height: kSpacingUnit.w * 1.5),
-          // Container(
-          //   height: kSpacingUnit.w * 4,
-          //   width: kSpacingUnit.w * 20,
-          //   decoration: BoxDecoration(
-          //     borderRadius: BorderRadius.circular(kSpacingUnit.w * 3),
-          //     color: Theme.of(context).accentColor,
-          //   ),
-          //   child: Center(
-          //     child: Text(
-          //       'Upgrade to PRO',
-          //       style: kButtonTextStyle,
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );
@@ -135,9 +193,9 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
               : CrossFadeState.showSecond,
           firstChild: GestureDetector(
             onTap: () {
-                ThemeSwitcher.of(context).changeTheme(theme: kLightTheme);
-                Get.snackbar("Light Mode", "Enabled");
-                },
+              ThemeSwitcher.of(context).changeTheme(theme: kLightTheme);
+              Get.snackbar("Light Mode", "Enabled");
+            },
             child: Icon(
               LineAwesomeIcons.sun,
               size: ScreenUtil().setSp(kSpacingUnit.w * 3) as double,
@@ -145,9 +203,9 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
           ),
           secondChild: GestureDetector(
             onTap: () {
-                ThemeSwitcher.of(context).changeTheme(theme: kDarkTheme);
-                Get.snackbar("Dark Mode", "Enabled");
-                },
+              ThemeSwitcher.of(context).changeTheme(theme: kDarkTheme);
+              Get.snackbar("Dark Mode", "Enabled");
+            },
             child: Icon(
               LineAwesomeIcons.moon,
               size: ScreenUtil().setSp(kSpacingUnit.w * 3) as double,
@@ -186,35 +244,48 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
                   child: ListView(
                     children: <Widget>[
                       GestureDetector(
-                        onTap: (){},
+                        onTap: (){
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const PrivacyPolicyPage()),
+                                (Route<dynamic> route) => true,
+                          );
+
+                        },
                         child: const ProfileListItem(
                           icon: LineAwesomeIcons.user_shield,
                           text: 'Privacy',
+
                         ),
                       ),
+
                       GestureDetector(
-                        onTap: (){},
-                        child: const ProfileListItem(
-                          icon: LineAwesomeIcons.history,
-                          text: 'Adpotion History',
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: (){},
+                        onTap: (){
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const HelpSupportPage()),
+                                  (Route<dynamic> route) => true
+                          );
+
+                        },
                         child: const ProfileListItem(
                           icon: LineAwesomeIcons.question_circle,
                           text: 'Help & Support',
                         ),
                       ),
+
                       GestureDetector(
-                        onTap: (){},
-                        child: const ProfileListItem(
-                          icon: LineAwesomeIcons.cog,
-                          text: 'Settings',
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: (){},
+                        onTap: (){
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const InviteFriendPage()),
+                                  (Route<dynamic> route) => true
+                          );
+
+                        },
                         child: const ProfileListItem(
                           icon: LineAwesomeIcons.user_plus,
                           text: 'Invite a Friend',
@@ -223,8 +294,8 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
                       GestureDetector(
                         onTap: () {
                           FirebaseAuth.instance.signOut().then((value) => Get.snackbar(
-                            "Signing Out", "Log in to Continue"));
-                          },
+                              "Signing Out", "Log in to Continue"));
+                        },
                         child: const ProfileListItem(
                           icon: LineAwesomeIcons.alternate_sign_out,
                           text: 'Logout',
