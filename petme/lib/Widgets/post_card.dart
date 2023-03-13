@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petme/screens/FirebaseFunctions/firestore_methods.dart';
 
 class PostCard extends StatelessWidget {
   final snap;
@@ -53,8 +54,9 @@ class PostCard extends StatelessWidget {
                       children: [
                         'Delete',
                       ].map((e) => InkWell(
-                        onTap: (){
-
+                        onTap: () async {
+                          FirestoreMethods().deletePost(snap['postId']);
+                          Navigator.of(context).pop();
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 16),

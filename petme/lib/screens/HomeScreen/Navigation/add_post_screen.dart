@@ -22,8 +22,41 @@ class _AddPostScreenState extends State<AddPostScreen> {
   Uint8List? _file;
   final TextEditingController descriptionController = TextEditingController();
   PageController pageController = PageController();
+  final _petName = TextEditingController();
+  final _petBreed = TextEditingController();
+  final _petAge = TextEditingController();
 
-  void postImage(String username, String uid, String profilePicUrl) async {
+  String _petGender = 'Male';
+  var genders = [
+    'Male',
+    'Female',
+  ];
+  String _petSize = 'Medium';
+  var sizes = [
+    'Small',
+    'Medium',
+    'Large',
+  ];
+  String _petType = 'Dog';
+  var types = [
+    'Dog',
+    'Cat',
+    'Bird',
+    'Rabbits'
+    'Other',
+  ];
+
+  void postImage(
+      String username,
+      String uid,
+      String profilePicUrl,
+      String petName,
+      String petBreed,
+      String petAge,
+      dynamic petGender,
+      dynamic petSize,
+      dynamic petType,
+      ) async {
     try {
       String res = await FirestoreMethods().uploadPost(
         _file!,
@@ -31,6 +64,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
         username,
         uid,
         profilePicUrl,
+          _petName.text,
+          _petBreed.text,
+          _petAge.text,
+          _petGender,
+          _petSize,
+          _petType,
       );
 
       if (res == "Success") {
@@ -190,7 +229,17 @@ class _AddPostScreenState extends State<AddPostScreen> {
               actions: <Widget>[
                 TextButton(
                   onPressed: () {
-                    postImage(user.username,user.uid,user.profilePicUrl);
+                    postImage(
+                        user.username,
+                        user.uid,
+                        user.profilePicUrl,
+                        _petName.text,
+                        _petBreed.text,
+                        _petAge.text,
+                        _petGender,
+                        _petSize,
+                        _petType,
+                    );
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -222,63 +271,224 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 )
               ],
             ),
-            backgroundColor: Colors.white60,
+            backgroundColor: Colors.pink[100],
             // POST FORM
-            body: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  const Divider(),
-                  SingleChildScrollView(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.1,
-                          child: Text(user.username, style: const TextStyle(fontWeight: FontWeight.bold),),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          child: TextField(
-                            controller: descriptionController,
-                            decoration: const InputDecoration(
-                              hintText: 'Write A Caption...',
-                              border: InputBorder.none,
+            body: Padding(
+              padding: const EdgeInsets.symmetric(
+                  vertical: 10,
+                  horizontal: 20
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    const Divider(),
+                    SingleChildScrollView(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          // CircleAvatar(
+                          //   radius: 25,
+                          //   child: SizedBox(
+                          //     width: MediaQuery.of(context).size.width * 0.1,
+                          //     child: Text(user.username, style: const TextStyle(fontWeight: FontWeight.bold),),
+                          //   ),
+                          // ),
+                          CircleAvatar(
+                            radius: 30,
+                            backgroundImage: NetworkImage(
+                              user.profilePicUrl,
                             ),
-                            maxLines: 3,
                           ),
-                        )
-                      ],
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            child: TextField(
+                              controller: descriptionController,
+                              decoration: const InputDecoration(
+                                hintText: 'Write A Caption for Post ...',
+                                border: InputBorder.none,
+                              ),
+                              maxLines: 3,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: SizedBox(
-                          height: 300.0,
-                          width: 300.0,
-                          child: AspectRatio(
-                            aspectRatio: 16 / 9,
-                            child: Container(
-                              // height: 500,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                fit: BoxFit.fill,
-                                alignment: FractionalOffset.center,
-                                image: MemoryImage(_file!),
-                              )),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: SizedBox(
+                            height: 300.0,
+                            width: 300.0,
+                            child: AspectRatio(
+                              aspectRatio: 16 / 9,
+                              child: Container(
+                                // height: 500,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  alignment: FractionalOffset.center,
+                                  image: MemoryImage(_file!),
+                                )),
+                              ),
                             ),
                           ),
+                        ),
+                      ],
+
+                    ),
+                    const Divider(),
+                    const SizedBox(height: 20.0),
+                    TextFormField(
+                      controller: _petName,
+                      textInputAction: TextInputAction.next,
+                      style: const TextStyle(
+                        color: Colors.black,
+                      ),
+                      // onChanged: (value) {
+                      //   print(value);
+                      // },
+                      validator: (val) =>
+                      val!.isEmpty ? 'Please enter the pet\'s name!' : null,
+                      decoration: const InputDecoration(
+                        labelText: 'Name',
+                        hintText: 'Enter the pet\'s name!',
+                        hintStyle: TextStyle(
+                          color: Colors.black54,
+                        ),
+                        labelStyle: TextStyle(
+                          color: Colors.black,
                         ),
                       ),
-                    ],
-
-                  ),
-                  const Divider(),
-                ],
+                    ),
+                    const SizedBox(height: 10.0),
+                    TextFormField(
+                      controller: _petBreed,
+                      textInputAction: TextInputAction.next,
+                      style: const TextStyle(
+                        color: Colors.black,
+                      ),
+                      // onChanged: (value) {
+                      //   print(value);
+                      // },
+                      validator: (val) =>
+                      val!.isEmpty ? 'Please enter the pet\'s breed!' : null,
+                      decoration: const InputDecoration(
+                        labelText: 'Breed',
+                        hintText: 'Enter the pet\'s breed!',
+                        hintStyle: TextStyle(
+                          color: Colors.black54,
+                        ),
+                        labelStyle: TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10.0),
+                    TextFormField(
+                      controller: _petAge,
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      style: const TextStyle(
+                        color: Colors.black,
+                      ),
+                      // onChanged: (value) {
+                      //   print(value);
+                      // },
+                      validator: (val) =>
+                      val!.isEmpty ? 'Please enter the pet\'s age!' : null,
+                      decoration: const InputDecoration(
+                        labelText: 'Age',
+                        hintText: 'Enter the pet\'s age!',
+                        hintStyle: TextStyle(
+                          color: Colors.black54,
+                        ),
+                        labelStyle: TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 12.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Column(
+                          children: [
+                            const Text(
+                              "Gender",
+                              style: TextStyle(fontSize: 18, color: Colors.black54),
+                            ),
+                            DropdownButton(
+                              value: _petGender,
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              items: genders.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child: Text(items),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  _petGender = newValue!;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            const Text(
+                              'Size',
+                              style: TextStyle(fontSize: 18, color: Colors.black54),
+                            ),
+                            DropdownButton(
+                              value: _petSize,
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              items: sizes.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child: Text(items),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  _petSize = newValue!;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            const Text(
+                              'Type',
+                              style: TextStyle(fontSize: 18, color: Colors.black54),
+                            ),
+                            DropdownButton(
+                              value: _petType,
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              items: types.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child: Text(items),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  _petType = newValue!;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20.0),
+                  ],
+                ),
               ),
             ),
           );

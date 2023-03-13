@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:petme/firebaseAuthe/auth_page.dart';
 import 'package:petme/providers/user_provider.dart';
+import 'package:petme/screens/HomeScreen/Navigation/home_page.dart';
 import 'package:petme/screens/HomeScreen/main_page.dart';
 import 'package:petme/screens/Registration/Adopter/adopterSignUp.dart';
 import 'package:petme/screens/Login/login_page.dart';
@@ -49,6 +50,7 @@ void main() async {
         GetPage(name: '/adopter', page: () => const adopterSignUp()),
         GetPage(name: '/forgot', page: () => const ForgotPass()),
         GetPage(name: '/mainPage', page: () => const MainPage()),
+        GetPage(name: '/homePage', page: () => const HomePage()),
       ],
     ),
   ));

@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
               ),
               Center(
                 child: Lottie.network(
-                  'https://assets9.lottiefiles.com/private_files/lf30_emulvclw.json',
+                  'https://assets3.lottiefiles.com/packages/lf20_syqnfe7c.json',
                   repeat: true,
                   fit: BoxFit.contain,
                 ),

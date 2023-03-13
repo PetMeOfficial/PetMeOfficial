@@ -10,6 +10,7 @@ import 'package:petme/providers/user_provider.dart';
 import 'package:petme/screens/HomeScreen/Navigation/setting/help.dart';
 import 'package:petme/screens/HomeScreen/Navigation/setting/inviteafrd.dart';
 import 'package:provider/provider.dart';
+import '../../main_page.dart';
 import 'constant.dart';
 import 'profile_list_item.dart';
 import 'package:petme/models/user.dart' as model;
@@ -60,7 +61,11 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
   @override
   Widget build(BuildContext context) {
     model.User user = Provider.of<UserProvider>(context).getUser;
-    ScreenUtil.init(context, height: MediaQuery.of(context).size.height, width: MediaQuery.of(context).size.width, allowFontScaling: true);
+    ScreenUtil.init(context,
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        allowFontScaling: true
+    );
 
     var profileInfo = Expanded(
       child: Column(
@@ -220,9 +225,12 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         SizedBox(width: kSpacingUnit.w * 3),
-        Icon(
-          LineAwesomeIcons.arrow_left,
-          size: ScreenUtil().setSp(kSpacingUnit.w * 3) as double,
+        GestureDetector(
+          onTap: () => Get.offAll(() => const MainPage()),
+          child: Icon(
+            LineAwesomeIcons.arrow_left,
+            size: ScreenUtil().setSp(kSpacingUnit.w * 3) as double,
+          ),
         ),
         profileInfo,
         themeSwitcher,

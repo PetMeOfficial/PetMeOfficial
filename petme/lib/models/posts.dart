@@ -5,8 +5,15 @@ class Post {
   final String username;
   final String postUrl;
   final String description;
+  final String postId;
   final String uid;
   final String profilePicUrl;
+  final String petName;
+  final String petBreed;
+  final String petGender;
+  final String petAge;
+  final String petSize;
+  final String petType;
 
   const Post({
     required this.datePublished,
@@ -14,7 +21,14 @@ class Post {
     required this.postUrl,
     required this.description,
     required this.uid,
+    required this.postId,
     required this.profilePicUrl,
+    required this.petName,
+    required this.petBreed,
+    required this.petGender,
+    required this.petAge,
+    required this.petSize,
+    required this.petType,
   });
 
   static Post fromSnap(DocumentSnapshot snap) {
@@ -26,7 +40,14 @@ class Post {
         postUrl: snapshot['postUrl'],
         description: snapshot['description'],
         uid: snapshot['uid'],
-      profilePicUrl: snapshot['profilePicUrl'],
+        postId: snapshot['postId'],
+        profilePicUrl: snapshot['profilePicUrl'],
+        petName: snapshot['petName'],
+        petBreed: snapshot['petBreed'],
+        petGender: snapshot['petGender'],
+        petAge: snapshot['petAge'],
+        petSize: snapshot['petSize'],
+        petType: snapshot['petType'],
     );
   }
 
@@ -35,7 +56,14 @@ class Post {
         'postUrl': postUrl,
         'description': description,
         'username': username,
-         'uid' : uid,
-         'profilePicUrl' : profilePicUrl,
+        'uid' : uid,
+        'postId' : postId,
+        'profilePicUrl' : profilePicUrl,
+        'petName' : petName,
+        'petBreed' : petBreed,
+        'petGender' : petGender,
+        'petAge' : petAge,
+        'petSize' : petSize,
+        'petType' : petType,
       };
 }
