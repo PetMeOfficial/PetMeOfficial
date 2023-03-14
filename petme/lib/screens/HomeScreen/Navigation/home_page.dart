@@ -47,25 +47,31 @@ class _HomePageState extends State<HomePage> {
             MaterialPageRoute(builder: (context) => ChatBot()),
           );
         },
-        child: Container(
-          width: 60,
-          height: 60,
-          child: Stack(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.pink[400],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+              vertical: 7,
+              horizontal: 10,
+          ),
+          child: Container(
+            width: 60,
+            height: 60,
+            child: Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.pink[300],
+                  ),
                 ),
-              ),
-              Center(
-                child: Lottie.network(
-                  'https://assets3.lottiefiles.com/packages/lf20_syqnfe7c.json',
-                  repeat: true,
-                  fit: BoxFit.contain,
+                Center(
+                  child: Lottie.network(
+                    'https://assets3.lottiefiles.com/packages/lf20_syqnfe7c.json',
+                    repeat: true,
+                    fit: BoxFit.contain,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
