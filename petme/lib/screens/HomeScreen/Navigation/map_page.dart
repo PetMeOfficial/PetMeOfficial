@@ -50,6 +50,10 @@ class _MapPageState extends State<MapPage> {
       markerId: MarkerId('7'),
       position: LatLng(18.6082502779315, 73.91018839887516),
       infoWindow: InfoWindow(title: "Paws Care"),
+    ),Marker(
+      markerId: MarkerId('7'),
+      position: LatLng(18.50680981228602, 73.87359916024936),
+      infoWindow: InfoWindow(title: "Mission Possible Pet House"),
     ),
   ];
 

@@ -13,6 +13,7 @@ import 'package:petme/screens/SplashScreen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:petme/screens/Login/forgotPass.dart';
 import 'package:provider/provider.dart';
+import '../providers/petProvider.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -26,6 +27,7 @@ void main() async {
       ChangeNotifierProvider(
         create: (_) => UserProvider(),
       ),
+      ChangeNotifierProvider(create: (_) => PetsProvider()),
     ],
     child: GetMaterialApp(
       debugShowCheckedModeBanner: false,

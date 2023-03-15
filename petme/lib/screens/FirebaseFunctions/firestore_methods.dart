@@ -13,13 +13,14 @@ class FirestoreMethods{
   Future<String> uploadPost(
       Uint8List file,
       String description,
+      String caption,
       String username,
       String uid,
       String profilePicUrl,
       String petName,
       String petBreed,
-      String petGender,
       String petAge,
+      String petGender,
       String petSize,
       String petType,
       ) async {
@@ -30,6 +31,7 @@ class FirestoreMethods{
       Post post = Post(
         datePublished: DateTime.now(),
         description: description,
+        caption: caption,
         username: username,
         uid: uid,
         postUrl: photoUrl,
@@ -49,6 +51,44 @@ class FirestoreMethods{
       res = err.toString();
     }
     return res;
+  }
+
+  Future<List<Post>> loadPets() async {
+    try {
+      final petsSnapshot = await FirebaseFirestore.instance.collection('posts').get();
+      return petsSnapshot.docs
+          .map((doc) => Post(
+        username: doc.get('username'),
+        datePublished: doc.get('datePublished'),
+        postUrl: doc.get('postUrl'),
+        description: doc.get('description'),
+        postId: doc.get('postId'),
+        uid: doc.get('uid'),
+        profilePicUrl: doc.get('profilePicUrl'),
+        petName: doc.get('petName'),
+        petBreed: doc.get('petBreed'),
+        petGender: doc.get('petGender'),
+        petAge: doc.get('petAge'),
+        petSize: doc.get('petSize'),
+        petType: doc.get('petType'),
+        caption: doc.get('caption'),
+        // breed: doc.get('petBreed'),
+        // age: doc.get('petAge'),
+        // description: doc.get('petDescription'),
+        // favorites: doc.get('favorites'),
+        // gender: doc.get('petGender'),
+        // size: doc.get('petSize'),
+        // image: doc.get('petImage'),
+        // latitude: doc.get('latitude'),
+        // longitude: doc.get('longitude'),
+        // ownerId: doc.get('ownerId'),
+        // petId: doc.get('petId'),
+        // type: doc.get('petType'),
+      ))
+          .toList();
+    } catch (e) {
+      return [];
+    }
   }
 
   Future<String> deletePost(String postId) async {

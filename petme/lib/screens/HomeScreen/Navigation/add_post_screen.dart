@@ -21,6 +21,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
   Uint8List? _file;
   final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController  captionController = TextEditingController();
   PageController pageController = PageController();
   final _petName = TextEditingController();
   final _petBreed = TextEditingController();
@@ -43,7 +44,6 @@ class _AddPostScreenState extends State<AddPostScreen> {
     'Cat',
     'Bird',
     'Rabbits'
-    'Other',
   ];
 
   void postImage(
@@ -61,6 +61,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
       String res = await FirestoreMethods().uploadPost(
         _file!,
         descriptionController.text,
+        captionController.text,
         username,
         uid,
         profilePicUrl,
@@ -303,7 +304,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.6,
                             child: TextField(
-                              controller: descriptionController,
+                              controller: captionController,
                               decoration: const InputDecoration(
                                 hintText: 'Write A Caption for Post ...',
                                 border: InputBorder.none,
@@ -403,6 +404,28 @@ class _AddPostScreenState extends State<AddPostScreen> {
                       decoration: const InputDecoration(
                         labelText: 'Age',
                         hintText: 'Enter the pet\'s age!',
+                        hintStyle: TextStyle(
+                          color: Colors.black54,
+                        ),
+                        labelStyle: TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),const SizedBox(height: 10.0),
+                    TextFormField(
+                      controller: descriptionController,
+                      textInputAction: TextInputAction.next,
+                      style: const TextStyle(
+                        color: Colors.black,
+                      ),
+                      // onChanged: (value) {
+                      //   print(value);
+                      // },
+                      validator: (val) =>
+                      val!.isEmpty ? 'Please enter the description!' : null,
+                      decoration: const InputDecoration(
+                        labelText: 'Description',
+                        hintText: 'Enter Description',
                         hintStyle: TextStyle(
                           color: Colors.black54,
                         ),

@@ -2,8 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petme/Widgets/post_card.dart';
+import 'package:provider/provider.dart';
+import '../../../providers/petProvider.dart';
+import '../../../providers/user_provider.dart';
 import 'chatbot.dart';
 import 'package:lottie/lottie.dart';
+
+import 'detailsPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,6 +18,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    final userProvider = context.read<UserProvider>();
+    userProvider.refreshUser();
+    final petsProvider = context.read<PetsProvider>();
+    petsProvider.fetchPets();
+  }
+
+
 
 
   @override
@@ -30,11 +45,31 @@ class _HomePageState extends State<HomePage> {
                 }
                 return ListView.builder(
                   itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (context, index) => PostCard(
-                    snap : snapshot.data!.docs[index].data(),
-                    snap2 : snapshot2.data!.docs[index].data(),
-
-                  ),
+                  itemBuilder: (BuildContext context, int index) {
+                    // final pet = provider[index];
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChangeNotifierProvider(
+                              create: (_) => PetsProvider(),
+                              child: DetailsPage(
+                                snap: snapshot.data!.docs[index].data(),
+                                snap2: snapshot2.data!.docs[index].data(),
+                                // pet: pet,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      child: PostCard(
+                        snap: snapshot.data!.docs[index].data(),
+                        snap2: snapshot2.data!.docs[index].data(),
+                      ),
+                    );
+                    // );
+                  },
                 );
               },
             );
