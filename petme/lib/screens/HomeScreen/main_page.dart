@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -61,8 +62,7 @@ class _MainPageState extends State<MainPage> {
                 Get.snackbar(
                     "Sign Out Success", "Log In to Continue");
               },
-              icon: const Icon(Icons.logout
-              )
+              icon: const Icon(FontAwesomeIcons.arrowRightFromBracket,size: 20,)
           )
         ],
       ),
@@ -86,32 +86,33 @@ class _MainPageState extends State<MainPage> {
               gap: 10,
               duration: const Duration(microseconds: 100),
               backgroundColor: Colors.white54,
-              color: Colors.pink[200],
-              activeColor: Colors.pink,
-              curve: Curves.bounceIn,
+              color: Colors.pink[100],
+              activeColor: Colors.pink[400],
+              curve: Curves.easeIn,
               // tabBorder: Border.all(color: Colors.black87),
               // tabBackgroundColor: Colors.black,
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(11),
               tabs: const [
                 GButton(
-                  icon: Icons.home,
-                  text: 'Home',
+                  icon: FontAwesomeIcons.house,
+                  // text: 'Home',
                 ),
                 GButton(
-                  icon: Icons.people_alt,
-                  text: 'Meetings',
+                  icon: FontAwesomeIcons.userGroup,
+                  // text: 'Meetings',
                 ),
                 GButton(
-                  icon: Icons.camera_alt_outlined,
-                  text: 'Post',
+                  // icon: Icons.pets,
+                  icon: FontAwesomeIcons.paw,
+                  // text: 'Pet Profile',
                 ),
                 GButton(
-                  icon: Icons.map,
-                  text: 'Map',
+                  icon: FontAwesomeIcons.mapLocation,
+                  // text: 'Map',
                 ),
                 GButton(
-                  icon: Icons.settings,
-                  text: 'Settings',
+                  icon: FontAwesomeIcons.gear,
+                  // text: 'Settings',
                 ),
               ],
               selectedIndex: _selectedIndex,

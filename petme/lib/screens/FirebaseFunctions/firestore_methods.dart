@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:petme/models/posts.dart';
 import 'package:petme/screens/FirebaseFunctions/storage_methods.dart';
@@ -8,7 +9,7 @@ import 'package:uuid/uuid.dart';
 
 class FirestoreMethods{
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
+  final storageRef = FirebaseStorage.instance.ref();
   // Upload Posts
   Future<String> uploadPost(
       Uint8List file,
@@ -95,6 +96,9 @@ class FirestoreMethods{
     String res = "Some error occurred";
     try {
       await _firestore.collection('posts').doc(postId).delete();
+      // final desertRef = storageRef.child("posts/{$postId}");
+
+      // await FirebaseStorage.instance.ref(postId).delete();
       res = 'success';
     } catch (err) {
       res = err.toString();

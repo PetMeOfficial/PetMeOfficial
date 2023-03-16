@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:petme/screens/FirebaseFunctions/firestore_methods.dart';
 import 'package:petme/models/user.dart' as model;
@@ -108,7 +109,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
             elevation: 1,
             backgroundColor: Colors.black87,
             title: const Text(
-              "Create Post",
+              "Create Pet Profile",
               style: TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
@@ -186,14 +187,14 @@ class _AddPostScreenState extends State<AddPostScreen> {
     return _file == null
         ? Container(
           color: Colors.deepPurple[100],
-          padding: const EdgeInsets.all(100),
+          padding: const EdgeInsets.all(50),
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: const Text(
-                    "Upload Image",
+                    "Create Pet Profile",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
@@ -206,8 +207,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   repeatPauseDuration: const Duration(milliseconds: 100),
                   duration: const Duration(milliseconds: 3000),
                   child: IconButton(
-                    icon: const Icon(Icons.camera_alt),
-                    iconSize: 70,
+                    icon: const Icon(FontAwesomeIcons.camera),
+                    iconSize: 50,
                     color: Colors.black87,
                     onPressed: () => selectImage(context),
                   ),
