@@ -6,6 +6,8 @@ import 'package:petme/models/posts.dart';
 import 'package:petme/screens/FirebaseFunctions/storage_methods.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../models/blog.dart';
+
 class FirestoreMethods{
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -43,6 +45,40 @@ class FirestoreMethods{
         petType: petType,
       );
       _firestore.collection('posts').doc(postId).set(post.toJson(),);
+      res = "Success";
+      debugPrint("Success");
+    } catch(err){
+      res = err.toString();
+    }
+    return res;
+  }
+
+  Future<String> uploadBlog(
+   String username,
+   String blogUrl,
+   String description,
+   String blogId,
+   String uid,
+   String profilePicUrl,
+   String blogName,
+   String blogTitle,
+   String blogDescription,
+      ) async {
+    String res = "some error occured";
+    try{
+      String blogId = const Uuid().v1();
+      Blog blog = Blog(
+        description: description,
+        username: username,
+        uid: uid,
+        profilePicUrl: profilePicUrl,
+        blogUrl: '',
+        blogId: blogId,
+        blogName: '',
+        blogTitle: '',
+        blogDescription: '',
+      );
+      _firestore.collection('posts').doc(blogId).set(blog.toJson(),);
       res = "Success";
       debugPrint("Success");
     } catch(err){

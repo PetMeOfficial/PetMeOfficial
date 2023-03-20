@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 
 import '../../providers/user_provider.dart';
 import 'Navigation/meetings_page.dart';
+import 'Navigation/allBlogs/blogs.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -40,6 +41,7 @@ class _MainPageState extends State<MainPage> {
     AddPostScreen(),
     MapPage(),
     SettingsPage(),
+    Blogs(),
   ];
 
   void signUserOut() {
@@ -55,14 +57,18 @@ class _MainPageState extends State<MainPage> {
         // title: Text('PetMe', style: GoogleFonts.exo2(textStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 25,),),),
         backgroundColor: Colors.pink[300],
         actions: [
-          IconButton(
-              onPressed: (){
-                signUserOut();
-                Get.snackbar(
-                    "Sign Out Success", "Log In to Continue");
-              },
-              icon: const Icon(Icons.logout
-              )
+          TextButton(
+             style: TextButton.styleFrom(
+               textStyle: const TextStyle(fontSize: 20),
+               foregroundColor: Colors.white,
+               padding: const EdgeInsets.all(16.0),
+
+             ),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Blogs()),);},
+            child: const Text('Blogs'),
           )
         ],
       ),
