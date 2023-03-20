@@ -8,6 +8,7 @@ class User {
   final String phoneNumber;
   final String uid;
   final String profilePicUrl;
+  final dynamic token;
 
 
   const User(
@@ -19,6 +20,7 @@ class User {
         required this.phoneNumber,
         required this.uid,
         required this.profilePicUrl,
+        required this.token,
         });
 
   static User fromSnap(DocumentSnapshot snap) {
@@ -33,6 +35,7 @@ class User {
       // photoUrl: snapshot["photoUrl"],
       uid: snapshot["uid"],
       profilePicUrl: snapshot["profilePicUrl"],
+      token: snapshot["token"],
 
     );
   }
@@ -45,6 +48,7 @@ class User {
     "phoneNumber": phoneNumber,
     "uid": uid,
     "profilePicUrl": profilePicUrl,
+    "token": token,
     // "photoUrl": photoUrl,
   };
 }

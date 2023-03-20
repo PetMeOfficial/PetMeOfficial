@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -16,18 +17,26 @@ import 'package:provider/provider.dart';
 import '../providers/petProvider.dart';
 import 'firebase_options.dart';
 
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print('Handling Background Message ${message.messageId}');
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   ).then((value) => Get.put(AuthPage()));
+  await FirebaseMessaging.instance.getInitialMessage();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
         create: (_) => UserProvider(),
       ),
-      ChangeNotifierProvider(create: (_) => PetsProvider()),
+      ChangeNotifierProvider(
+          create: (_) => PetsProvider()
+      ),
     ],
     child: GetMaterialApp(
       debugShowCheckedModeBanner: false,

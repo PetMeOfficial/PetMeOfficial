@@ -1,11 +1,14 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:petme/models/posts.dart';
 import 'package:petme/screens/FirebaseFunctions/storage_methods.dart';
 import 'package:uuid/uuid.dart';
+import 'package:http/http.dart' as http;
 
 class FirestoreMethods{
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -73,18 +76,6 @@ class FirestoreMethods{
         petSize: doc.get('petSize'),
         petType: doc.get('petType'),
         caption: doc.get('caption'),
-        // breed: doc.get('petBreed'),
-        // age: doc.get('petAge'),
-        // description: doc.get('petDescription'),
-        // favorites: doc.get('favorites'),
-        // gender: doc.get('petGender'),
-        // size: doc.get('petSize'),
-        // image: doc.get('petImage'),
-        // latitude: doc.get('latitude'),
-        // longitude: doc.get('longitude'),
-        // ownerId: doc.get('ownerId'),
-        // petId: doc.get('petId'),
-        // type: doc.get('petType'),
       ))
           .toList();
     } catch (e) {
@@ -104,6 +95,41 @@ class FirestoreMethods{
       res = err.toString();
     }
     return res;
+  }
+
+  void sendPushMessage(String token , title, body) async {
+    try{
+      await http.post(
+        Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'key=AAAAuNG07C0:APA91bH2OYAf0oXU0p1PwIzdDW9fDd3RAWoZxRSRu7rDEbqeRiGd4ZH_cFjgh930Y_xMFdYaFuPU7S4HsGyU1IlgMbkoUQGV-SOZO2qVpzB2pF4XeAwB77tjHNi803Ox1eqDjwtQZ6Ck'
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+
+            'priority': 'high',
+            'data': <String, dynamic>{
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'status': 'done',
+              'body': body,
+              'title': title,
+            },
+
+            "notification" : <String, dynamic>{
+              "title":title,
+              "body": body,
+              "android_channel_id": "petme"
+            },
+            "to": token,
+          },
+        ),
+      );
+    }catch (e){
+      if(kDebugMode){
+        print("Error Push Notification");
+      }
+    }
   }
 }
 

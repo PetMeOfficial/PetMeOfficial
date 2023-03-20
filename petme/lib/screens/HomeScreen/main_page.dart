@@ -1,15 +1,25 @@
+
+import 'dart:convert';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:petme/screens/HomeScreen/Navigation/detailsPage.dart';
 import 'package:petme/screens/HomeScreen/Navigation/map_page.dart';
 import 'package:petme/screens/HomeScreen/Navigation/home_page.dart';
 import 'package:petme/screens/HomeScreen/Navigation/settings_page.dart';
 import 'package:petme/screens/HomeScreen/Navigation/add_post_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+import '../../firebaseAuthe/auth_page.dart';
 import '../../providers/user_provider.dart';
 import 'Navigation/meetings_page.dart';
 
@@ -21,11 +31,116 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-
+  String? mtoken = "";
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  var authController = AuthPage.instance;
   @override
   void initState(){
     addData();
+    requestPermission();
+    initInfo();
+    // getToken();
     super.initState();
+  }
+
+  // void getToken() async {
+  //   await FirebaseMessaging.instance.getToken().then((token) {
+  //     setState(() {
+  //       mtoken = token;
+  //       print("My token is $mtoken");
+  //     });
+  //   });
+  // }
+
+  void initInfo(){
+    var androidInitialize = const AndroidInitializationSettings('@mipmap/ic_launcher');
+    var iosInitialize = const IOSInitializationSettings();
+    var initializationSettings = InitializationSettings(android: androidInitialize, iOS: iosInitialize);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: (String? payload) async{
+      try{
+        if(payload != null && payload.isNotEmpty){
+
+        }else{
+
+        }
+      }catch (e){
+      }
+      return;
+    });
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async { 
+      print("______________onMessage_________________");
+      print("onMessage: {${message.notification?.title}/${message.notification?.body}}");
+
+      BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
+        message.notification!.body.toString(), htmlFormatBigText: true,
+        contentTitle: message.notification!.title.toString(), htmlFormatContentTitle: true,
+      );
+
+      AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
+          'petme', 'petme','petme', importance: Importance.max,
+          styleInformation: bigTextStyleInformation, priority:Priority.max, playSound: true,
+      );
+
+      NotificationDetails platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);
+      await flutterLocalNotificationsPlugin.show(0, message.notification?.title, message.notification?.body, platformChannelSpecifics,
+          payload: message.data['body']);
+
+    });
+
+  }
+
+  void requestPermission() async{
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized){
+      print("User Granted Permission");
+    }else if (settings.authorizationStatus == AuthorizationStatus.provisional){
+      print("User Granted Provisional Permission");
+    }else{
+      print("User Declined or Did not Accept Permission");
+    }
+  }
+
+  void sendPushMessage(String token , body, title) async {
+    try{
+      await http.post(
+        Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'key=AAAAuNG07C0:APA91bH2OYAf0oXU0p1PwIzdDW9fDd3RAWoZxRSRu7rDEbqeRiGd4ZH_cFjgh930Y_xMFdYaFuPU7S4HsGyU1IlgMbkoUQGV-SOZO2qVpzB2pF4XeAwB77tjHNi803Ox1eqDjwtQZ6Ck'
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+
+            'priority': 'high',
+            'data': <String, dynamic>{
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'status': 'done',
+              'body': body,
+              'title': title,
+            },
+
+            "notification" : <String, dynamic>{
+              "title":title,
+              "body": body,
+              "android_channel_id": "petme"
+            },
+            "to": token,
+          },
+        ),
+      );
+    }catch (e){
+      if(kDebugMode){
+        print("Error Push Notification");
+      }
+    }
   }
 
   addData() async {
