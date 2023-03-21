@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:petme/screens/FirebaseFunctions/firestore_methods.dart';
 
@@ -41,7 +43,10 @@ class PostCard extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(snap['username'], style: const TextStyle(fontWeight: FontWeight.bold),)
+                          Text(snap['username'], style: const TextStyle(fontWeight: FontWeight.bold),),
+                          // Text(snap2['token'], style: const TextStyle(fontWeight: FontWeight.bold),),
+                        // String token = widget.snap2['token'];
+                        // print(token);
                         ],
                       ),
                     )
@@ -55,7 +60,19 @@ class PostCard extends StatelessWidget {
                         'Delete',
                       ].map((e) => InkWell(
                         onTap: () async {
-                          FirestoreMethods().deletePost(snap['postId']);
+                          final adopterRef = FirebaseFirestore.instance.collection("Adopters").
+                          where("uid", isEqualTo: snap2['uid']).get().then((value) => {
+                            value.docs.forEach((element) async {
+                              var UID = element.id;
+                              print("Current User's UID is: $UID");
+                              print("snap id: ${snap['uid']}");
+                              if(UID == snap['uid']){
+                                FirestoreMethods().deletePost(snap['postId']);
+                              }
+
+                            })
+                          });
+                          // FirestoreMethods().deletePost(snap['postId']);
                           Navigator.of(context).pop();
                         },
                         child: Container(

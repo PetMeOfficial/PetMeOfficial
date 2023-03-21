@@ -4,12 +4,14 @@ import 'package:petme/models/user.dart';
 import 'package:petme/screens/FirebaseFunctions/auth_methods.dart';
 
 
-class UserProvider with ChangeNotifier {
+class OwnerProvider with ChangeNotifier {
   User? _user;
   String? id;
   final AuthMethods _authMethods = AuthMethods();
 
-
+  OwnerProvider(this.id) {
+    _getOwner();
+  }
 
 
   void _getOwner() {

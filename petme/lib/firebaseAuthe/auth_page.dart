@@ -1,15 +1,21 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petme/models/user.dart' as model;
 import 'package:petme/models/blogModel.dart' as blogModel;
 import 'package:petme/models/petUser.dart' as petModel;
+import 'package:petme/screens/FirebaseFunctions/auth_methods.dart';
 import 'package:petme/screens/FirebaseFunctions/storage_methods.dart';
 import 'package:petme/screens/HomeScreen/main_page.dart';
 // import 'package:petme/firebaseAuthe/auth_page.dart';
 import 'package:petme/screens/Login/login_page.dart';
+import 'package:http/http.dart' as http;
 // import 'package:petme/screens/petSignUp.dart';
 
 class AuthPage extends GetxController {
@@ -40,6 +46,8 @@ class AuthPage extends GetxController {
             password: password
         );
         String profilePicUrl = await StorageMethods().uploadImageToStorage('profilePics', file, false);
+        // String MyToken = await AuthPage().saveToken();
+        String? MyToken = await FirebaseMessaging.instance.getToken();
         model.User user = model.User(
           username: username,
           name: name,
@@ -48,9 +56,39 @@ class AuthPage extends GetxController {
           phoneNumber: phoneNumber,
           uid: cred.user!.uid,
           profilePicUrl: profilePicUrl,
+          token: MyToken
         );
         await FirebaseFirestore.instance.collection("Adopters").doc(
             cred.user!.uid).set(user.toJson());
+        // Updating Token Below
+        String? NewToken = await FirebaseMessaging.instance.getToken();
+        print("New Token is $NewToken");
+        isTokenRefresh();
+        // Updating Token in Firestore
+        final adopterRef = FirebaseFirestore.instance.collection("Adopters").
+        where("email", isEqualTo: email).get().then((value) => {
+          value.docs.forEach((element) async {
+            var UID = element.id;
+            print("Current User's UID is: $UID");
+            await FirebaseFirestore.instance
+                .collection("Adopters")
+                .doc(UID)
+                .update({
+              'token': NewToken,
+            })
+            ;
+
+
+
+            // print(element.data());
+            // print(UID);
+            // print(token);
+            // print(tokenList);
+            // print(hello);
+          })
+        });
+        // FirebaseMessaging Line Below for Token
+        // await FirebaseFirestore.instance.collection("Adopters").doc(cred.user!.uid).update({'tokenId' :''});
       } else {
         Get.snackbar(
             "Error Creating An Account", "Please Enter All The Fields");
@@ -58,6 +96,40 @@ class AuthPage extends GetxController {
     } catch (e) {
       Get.snackbar("Error Creating An Account", e.toString());
       debugPrint(e as String?);
+    }
+  }
+  void sendPushMessage(String token , title, body) async {
+    try{
+      await http.post(
+        Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'key=AAAAuNG07C0:APA91bH2OYAf0oXU0p1PwIzdDW9fDd3RAWoZxRSRu7rDEbqeRiGd4ZH_cFjgh930Y_xMFdYaFuPU7S4HsGyU1IlgMbkoUQGV-SOZO2qVpzB2pF4XeAwB77tjHNi803Ox1eqDjwtQZ6Ck'
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+
+            'priority': 'high',
+            'data': <String, dynamic>{
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'status': 'done',
+              'body': body,
+              'title': title,
+            },
+
+            "notification" : <String, dynamic>{
+              "title":title,
+              "body": body,
+              "android_channel_id": "petme"
+            },
+            "to": token,
+          },
+        ),
+      );
+    }catch (e){
+      if(kDebugMode){
+        print("Error Push Notification");
+      }
     }
   }
 
@@ -147,8 +219,43 @@ class AuthPage extends GetxController {
     }
   }
 
+  void isTokenRefresh() async {
+    FirebaseMessaging.instance.onTokenRefresh.listen((event) {
+        event.toString();
+        print("refresh");
+    });
+  }
+
   void loginUser(String email, String password) async {
     try {
+      // New Token generation if necessary
+      String? MyToken = await FirebaseMessaging.instance.getToken();
+      print("New Token is $MyToken");
+      isTokenRefresh();
+      // Updating Token in Firestore
+      final adopterRef = FirebaseFirestore.instance.collection("Adopters").
+      where("email", isEqualTo: email).get().then((value) => {
+        value.docs.forEach((element) async {
+          var UID = element.id;
+          print("Current User's UID is: $UID");
+          await FirebaseFirestore.instance
+          .collection("Adopters")
+          .doc(UID)
+          .update({
+            'token': MyToken,
+          })
+          ;
+
+
+
+          // print(element.data());
+          // print(UID);
+          // print(token);
+          // print(tokenList);
+          // print(hello);
+        })
+      });
+
       if (email.isNotEmpty && password.isNotEmpty) {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: email, password: password);
@@ -169,6 +276,8 @@ class AuthPage extends GetxController {
     _user.bindStream(FirebaseAuth.instance.authStateChanges());
     ever(_user, _setInitialScreen);
   }
+
+
 
   _setInitialScreen(User? user) {
     Future.delayed(const Duration(seconds: 3), () {

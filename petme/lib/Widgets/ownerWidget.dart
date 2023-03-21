@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petme/providers/ownerProvider.dart';
 import 'package:petme/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -7,7 +8,7 @@ class OwnerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context);
+    final userProvider = Provider.of<OwnerProvider>(context);
     final user = userProvider.getUser;
     return user != null
         ? Padding(
