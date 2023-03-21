@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:petme/Widgets/blog_card.dart';
 import 'package:petme/Widgets/post_card.dart';
+import 'package:petme/screens/HomeScreen/Navigation/createBlogPage.dart';
 import 'package:provider/provider.dart';
 import '../../../providers/petProvider.dart';
 import '../../../providers/user_provider.dart';
@@ -10,14 +12,14 @@ import 'package:lottie/lottie.dart';
 
 import 'detailsPage.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class BlogFeedPage extends StatefulWidget {
+  const BlogFeedPage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<BlogFeedPage> createState() => _BlogFeedPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _BlogFeedPageState extends State<BlogFeedPage> {
   @override
   void initState() {
     super.initState();
@@ -33,65 +35,50 @@ class _HomePageState extends State<HomePage> {
   //   return Scaffold();
   // }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF212121),
+      appBar: AppBar(
+        title: Text('Blogs'),
+        backgroundColor: Colors.pink[300],
+      ),
+      backgroundColor:  Colors.white38,
       body: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('Adopters').snapshots(),
-          builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot2) {
-            return StreamBuilder(
-              stream: FirebaseFirestore.instance.collection('posts').snapshots(),
-              builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+              stream:
+                  FirebaseFirestore.instance.collection('Blogs').snapshots(),
+              builder: (context,
+                  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator(backgroundColor: Colors.pink[400],));
+                  return Center(
+                      child: CircularProgressIndicator(
+                    backgroundColor: Colors.pink[400],
+                  ));
                 }
                 return ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (BuildContext context, int index) {
                     // final pet = provider[index];
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ChangeNotifierProvider(
-                              create: (_) => PetsProvider(),
-                              child: DetailsPage(
-                                snap: snapshot.data!.docs[index].data(),
-                                snap2: snapshot2.data!.docs[index].data(),
-                                // pet: pet,
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                      child: PostCard(
+                    return BlogCard(
                         snap: snapshot.data!.docs[index].data(),
-                        snap2: snapshot2.data!.docs[index].data(),
-                      ),
-                    );
-                    // );
+                      );
                   },
                 );
               },
-            );
-          }
-      ),
+              ),
+
+
+
       floatingActionButton: GestureDetector(
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ChatBot()),
+            MaterialPageRoute(builder: (context) => CreateBlogPage()),
           );
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(
-              vertical: 7,
-              horizontal: 10,
+            vertical: 20,
+            horizontal: 10,
           ),
           child: Container(
             width: 60,
@@ -106,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Center(
                   child: Lottie.network(
-                    'https://assets3.lottiefiles.com/packages/lf20_syqnfe7c.json',
+                    'https://assets3.lottiefiles.com/packages/lf20_we7qtj1g.json',
                     repeat: true,
                     fit: BoxFit.contain,
                   ),
@@ -116,9 +103,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-
-
-
     );
   }
 }

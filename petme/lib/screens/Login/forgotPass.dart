@@ -39,69 +39,78 @@ class _ForgotPassState extends State<ForgotPass> {
                 ),
               ), // Log in to continue
               Center(
-                  child: Container(
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.23,
-                    right: 35,
-                    left: 35),
-                child: Column(children: [
-                  TextField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                        hintText: 'Email id',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                  ), // Email
-                  const SizedBox(
-                    height: 35,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      GestureDetector(
-                        onTap: null,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ElevatedButton(
-                                onPressed: () async {
-                                  var forgotEmail =
-                                      emailController.text.trim();
+                child: Container(
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.23,
+                      right: 35,
+                      left: 35),
+                  child: Column(children: [
+                    TextField(
+                      controller: emailController,
+                      decoration: InputDecoration(
+                          hintText: 'Email id',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                    ), // Email
+                    const SizedBox(
+                      height: 35,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        GestureDetector(
+                          onTap: null,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                  onPressed: () async {
+                                    var forgotEmail =
+                                        emailController.text.trim();
 
-                                  try {
-                                    await FirebaseAuth.instance
-                                        .sendPasswordResetEmail(
-                                            email: forgotEmail)
-                                        .then((value) =>
-                                            Get.off(() => MyLogin()),
-                                    );
-                                  } on FirebaseAuthException catch (e) {
-                                    debugPrint("Error $e");
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(50, 10, 50, 10),
-                                  backgroundColor: Colors.pink[400],
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(10.0)),
-                                ),
-                                child: const Text(
-                                  'Forgot Password',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                )
-                            ),
-                          ],
+                                    try {
+                                      await FirebaseAuth.instance
+                                          .sendPasswordResetEmail(
+                                              email: forgotEmail)
+                                          .then(
+                                            (value) {
+
+                                              Get.off(() => MyLogin());
+                                              Get.snackbar(
+                                                  "Email has been sent", "Please reset the password from the link provided in the email",
+                                                  colorText: Colors.greenAccent[400], backgroundColor: Colors.white);
+
+                                            }
+                                          );
+
+
+                                    } on FirebaseAuthException catch (e) {
+                                      Get.snackbar("Invalid email id",
+                                          "Please check your email id"
+                                      ,colorText: Colors.redAccent[400], backgroundColor: Colors.white);
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        50, 10, 50, 10),
+                                    backgroundColor: Colors.pink[400],
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0)),
+                                  ),
+                                  child: const Text(
+                                    'Forgot Password',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ]
+                      ],
+                    ),
+                  ]),
                 ),
-              ),
               )
             ],
           ),

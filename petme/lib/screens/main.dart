@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:petme/firebaseAuthe/auth_page.dart';
 import 'package:petme/providers/user_provider.dart';
+import 'package:petme/screens/HomeScreen/Navigation/createBlogPage.dart';
 import 'package:petme/screens/HomeScreen/Navigation/home_page.dart';
 import 'package:petme/screens/HomeScreen/main_page.dart';
 import 'package:petme/screens/Registration/Adopter/adopterSignUp.dart';
@@ -15,6 +16,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:petme/screens/Login/forgotPass.dart';
 import 'package:provider/provider.dart';
 import '../providers/petProvider.dart';
+import 'HomeScreen/Navigation/blogfeedpage.dart';
 import 'firebase_options.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -54,6 +56,8 @@ void main() async {
       getPages: [
         GetPage(name: '/login', page: () => MyLogin()),
         GetPage(name: '/signup', page: () => const SignUp()),
+        GetPage(name: '/blogpage', page: () => CreateBlogPage()),
+        GetPage(name: '/blogfeed', page: () => BlogFeedPage()),
         GetPage(
             name: '/splash',
             page: () => const SplashScreen(),

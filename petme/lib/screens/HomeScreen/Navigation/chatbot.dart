@@ -1,205 +1,133 @@
-import 'chat_message.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dialogflow/dialogflow_v2.dart';
+import 'package:dialog_flowtter/dialog_flowtter.dart';
 
 class ChatBot extends StatefulWidget {
+  const ChatBot({Key? key}) : super(key: key);
+
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _ChatBotState createState() => _ChatBotState();
 }
 
-class _HomeScreenState extends State<ChatBot> {
-  List<ChatMessage> messages = [];
-  TextEditingController _inputMessageController = new TextEditingController();
-  late Dialogflow dialogflow;
-  late AuthGoogle authGoogle;
-  ScrollController _scrollController = new ScrollController(
-    initialScrollOffset: 0.0,
-    keepScrollOffset: true,
-  );
+class _ChatBotState extends State<ChatBot> {
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () async {
-      await initiateDialogFlow();
+    DialogFlowtter.fromFile().then((value) => _dialogflow = value);
+    _messages.add(_buildChatBubble("Hi there! How can I assist you today?"));
+  }
+
+  final _controller = TextEditingController();
+  late DialogFlowtter _dialogflow;
+  //final _dialogflow = Dialogflowter.fromFile('path/to/dialog_flow_auth.json');
+  List<String> _predefinedQuestions = [
+    'How do I reset my password?',
+    'How do I update my profile information?',
+    'How do I delete my account?',
+    'How do I contact customer support?',
+  ];
+
+  List<Widget> _buildPredefinedQuestions() {
+    return _predefinedQuestions
+        .map((question) => ElevatedButton(
+      onPressed: () async {
+        final response = await _dialogflow.detectIntent(queryInput: QueryInput(text: TextInput(text: question)));
+        _displayResponse(response,question);
+      },
+      child: Text(question),
+    ))
+        .toList();
+  }
+
+  void _onSend() async {
+    final query = _controller.text;
+    _controller.clear();
+    _displayMessage(query, isUser: true);
+    final response = await _dialogflow.detectIntent(queryInput: QueryInput(text: TextInput(text: query)));
+    _displayMessage(response.text!, isUser: false);
+  }
+
+  void _displayMessage(String message, {bool isUser = false}) {
+    setState(() {
+      _messages.add(_buildChatBubble(message, isUser: isUser));
     });
   }
 
+
+  void _displayResponse(DetectIntentResponse response, String query) {
+    final botMessage = response.text;
+    setState(() {
+      _messages.add(_buildChatBubble(query, isUser: true));
+      _messages.add(_buildChatBubble(botMessage!, isUser: false));
+    });
+  }
+
+
+  Widget _buildChatBubble(String text, {bool isUser = false}) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 8),
+      alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
+      child: Container(
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          color: isUser ? Colors.pink[300] : Colors.grey[200],
+        ),
+        child: Text(text),
+      ),
+    );
+  }
+
+  List<Widget> _messages = [];
+
   @override
   Widget build(BuildContext context) {
-    _scrollToBottom();
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        automaticallyImplyLeading: true,
-        backgroundColor: Colors.white,
-        flexibleSpace: SafeArea(
-          child: Container(
-            padding: EdgeInsets.only(right: 16),
+
+        title: Text('PetMe ChatBot'),
+          backgroundColor: Colors.pink[300],
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  ..._messages,
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(16),
             child: Row(
-              children: <Widget>[
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: Colors.black,
-                  ),
-                ),
-                SizedBox(
-                  width: 12,
-                ),
+              children: [
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "PetMeBot",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600),
-                      ),
-                      SizedBox(
-                        height: 6,
-                      ),
-                      Text(
-                        "Online",
-                        style: TextStyle(
-                            color: Colors.grey.shade600, fontSize: 13),
-                      ),
-                    ],
+                  child: TextField(
+                    controller: _controller,
+                    decoration: InputDecoration(
+                      hintText: 'Type your message here',
+                    ),
                   ),
-                )
+                ),
+                IconButton(
+                  onPressed: _onSend,
+                  icon: Icon(Icons.send),
+                ),
               ],
             ),
           ),
-        ),
-      ),
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            chatSpaceWidget(),
-            Container(
-              height: 1.0,
-              width: double.infinity,
-              color: Colors.blueGrey,
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: _buildPredefinedQuestions(),
             ),
-            bottomChatView()
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget chatSpaceWidget() {
-    return Flexible(
-      child: SingleChildScrollView(
-        controller: _scrollController,
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            ListView.builder(
-                itemCount: messages.length,
-                shrinkWrap: true,
-                padding: EdgeInsets.only(top: 10, bottom: 10),
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Container(
-                    padding: EdgeInsets.only(
-                        left: 14, right: 14, top: 10, bottom: 10),
-                    child: Align(
-                      alignment: (messages[index].messageType == "receiver"
-                          ? Alignment.topLeft
-                          : Alignment.topRight),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: (messages[index].messageType == "receiver"
-                              ? Colors.grey.shade200
-                              : Colors.blue[200]),
-                        ),
-                        padding: EdgeInsets.all(16),
-                        child: Text(
-                          messages[index].messageContent,
-                          style: TextStyle(fontSize: 15),
-                        ),
-                      ),
-                    ),
-                  );
-                }),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget bottomChatView() {
-    return Container(
-      padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
-      height: 60,
-      width: double.infinity,
-      child: Row(
-        children: <Widget>[
-          SizedBox(
-            width: 15,
-          ),
-          Expanded(
-            child: TextField(
-              controller: _inputMessageController,
-              onSubmitted: (String str) {
-                fetchFromDialogFlow(str);
-              },
-              decoration: InputDecoration(
-                  hintText: "Write message...",
-                  hintStyle: TextStyle(color: Colors.black54),
-                  border: InputBorder.none),
-            ),
-          ),
-          SizedBox(
-            width: 15,
-          ),
-          FloatingActionButton(
-            onPressed: () {
-              fetchFromDialogFlow(_inputMessageController.text);
-            },
-            child: Icon(
-              Icons.send,
-              color: Colors.white,
-              size: 18,
-            ),
-            backgroundColor: Colors.blue,
-            elevation: 0,
           ),
         ],
       ),
     );
-  }
-
-  _scrollToBottom() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_scrollController.hasClients) {
-        _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-      }
-    });
-  }
-
-  initiateDialogFlow() async {
-    AuthGoogle authGoogle =
-    await AuthGoogle(fileJson: "assets/creds.json").build();
-    dialogflow = Dialogflow(authGoogle: authGoogle, language: Language.english);
-  }
-
-  fetchFromDialogFlow(String input) async {
-    _inputMessageController.clear();
-    setState(() {
-      messages.add(ChatMessage(messageContent: input, messageType: "sender"));
-    });
-
-    AIResponse response = await dialogflow.detectIntent(input);
-    print(response.getMessage());
-    messages.add(ChatMessage(
-        messageContent: response.getMessage(), messageType: "receiver"));
-    setState(() {});
   }
 }

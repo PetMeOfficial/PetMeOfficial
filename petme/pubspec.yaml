@@ -42,7 +42,7 @@ dependencies:
   get: ^4.6.5
   google_nav_bar: ^5.0.6
   firebase_storage: ^11.0.14
-  image_picker: ^0.8.6+4
+  image_picker: ^0.8.7
   uuid: ^3.0.7
   avatar_glow: ^2.0.2
   line_awesome_flutter: ^1.0.1
@@ -50,13 +50,15 @@ dependencies:
   animated_theme_switcher: ^1.0.5
   provider: ^6.0.5
   share: ^2.0.4
-  flutter_dialogflow: ^0.1.3
   bubble: ^1.1.9+1
   lottie: ^2.2.0
   google_maps_flutter: ^2.2.5
   font_awesome_flutter: ^10.4.0
   firebase_messaging: ^14.3.0
   flutter_local_notifications: ^8.2.0
+  dialog_flowtter: ^0.3.3
+  firebase_messaging: ^14.3.0
+
 
 dev_dependencies:
   flutter_test:

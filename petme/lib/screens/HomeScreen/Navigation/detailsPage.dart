@@ -10,6 +10,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:petme/providers/ownerProvider.dart';
 import 'package:petme/providers/user_provider.dart';
 import 'package:petme/screens/HomeScreen/main_page.dart';
+import 'package:petme/screens/HomeScreen/Navigation/meetingschedual.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -286,7 +287,20 @@ class _DetailsPageState extends State<DetailsPage> {
                                 textAlign: TextAlign.center,
                               ),
                             ),
+                      const SizedBox(
+                        width: 24.0,
+                      ),
+                      ElevatedButton(
+                        onPressed: ()  {
+                        },
+                        child: Text(
+                          'Adoption',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.0,
                           ),
+                          textAlign: TextAlign.center,
                         ),
                       )
                     ],

@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -34,8 +35,15 @@ class _MainPageState extends State<MainPage> {
   String? mtoken = "";
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   var authController = AuthPage.instance;
+
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
   @override
   void initState(){
+    _firebaseMessaging.requestPermission();
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      // TODO: handle the message
+    });
     addData();
     requestPermission();
     initInfo();
@@ -167,9 +175,17 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('PetMe', style: GoogleFonts.anton(textStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 25,),),),
-        // title: Text('PetMe', style: GoogleFonts.exo2(textStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 25,),),),
+        title: Text(
+          'PetMe',
+          style: GoogleFonts.anton(
+            textStyle: const TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 25,
+            ),
+          ),
+        ),
         backgroundColor: Colors.pink[300],
+        elevation: 0.0,
         actions: [
           IconButton(
               onPressed: (){
@@ -179,8 +195,21 @@ class _MainPageState extends State<MainPage> {
               },
               icon: const Icon(FontAwesomeIcons.arrowRightFromBracket,size: 20,)
           )
+          TextButton(
+            onPressed: (){
+              Get.toNamed('blogfeed');
+            },
+            child: Text("Blogs", style: TextStyle(color: Colors.white, fontSize: 20),),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(
+                Colors.pink[300]!,
+              ),
+            ),
+          ),
         ],
-      ),
+      )
+
+      ,
       body: PageView(
         children: [_widgetOptions.elementAt(_selectedIndex)],
       ),
