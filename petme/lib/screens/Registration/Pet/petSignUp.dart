@@ -8,7 +8,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:petme/screens/Registration/Adopter/adopterSignUp.dart';
 
-import '../../../firebaseAuthe/auth_page.dart';
+import '../../../Authentication/auth_page.dart';
 import '../../../utils/utils.dart';
 
 class SignUp extends StatefulWidget {

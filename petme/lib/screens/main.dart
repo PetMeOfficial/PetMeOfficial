@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:petme/firebaseAuthe/auth_page.dart';
+import 'package:petme/Authentication/auth_page.dart';
 import 'package:petme/providers/user_provider.dart';
-import 'package:petme/screens/HomeScreen/Navigation/createBlogPage.dart';
-import 'package:petme/screens/HomeScreen/Navigation/home_page.dart';
-import 'package:petme/screens/HomeScreen/main_page.dart';
+import 'package:petme/screens/MainScreen/Navigation/BlogSection/createBlogPage.dart';
+import 'package:petme/screens/MainScreen/Navigation/HomeScreen/home_page.dart';
+import 'package:petme/screens/MainScreen/main_page.dart';
 import 'package:petme/screens/Registration/Adopter/adopterSignUp.dart';
 import 'package:petme/screens/Login/login_page.dart';
 import 'package:petme/screens/Registration/Pet/petSignUp.dart';
@@ -16,7 +16,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:petme/screens/Login/forgotPass.dart';
 import 'package:provider/provider.dart';
 import '../providers/petProvider.dart';
-import 'HomeScreen/Navigation/blogfeedpage.dart';
+import 'MainScreen/Navigation/BlogSection/blogfeedpage.dart';
 import 'firebase_options.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {

@@ -3,8 +3,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../firebaseAuthe/auth_page.dart';
-import '../../../utils/utils.dart';
+import '../../../../Authentication/auth_page.dart';
+import '../../../../utils/utils.dart';
 
 class BlogPost {
   final String title;

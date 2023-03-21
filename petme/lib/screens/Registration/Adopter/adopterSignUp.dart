@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:petme/screens/Registration/Pet/petSignUp.dart';
-import 'package:petme/firebaseAuthe/auth_page.dart';
+import 'package:petme/Authentication/auth_page.dart';
 import 'package:get/get.dart';
 
 import '../../../utils/utils.dart';

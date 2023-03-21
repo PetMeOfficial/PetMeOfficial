@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petme/Widgets/blog_card.dart';
 import 'package:petme/Widgets/post_card.dart';
-import 'package:petme/screens/HomeScreen/Navigation/createBlogPage.dart';
+import 'package:petme/screens/MainScreen/Navigation/BlogSection/createBlogPage.dart';
 import 'package:provider/provider.dart';
-import '../../../providers/petProvider.dart';
-import '../../../providers/user_provider.dart';
-import 'chatbot.dart';
+import '../../../../providers/petProvider.dart';
+import '../../../../providers/user_provider.dart';
+import '../HomeScreen/chatbot.dart';
 import 'package:lottie/lottie.dart';
 
-import 'detailsPage.dart';
+import '../HomeScreen/detailsPage.dart';
 
 class BlogFeedPage extends StatefulWidget {
   const BlogFeedPage({Key? key}) : super(key: key);

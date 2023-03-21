@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petme/Widgets/post_card.dart';
 import 'package:provider/provider.dart';
-import '../../../providers/petProvider.dart';
-import '../../../providers/user_provider.dart';
+import '../../../../providers/petProvider.dart';
+import '../../../../providers/user_provider.dart';
 import 'chatbot.dart';
 import 'package:lottie/lottie.dart';
 

@@ -9,14 +9,14 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:petme/providers/ownerProvider.dart';
 import 'package:petme/providers/user_provider.dart';
-import 'package:petme/screens/HomeScreen/main_page.dart';
+import 'package:petme/screens/MainScreen/main_page.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../Widgets/ownerWidget.dart';
-import '../../../firebaseAuthe/auth_page.dart';
-import '../../../models/posts.dart';
-import '../../FirebaseFunctions/firestore_methods.dart';
+import '../../../../Widgets/ownerWidget.dart';
+import '../../../../Authentication/auth_page.dart';
+import '../../../../models/posts.dart';
+import '../../../FirebaseFunctions/firestore_methods.dart';
 
 class DetailsPage extends StatefulWidget {
   // final Post pet;
