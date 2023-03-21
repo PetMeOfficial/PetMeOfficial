@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:petme/providers/user_provider.dart';
+import 'package:petme/screens/HomeScreen/Navigation/meetingschedual.dart';
 import 'package:provider/provider.dart';
 
 import '../../../Widgets/ownerWidget.dart';
@@ -135,23 +136,17 @@ class _DetailsPageState extends State<DetailsPage> {
                       const SizedBox(
                         width: 24.0,
                       ),
-                      Expanded(
-                        child: Material(
-                          borderRadius: BorderRadius.circular(20.0),
-                          elevation: 4.0,
-                          color: Theme.of(context).primaryColor,
-                          child: const Padding(
-                            padding: EdgeInsets.all(20.0),
-                            child: Text(
-                              'Adoption',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18.0,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
+                      ElevatedButton(
+                        onPressed: ()  {
+                        },
+                        child: Text(
+                          'Adoption',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.0,
                           ),
+                          textAlign: TextAlign.center,
                         ),
                       )
                     ],

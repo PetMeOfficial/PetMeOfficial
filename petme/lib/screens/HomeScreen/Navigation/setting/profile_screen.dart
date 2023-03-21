@@ -16,10 +16,7 @@ import 'profile_list_item.dart';
 import 'package:petme/models/user.dart' as model;
 import 'privacy.dart';
 import 'package:get/get.dart';
-
-
-
-
+import 'package:image_picker/image_picker.dart';
 
 class ProfileScreen extends StatefulWidget {
   ProfileScreen({Key? key}) : super(key: key);
@@ -88,33 +85,7 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return Container(
-                          child: Wrap(
-                            children: <Widget>[
-                              ListTile(
-                                leading: Icon(Icons.photo_library),
-                                title: Text('Photo Library'),
-                                onTap: () {
-                                  // TODO: Implement selecting image from photo library
-                                  Navigator.pop(context);
-                                },
-                              ),
-                              ListTile(
-                                leading: Icon(Icons.camera_alt),
-                                title: Text('Camera'),
-                                onTap: () {
-                                  // TODO: Implement taking a new photo using the camera
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    );
+
                   },
                   child: Stack(
                     children: <Widget>[

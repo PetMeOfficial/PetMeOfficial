@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petme/models/user.dart' as model;
+import 'package:petme/models/blogModel.dart' as blogModel;
 import 'package:petme/models/petUser.dart' as petModel;
 import 'package:petme/screens/FirebaseFunctions/storage_methods.dart';
 import 'package:petme/screens/HomeScreen/main_page.dart';
@@ -50,6 +51,39 @@ class AuthPage extends GetxController {
         );
         await FirebaseFirestore.instance.collection("Adopters").doc(
             cred.user!.uid).set(user.toJson());
+      } else {
+        Get.snackbar(
+            "Error Creating An Account", "Please Enter All The Fields");
+      }
+    } catch (e) {
+      Get.snackbar("Error Creating An Account", e.toString());
+      debugPrint(e as String?);
+    }
+  }
+
+  void CreateblogPost(
+      String title,
+      String description,
+      String content,
+      Uint8List file,
+
+      ) async {
+    try {
+      if (
+      title.isNotEmpty &&
+          description.isNotEmpty &&
+          content.isNotEmpty
+      ) {
+
+        String profilePicUrl = await StorageMethods().uploadImageToStorage('BlogPostImage', file, false);
+        blogModel.Blog blog = blogModel.Blog(
+          title: title,
+          description: description,
+          content: content,
+          postImage: profilePicUrl,
+
+        );
+        await FirebaseFirestore.instance.collection("Blogs").doc().set(blog.toJson());
       } else {
         Get.snackbar(
             "Error Creating An Account", "Please Enter All The Fields");

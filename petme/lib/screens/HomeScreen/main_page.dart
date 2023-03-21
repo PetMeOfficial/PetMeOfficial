@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -21,8 +22,14 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
 
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
   @override
   void initState(){
+    _firebaseMessaging.requestPermission();
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      // TODO: handle the message
+    });
     addData();
     super.initState();
   }
@@ -51,21 +58,33 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('PetMe', style: GoogleFonts.anton(textStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 25,),),),
-        // title: Text('PetMe', style: GoogleFonts.exo2(textStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 25,),),),
+        title: Text(
+          'PetMe',
+          style: GoogleFonts.anton(
+            textStyle: const TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 25,
+            ),
+          ),
+        ),
         backgroundColor: Colors.pink[300],
+        elevation: 0.0,
         actions: [
-          IconButton(
-              onPressed: (){
-                signUserOut();
-                Get.snackbar(
-                    "Sign Out Success", "Log In to Continue");
-              },
-              icon: const Icon(Icons.logout
-              )
-          )
+          TextButton(
+            onPressed: (){
+              Get.toNamed('blogfeed');
+            },
+            child: Text("Blogs", style: TextStyle(color: Colors.white, fontSize: 20),),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(
+                Colors.pink[300]!,
+              ),
+            ),
+          ),
         ],
-      ),
+      )
+
+      ,
       body: PageView(
         children: [_widgetOptions.elementAt(_selectedIndex)],
       ),
