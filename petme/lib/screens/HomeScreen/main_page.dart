@@ -1,6 +1,4 @@
-
 import 'dart:convert';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -187,14 +185,6 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: Colors.pink[300],
         elevation: 0.0,
         actions: [
-          IconButton(
-              onPressed: (){
-                signUserOut();
-                Get.snackbar(
-                    "Sign Out Success", "Log In to Continue");
-              },
-              icon: const Icon(FontAwesomeIcons.arrowRightFromBracket,size: 20,)
-          )
           TextButton(
             onPressed: (){
               Get.toNamed('blogfeed');

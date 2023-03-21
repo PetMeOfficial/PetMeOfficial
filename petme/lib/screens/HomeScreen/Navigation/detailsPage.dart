@@ -10,7 +10,6 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:petme/providers/ownerProvider.dart';
 import 'package:petme/providers/user_provider.dart';
 import 'package:petme/screens/HomeScreen/main_page.dart';
-import 'package:petme/screens/HomeScreen/Navigation/meetingschedual.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -129,7 +128,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                 ),
                               ),
                               Icon(CupertinoIcons.share,
-                                  color: Colors.pink[400],),
+                                color: Colors.pink[400],),
                             ],
                           ),
                         ],
@@ -204,57 +203,57 @@ class _DetailsPageState extends State<DetailsPage> {
                           // where("token", isEqualTo: widget.snap['token']).
                           get()
                               .then((value) => {
-                                value.docs.forEach((element) {
-                                  var UID = element.id;
-                                  print(UID);
-                                  var tokenList = element.data();
-                                  // var token = element.data().values;
+                            value.docs.forEach((element) {
+                              var UID = element.id;
+                              print(UID);
+                              var tokenList = element.data();
+                              // var token = element.data().values;
 
-                                  MapEntry entry = tokenList.entries.firstWhere((element) => element.key=='token');
-                                  if(entry != null){
-                                    print('key = ${entry.key}');
-                                    print('value = ${entry.value}');
-                                    var LatestToken = entry.value;
-                                    print(LatestToken);
-                                    setState(() {
-                                          finalToken = LatestToken;
-                                          print("My token is $finalToken");
-                                        });
-                                  }
-                                  MapEntry uname = tokenList.entries.firstWhere((element) => element.key=='username');
-                                  if(uname != null){
-                                    print('key = ${uname.key}');
-                                    print('value = ${uname.value}');
-                                    var username = uname.value;
-                                    print(username);
-                                    setState(() {
-                                      userName = username;
-                                      // print("My token is $finalToken");
-                                    });
-                                  }
-                                  if(finalToken!=null){
-                                    // Code for sending message
-                                    try {
-                                      sendPushMessage(
-                                          finalToken!,
-                                          "Adoption Request",
-                                          "Someone sent you a Request!",
-                                      );
-                                      Get.snackbar("Notification Sent to Owner",
-                                          "They will reply soon!",
-                                          colorText: Colors.greenAccent[400],
-                                          backgroundColor: Colors.white);
-                                    }catch(err){
-                                     print(err.toString());
-                                    }
-                                  }
+                              MapEntry entry = tokenList.entries.firstWhere((element) => element.key=='token');
+                              if(entry != null){
+                                print('key = ${entry.key}');
+                                print('value = ${entry.value}');
+                                var LatestToken = entry.value;
+                                print(LatestToken);
+                                setState(() {
+                                  finalToken = LatestToken;
+                                  print("My token is $finalToken");
+                                });
+                              }
+                              MapEntry uname = tokenList.entries.firstWhere((element) => element.key=='username');
+                              if(uname != null){
+                                print('key = ${uname.key}');
+                                print('value = ${uname.value}');
+                                var username = uname.value;
+                                print(username);
+                                setState(() {
+                                  userName = username;
+                                  // print("My token is $finalToken");
+                                });
+                              }
+                              if(finalToken!=null){
+                                // Code for sending message
+                                try {
+                                  sendPushMessage(
+                                    finalToken!,
+                                    "Adoption Request",
+                                    "Someone sent you a Request!",
+                                  );
+                                  Get.snackbar("Notification Sent to Owner",
+                                      "They will reply soon!",
+                                      colorText: Colors.greenAccent[400],
+                                      backgroundColor: Colors.white);
+                                }catch(err){
+                                  print(err.toString());
+                                }
+                              }
 
-                                  // print(element.data());
-                                  // print(UID);
-                                  // print(token);
-                                  // print(tokenList);
-                                  // print(hello);
-                                })
+                              // print(element.data());
+                              // print(UID);
+                              // print(token);
+                              // print(tokenList);
+                              // print(hello);
+                            })
                           });
 
                           // Create a query against the collection.
@@ -265,7 +264,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           String bodyText = 'Body';
 
                           // authController.sendPushMessage(token, titleText, bodyText);
-                          
+
                         },
                         // authController.sendPushMessage(token, body, title),
 
@@ -287,20 +286,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                      const SizedBox(
-                        width: 24.0,
-                      ),
-                      ElevatedButton(
-                        onPressed: ()  {
-                        },
-                        child: Text(
-                          'Adoption',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18.0,
                           ),
-                          textAlign: TextAlign.center,
                         ),
                       )
                     ],
