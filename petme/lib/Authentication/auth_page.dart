@@ -12,7 +12,7 @@ import 'package:petme/models/blogModel.dart' as blogModel;
 import 'package:petme/models/petUser.dart' as petModel;
 import 'package:petme/screens/FirebaseFunctions/auth_methods.dart';
 import 'package:petme/screens/FirebaseFunctions/storage_methods.dart';
-import 'package:petme/screens/HomeScreen/main_page.dart';
+import 'package:petme/screens/MainScreen/main_page.dart';
 // import 'package:petme/firebaseAuthe/auth_page.dart';
 import 'package:petme/screens/Login/login_page.dart';
 import 'package:http/http.dart' as http;

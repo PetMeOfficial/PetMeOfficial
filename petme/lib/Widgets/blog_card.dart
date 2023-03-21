@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../screens/HomeScreen/Navigation/createBlogPage.dart';
+import '../screens/MainScreen/Navigation/BlogSection/createBlogPage.dart';
 
 class BlogCard extends StatelessWidget {
   final snap;

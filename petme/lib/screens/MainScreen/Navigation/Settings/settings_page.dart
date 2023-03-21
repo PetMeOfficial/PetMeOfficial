@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petme/providers/user_provider.dart';
-import 'package:petme/screens/HomeScreen/Navigation/setting/profile_screen.dart';
+import 'package:petme/screens/MainScreen/Navigation/Settings/profile_screen.dart';
 import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {

@@ -5,10 +5,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:petme/screens/FirebaseFunctions/firestore_methods.dart';
 import 'package:petme/models/user.dart' as model;
-import 'package:petme/screens/HomeScreen/main_page.dart';
+import 'package:petme/screens/MainScreen/main_page.dart';
 import 'package:provider/provider.dart';
 
-import '../../../providers/user_provider.dart';
+import '../../../../providers/user_provider.dart';
 
 
 class AddPostScreen extends StatefulWidget {

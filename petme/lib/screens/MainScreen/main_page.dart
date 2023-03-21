@@ -9,18 +9,17 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:petme/screens/HomeScreen/Navigation/detailsPage.dart';
-import 'package:petme/screens/HomeScreen/Navigation/map_page.dart';
-import 'package:petme/screens/HomeScreen/Navigation/home_page.dart';
-import 'package:petme/screens/HomeScreen/Navigation/settings_page.dart';
-import 'package:petme/screens/HomeScreen/Navigation/add_post_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-import '../../firebaseAuthe/auth_page.dart';
+import '../../Authentication/auth_page.dart';
 import '../../providers/user_provider.dart';
-import 'Navigation/meetings_page.dart';
+import 'Navigation/HomeScreen/home_page.dart';
+import 'Navigation/Map/map_page.dart';
+import 'Navigation/Meetings/meetings_page.dart';
+import 'Navigation/PetProfile/add_post_screen.dart';
+import 'Navigation/Settings/settings_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
