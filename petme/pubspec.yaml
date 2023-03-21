@@ -57,7 +57,6 @@ dependencies:
   firebase_messaging: ^14.3.0
   flutter_local_notifications: ^8.2.0
   dialog_flowtter: ^0.3.3
-  firebase_messaging: ^14.3.0
 
 
 dev_dependencies:

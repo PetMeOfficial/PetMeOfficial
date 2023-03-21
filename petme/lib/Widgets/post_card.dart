@@ -60,14 +60,20 @@ class PostCard extends StatelessWidget {
                         'Delete',
                       ].map((e) => InkWell(
                         onTap: () async {
+                          var x = FirebaseAuth.instance.currentUser?.uid;
                           final adopterRef = FirebaseFirestore.instance.collection("Adopters").
-                          where("uid", isEqualTo: snap2['uid']).get().then((value) => {
+                          where("uid", isEqualTo: snap['uid']).get().then((value) => {
                             value.docs.forEach((element) async {
-                              var UID = element.id;
-                              print("Current User's UID is: $UID");
+                              // var UID = element.id;
+                              print("Current User's UID is: $x");
                               print("snap id: ${snap['uid']}");
-                              if(UID == snap['uid']){
+                              if(x == snap['uid']){
                                 FirestoreMethods().deletePost(snap['postId']);
+                                print("Will be deleted");
+                              }else{
+                                print("Wrong User Deleting post");
+                                print(snap['uid']);
+                                // print(element.id);
                               }
 
                             })
