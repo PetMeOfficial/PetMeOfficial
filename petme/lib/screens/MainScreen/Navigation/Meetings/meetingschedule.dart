@@ -181,13 +181,16 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:petme/screens/MainScreen/main_page.dart';
 
+import '../../../../Authentication/auth_page.dart';
+
 class MeetingsSchedulingPage extends StatefulWidget {
   final String petOwnerId;
   final String adopterId;
   final String ownerName;
   final String adopterName;
 
-  MeetingsSchedulingPage({
+  const MeetingsSchedulingPage({
+    super.key,
     required this.petOwnerId,
     required this.ownerName,
     required this.adopterName,
@@ -200,8 +203,9 @@ class MeetingsSchedulingPage extends StatefulWidget {
 
 class _MeetingsSchedulingPageState extends State<MeetingsSchedulingPage> {
   late DateTime selectedDate = DateTime.now();
-  late DateTime selectedTime = DateTime.now();
+  late TimeOfDay selectedTime = TimeOfDay.now();
   late String location;
+  var authController = AuthPage.instance;
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
@@ -226,10 +230,11 @@ class _MeetingsSchedulingPageState extends State<MeetingsSchedulingPage> {
 
     if (pickedTime != null && pickedTime != selectedTime) {
       setState(() {
-        selectedTime = pickedTime as DateTime;
+        selectedTime = pickedTime;
       });
     }
   }
+
 
   Future<void> _scheduleMeeting() async {
     if (
@@ -304,15 +309,16 @@ class _MeetingsSchedulingPageState extends State<MeetingsSchedulingPage> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: <Widget>[
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Text('Date: ', style: TextStyle(fontSize: 20),),
+                  const Text('Date: ', style: TextStyle(fontSize: 20),),
                   Text(selectedDate == null
                       ? '-'
-                      : '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}', style: TextStyle(fontSize: 20),),
-                  SizedBox(width: 20),
+                      : '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
+                    style: const TextStyle(fontSize: 20),),
+                  const SizedBox(width: 20),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       padding:
@@ -327,15 +333,15 @@ class _MeetingsSchedulingPageState extends State<MeetingsSchedulingPage> {
                   ),
                 ],
               ),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Text('Time: ', style: TextStyle(fontSize: 20),),
+                  const Text('Time: ', style: TextStyle(fontSize: 20),),
                   Text(selectedTime == null
                       ? '-'
                       : '${selectedTime.hour}:${selectedTime.minute.toString().padLeft(2, '0')}', style: TextStyle(fontSize: 20),),
-                  SizedBox(width: 60),
+                  const SizedBox(width: 60),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       padding:
@@ -346,16 +352,16 @@ class _MeetingsSchedulingPageState extends State<MeetingsSchedulingPage> {
                           BorderRadius.circular(10.0)),
                     ),
                     onPressed: () => _selectTime(context),
-                    child: Text('Select Time', style: TextStyle(fontSize: 15),),
+                    child: const Text('Select Time', style: TextStyle(fontSize: 15),),
                   ),
                 ],
               ),
-              SizedBox(height: 60),
+              const SizedBox(height: 60),
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Location',
                   labelStyle: TextStyle(color: Colors.pink[400]),
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(13),
                     borderSide: const BorderSide(
@@ -369,6 +375,18 @@ class _MeetingsSchedulingPageState extends State<MeetingsSchedulingPage> {
               ElevatedButton(
                 onPressed: () {
                   _scheduleMeeting;
+                  authController.scheduleMeeting(
+                      widget.petOwnerId,
+                      widget.adopterId,
+                      widget.ownerName,
+                      widget.adopterName,
+                      location,
+                      Timestamp.fromDate(DateTime(selectedDate.year, selectedDate.month,
+                      selectedDate.day, selectedTime.hour, selectedTime.minute
+                        ),
+                      )
+                  );
+                  Get.offAll(MainPage());
                   Get.snackbar("Notification Sent to Owner",
                       "They will reply soon!",
                       colorText: Colors.greenAccent[400],

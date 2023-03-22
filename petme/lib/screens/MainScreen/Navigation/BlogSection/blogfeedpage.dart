@@ -1,19 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:petme/Widgets/blog_card.dart';
-import 'package:petme/Widgets/post_card.dart';
 import 'package:petme/screens/MainScreen/Navigation/BlogSection/createBlogPage.dart';
 import 'package:provider/provider.dart';
 import '../../../../providers/petProvider.dart';
 import '../../../../providers/user_provider.dart';
-import '../HomeScreen/chatbot.dart';
-import 'package:lottie/lottie.dart';
-
-import '../HomeScreen/detailsPage.dart';
-
 class BlogFeedPage extends StatefulWidget {
   const BlogFeedPage({Key? key}) : super(key: key);
 
@@ -41,7 +34,7 @@ class _BlogFeedPageState extends State<BlogFeedPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Blogs'),
+        title: const Text('Blogs'),
         backgroundColor: Colors.pink[300],
       ),
       backgroundColor: Colors.white38,

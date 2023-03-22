@@ -40,8 +40,8 @@ class _MeetingsPageState extends State<MeetingsPage> {
         adopterId: data['adopterId'] as String,
         date: (data['date'] as Timestamp).toDate(),
         location: data['location'] as String,
-        adopterName: data['Adopter'] as String,
-        ownerName: data['Pet-Owner'] as String,
+        adopterName: data['adopterName'] as String,
+        ownerName: data['ownerName'] as String,
       ));
     });
     return meetings;
@@ -102,10 +102,11 @@ class _MeetingsPageState extends State<MeetingsPage> {
                       style: TextStyle(color: Colors.white,fontSize: 17, fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(
-                        "\nMeeting between ${meetings[index].adopterName.toUpperCase()} "
-                        "and ${meetings[index].ownerName.toUpperCase()}\nScheduled for ${meetings[index].date.toString()} \n"
+                        "\nMeeting between ${meetings[index].ownerName.toUpperCase()} "
+                        "and ${meetings[index].adopterName.toUpperCase()}\nScheduled for ${meetings[index].date.day}-${meetings[index].date.month}-${meetings[index].date.year} \n"
+                            "at Time:- ${meetings[index].date.hour}:${meetings[index].date.minute}\n"
                         "at Location: ${meetings[index].location}",
-                      style: TextStyle(color: Colors.black87, fontSize: 16),),
+                      style: const TextStyle(color: Colors.black87, fontSize: 16),),
                     trailing: IconButton(
                       icon: const Icon(Icons.delete),
                       onPressed: () async {
