@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +10,11 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:petme/providers/ownerProvider.dart';
 import 'package:petme/providers/user_provider.dart';
+import 'package:petme/screens/MainScreen/Navigation/Meetings/meetingschedule.dart';
 import 'package:petme/screens/MainScreen/main_page.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:petme/models/user.dart' as model;
 import '../../../../Widgets/ownerWidget.dart';
 import '../../../../Authentication/auth_page.dart';
 import '../../../../models/posts.dart';
@@ -37,7 +39,11 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
   String? finalToken = "";
-  String? userName = "";
+  String petOwnerName = "";
+  String adopterName = "";
+  String petOwnerId = "";
+  String adopterId = "";
+
 
   void sendPushMessage(String token , title, body) async {
     try{
@@ -76,6 +82,7 @@ class _DetailsPageState extends State<DetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    model.User user = Provider.of<UserProvider>(context).getUser;
     final _db = FirestoreMethods();
     final male = widget.snap['petGender'] == 'Male' ? true : false;
     var authController = AuthPage.instance;
@@ -197,7 +204,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           // String username = widget.snap['username'];
                           // print(token);
                           // print(username);
-
+                          var x = FirebaseAuth.instance.currentUser?.uid;
                           final adopterRef = FirebaseFirestore.instance.collection("Adopters").
                           where("username", isEqualTo: widget.snap['username']).
                           // where("token", isEqualTo: widget.snap['token']).
@@ -225,24 +232,32 @@ class _DetailsPageState extends State<DetailsPage> {
                                 print('key = ${uname.key}');
                                 print('value = ${uname.value}');
                                 var username = uname.value;
-                                print(username);
+                                print("petOwner is : $username");
+                                print("adopterName is : ${user.username}");
                                 setState(() {
-                                  userName = username;
+                                  petOwnerName = username;
+                                  adopterId = x!;
+                                  petOwnerId = widget.snap2['uid'];
+                                  adopterName = user.username;
                                   // print("My token is $finalToken");
                                 });
+                                Get.to(MeetingsSchedulingPage(
+                                  petOwnerId: petOwnerId,
+                                  adopterId: adopterId,
+                                  ownerName: petOwnerName,
+                                  adopterName: adopterName,
+                                ));
                               }
                               if(finalToken!=null){
                                 // Code for sending message
                                 try {
                                   sendPushMessage(
                                     finalToken!,
-                                    "Adoption Request",
-                                    "Someone sent you a Request!",
+                                    "Hey ${petOwnerName.toUpperCase()}!",
+                                    "Someone is Interested in your Pet",
                                   );
-                                  Get.snackbar("Notification Sent to Owner",
-                                      "They will reply soon!",
-                                      colorText: Colors.greenAccent[400],
-                                      backgroundColor: Colors.white);
+
+
                                 }catch(err){
                                   print(err.toString());
                                 }
@@ -329,9 +344,19 @@ class _DetailsPageState extends State<DetailsPage> {
                             ),
                           ),
                         ),
-                        Icon(
-                          male ? LineAwesomeIcons.mars : LineAwesomeIcons.venus,
-                          color: Colors.grey,
+                        Column(
+                          children: [
+                            Text(male ? "Male" : "Female", style: const TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15.0,
+                              ),
+                            ),
+                            Icon(
+                              male ? LineAwesomeIcons.mars : LineAwesomeIcons.venus,
+                              color: Colors.grey,
+                            ),
+                          ],
                         ),
                       ],
                     ),

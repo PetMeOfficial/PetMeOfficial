@@ -155,7 +155,7 @@ class _MainPageState extends State<MainPage> {
 
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
+  static  final List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     MeetingsPage(),
     AddPostScreen(),
