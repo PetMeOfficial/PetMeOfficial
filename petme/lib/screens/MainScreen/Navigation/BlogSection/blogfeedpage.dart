@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:petme/Widgets/blog_card.dart';
 import 'package:petme/Widgets/post_card.dart';
 import 'package:petme/screens/MainScreen/Navigation/BlogSection/createBlogPage.dart';
@@ -74,17 +76,22 @@ class _BlogFeedPageState extends State<BlogFeedPage> {
               );
             },
             label: Row(
-              children: const [
-                Icon(
-                  Icons.upload,
+              children: [
+                const Icon(
+                  FontAwesomeIcons.pen,
                   size: 24,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
                 Text(
                   "Create Blog",
-                  style: TextStyle(fontSize: 17),
+                  style: GoogleFonts.dosis(
+                    textStyle: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 17,
+                    ),
+                  ),
                 ),
               ],
             ),
