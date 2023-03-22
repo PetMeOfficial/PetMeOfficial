@@ -6,22 +6,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:petme/providers/ownerProvider.dart';
 import 'package:petme/providers/user_provider.dart';
 import 'package:petme/screens/MainScreen/Navigation/Meetings/meetingschedule.dart';
-import 'package:petme/screens/MainScreen/main_page.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:petme/models/user.dart' as model;
-import '../../../../Widgets/ownerWidget.dart';
-import '../../../../Authentication/auth_page.dart';
-import '../../../../models/posts.dart';
-import '../../../FirebaseFunctions/firestore_methods.dart';
 
 class DetailsPage extends StatefulWidget {
-  // final Post pet;
   final snap;
   final snap2;
 
@@ -83,13 +75,13 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
     model.User user = Provider.of<UserProvider>(context).getUser;
-    final _db = FirestoreMethods();
+    // final _db = FirestoreMethods();
     final male = widget.snap['petGender'] == 'Male' ? true : false;
-    var authController = AuthPage.instance;
+    // var authController = AuthPage.instance;
 
 
     final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
+    // final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
@@ -212,28 +204,46 @@ class _DetailsPageState extends State<DetailsPage> {
                               .then((value) => {
                             value.docs.forEach((element) {
                               var UID = element.id;
-                              print(UID);
+                              if (kDebugMode) {
+                                print(UID);
+                              }
                               var tokenList = element.data();
                               // var token = element.data().values;
 
                               MapEntry entry = tokenList.entries.firstWhere((element) => element.key=='token');
                               if(entry != null){
-                                print('key = ${entry.key}');
-                                print('value = ${entry.value}');
+                                if (kDebugMode) {
+                                  print('key = ${entry.key}');
+                                }
+                                if (kDebugMode) {
+                                  print('value = ${entry.value}');
+                                }
                                 var LatestToken = entry.value;
-                                print(LatestToken);
+                                if (kDebugMode) {
+                                  print(LatestToken);
+                                }
                                 setState(() {
                                   finalToken = LatestToken;
-                                  print("My token is $finalToken");
+                                  if (kDebugMode) {
+                                    print("My token is $finalToken");
+                                  }
                                 });
                               }
                               MapEntry uname = tokenList.entries.firstWhere((element) => element.key=='username');
                               if(uname != null){
-                                print('key = ${uname.key}');
-                                print('value = ${uname.value}');
+                                if (kDebugMode) {
+                                  print('key = ${uname.key}');
+                                }
+                                if (kDebugMode) {
+                                  print('value = ${uname.value}');
+                                }
                                 var username = uname.value;
-                                print("petOwner is : $username");
-                                print("adopterName is : ${user.username}");
+                                if (kDebugMode) {
+                                  print("petOwner is : $username");
+                                }
+                                if (kDebugMode) {
+                                  print("adopterName is : ${user.username}");
+                                }
                                 setState(() {
                                   petOwnerName = username;
                                   adopterId = x!;
@@ -259,7 +269,9 @@ class _DetailsPageState extends State<DetailsPage> {
 
 
                                 }catch(err){
-                                  print(err.toString());
+                                  if (kDebugMode) {
+                                    print(err.toString());
+                                  }
                                 }
                               }
 
@@ -275,8 +287,8 @@ class _DetailsPageState extends State<DetailsPage> {
                           // var query = adopterRef.where("username", isEqualTo: "vish").snapshots().toString();
                           // print(query);
 
-                          String titleText = 'Title';
-                          String bodyText = 'Body';
+                          // String titleText = 'Title';
+                          // String bodyText = 'Body';
 
                           // authController.sendPushMessage(token, titleText, bodyText);
 

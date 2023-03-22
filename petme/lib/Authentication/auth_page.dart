@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petme/models/user.dart' as model;
+import 'package:petme/models/Meetings.dart' as meetings;
 import 'package:petme/models/blogModel.dart' as blogModel;
 import 'package:petme/models/petUser.dart' as petModel;
 import 'package:petme/screens/FirebaseFunctions/auth_methods.dart';
@@ -98,6 +99,44 @@ class AuthPage extends GetxController {
       debugPrint(e as String?);
     }
   }
+
+  void scheduleMeeting(
+   String petOwnerId,
+   String adopterId,
+   String ownerName,
+   String adopterName,
+   String location,
+   dynamic date,
+      ) async {
+    try {
+      if (
+      petOwnerId.isNotEmpty &&
+          adopterName.isNotEmpty &&
+          adopterId.isNotEmpty &&
+          ownerName.isNotEmpty &&
+          location.isNotEmpty
+      ) {
+        meetings.Meetings meet = meetings.Meetings(
+            petOwnerId: petOwnerId,
+            adopterId: adopterId,
+            ownerName: ownerName,
+            adopterName: adopterName,
+            location: location,
+            date: date);
+        await FirebaseFirestore.instance.collection("Meetings").doc().set(meet.toJson());
+
+        // FirebaseMessaging Line Below for Token
+        // await FirebaseFirestore.instance.collection("Adopters").doc(cred.user!.uid).update({'tokenId' :''});
+      } else {
+        Get.snackbar(
+            "Error Setting a Meeting", "Please Enter All The Fields");
+      }
+    } catch (e) {
+      Get.snackbar("Error Scheduking", e.toString());
+      debugPrint(e as String?);
+    }
+  }
+
   void sendPushMessage(String token , title, body) async {
     try{
       await http.post(
