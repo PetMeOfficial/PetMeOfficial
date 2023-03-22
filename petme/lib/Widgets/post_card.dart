@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:petme/screens/FirebaseFunctions/firestore_methods.dart';
 
 class PostCard extends StatelessWidget {
@@ -27,7 +30,7 @@ class PostCard extends StatelessWidget {
             child: Row(
               children:  [
                 CircleAvatar(
-                  radius: 18,
+                  radius: 20,
                   backgroundImage:
                   // snap['postUrl']
                   NetworkImage(
@@ -43,7 +46,11 @@ class PostCard extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(snap['username'], style: const TextStyle(fontWeight: FontWeight.bold),),
+                          Text("${snap['username']}".toUpperCase(), style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            fontSize: 13
+                          ),
+                          ),
                           // Text(snap2['token'], style: const TextStyle(fontWeight: FontWeight.bold),),
                         // String token = widget.snap2['token'];
                         // print(token);
@@ -88,7 +95,7 @@ class PostCard extends StatelessWidget {
                       )).toList()
                     ),
                   ));
-                }, icon: const Icon(Icons.more_vert)),
+                }, icon: const Icon(FontAwesomeIcons.ellipsisVertical, size: 18,)),
               ],
 
             ),
@@ -102,28 +109,31 @@ class PostCard extends StatelessWidget {
               fit: BoxFit.cover,),
           ),
           //Likes and Comments section
-          Row(
-            children: [
-              IconButton(
-                  onPressed: (){},
-                  icon: const Icon(
-                    Icons.pets_outlined,
-                    color: Colors.pink,
-                  )
-              ),
-              IconButton(
-                  onPressed: (){},
-                  icon: const Icon(
-                    Icons.comment_rounded,
-                    color: Colors.pink,
-                  )
-              ),
-            ],
-          ),
+          // Row(
+          //   children: [
+          //     IconButton(
+          //         onPressed: (){},
+          //         icon: const Icon(
+          //           Icons.pets_outlined,
+          //           color: Colors.pink,
+          //         )
+          //     ),
+          //     IconButton(
+          //         onPressed: (){},
+          //         icon: const Icon(
+          //           Icons.comment_rounded,
+          //           color: Colors.pink,
+          //         )
+          //     ),
+          //   ],
+          // ),
           //Description
+          const SizedBox(
+            height: 10,
+          ),
           Container(
             padding: const EdgeInsets.only(
-              top: 1,
+              top: 3,
               left: 12,
             ),
             width: double.infinity,
@@ -136,7 +146,7 @@ class PostCard extends StatelessWidget {
                     style: const TextStyle(fontWeight: FontWeight.bold,)
                   ),
                   TextSpan(
-                      text: '  ${snap['caption']}',
+                      text: '   ${snap['caption']}....',
                       // style: TextStyle(fontWeight: FontWeight.bold,)
                   )
                 ]

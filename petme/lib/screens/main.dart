@@ -7,6 +7,8 @@ import 'package:petme/Authentication/auth_page.dart';
 import 'package:petme/providers/user_provider.dart';
 import 'package:petme/screens/MainScreen/Navigation/BlogSection/createBlogPage.dart';
 import 'package:petme/screens/MainScreen/Navigation/HomeScreen/home_page.dart';
+import 'package:petme/screens/MainScreen/Navigation/Meetings/meetings_page.dart';
+import 'package:petme/screens/MainScreen/Navigation/Meetings/meetingschedule.dart';
 import 'package:petme/screens/MainScreen/main_page.dart';
 import 'package:petme/screens/Registration/Adopter/adopterSignUp.dart';
 import 'package:petme/screens/Login/login_page.dart';
@@ -66,6 +68,7 @@ void main() async {
         GetPage(name: '/forgot', page: () => const ForgotPass()),
         GetPage(name: '/mainPage', page: () => const MainPage()),
         GetPage(name: '/homePage', page: () => const HomePage()),
+        GetPage(name: '/meetings', page: () => MeetingsPage()),
       ],
     ),
   ));
