@@ -278,12 +278,13 @@ class _DetailsPageState extends State<DetailsPage> {
                                             adopterName = user.username;
                                             // print("My token is $finalToken");
                                           });
-                                          Get.to(MeetingsSchedulingPage(
-                                            petOwnerId: petOwnerId,
-                                            adopterId: adopterId,
-                                            ownerName: petOwnerName,
-                                            adopterName: adopterName,
-                                          ));
+                                          /// Route to Meeting Scheduler Page Below
+                                          // Get.to(MeetingsSchedulingPage(
+                                          //   petOwnerId: petOwnerId,
+                                          //   adopterId: adopterId,
+                                          //   ownerName: petOwnerName,
+                                          //   adopterName: adopterName,
+                                          // ));
                                         }
                                         if (finalToken != null) {
                                           // Code for sending message
