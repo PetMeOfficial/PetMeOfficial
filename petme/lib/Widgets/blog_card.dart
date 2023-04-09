@@ -21,7 +21,7 @@ class BlogCard extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(
-                height: 270,
+                height: 290,
                 width: 350,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,7 +47,7 @@ class BlogCard extends StatelessWidget {
                       height: 10,
                     ),
                     Column(
-                      // crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       // mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
@@ -62,6 +62,9 @@ class BlogCard extends StatelessWidget {
                               ),
                             ),
                         ),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Text(
@@ -75,6 +78,7 @@ class BlogCard extends StatelessWidget {
                             ),
                         ),
 
+
                       ],
                     ),
 
@@ -86,7 +90,7 @@ class BlogCard extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 10,
+          height: 20,
         )
       ],
     );

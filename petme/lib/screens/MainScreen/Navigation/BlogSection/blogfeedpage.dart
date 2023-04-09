@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:petme/Widgets/blog_card.dart';
+import 'package:petme/screens/MainScreen/Navigation/BlogSection/BlogsDetailsPage.dart';
 import 'package:petme/screens/MainScreen/Navigation/BlogSection/createBlogPage.dart';
 import 'package:provider/provider.dart';
 import '../../../../providers/petProvider.dart';
@@ -35,9 +36,9 @@ class _BlogFeedPageState extends State<BlogFeedPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Blogs'),
-        backgroundColor: Colors.pink[300],
+        backgroundColor: Colors.deepPurple[300],
       ),
-      backgroundColor: Colors.white38,
+      backgroundColor: Colors.black54,
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('Blogs').snapshots(),
         builder: (context,
@@ -45,15 +46,32 @@ class _BlogFeedPageState extends State<BlogFeedPage> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
                 child: CircularProgressIndicator(
-              backgroundColor: Colors.pink[400],
+              backgroundColor: Colors.deepPurple[400],
             ));
           }
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (BuildContext context, int index) {
               // final pet = provider[index];
-              return BlogCard(
-                snap: snapshot.data!.docs[index].data(),
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ChangeNotifierProvider(
+                        create: (_) => PetsProvider(),
+                        child: BlogsDetailsPage(
+                          snap: snapshot.data!.docs[index].data(),
+                          // snap2: snapshot2.data!.docs[index].data(),
+                          // pet: pet,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                child: BlogCard(
+                  snap: snapshot.data!.docs[index].data(),
+                ),
               );
             },
           );
@@ -68,6 +86,7 @@ class _BlogFeedPageState extends State<BlogFeedPage> {
                 MaterialPageRoute(builder: (context) => CreateBlogPage()),
               );
             },
+          backgroundColor: Colors.deepPurple[400],
             label: Row(
               children: [
                 const Icon(
@@ -113,7 +132,7 @@ class _BlogFeedPageState extends State<BlogFeedPage> {
 //           Container(
 //             decoration: BoxDecoration(
 //               shape: BoxShape.circle,
-//               color: Colors.pink[300],
+//               color: Colors.deepPurple[300],
 //             ),
 //           ),
 //           Center(

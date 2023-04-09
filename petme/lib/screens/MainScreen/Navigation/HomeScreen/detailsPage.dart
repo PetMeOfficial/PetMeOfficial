@@ -123,11 +123,11 @@ class _DetailsPageState extends State<DetailsPage> {
                                 },
                                 child: Icon(
                                   Icons.arrow_back_ios,
-                                  color: Colors.pink[400],
+                                  color: Colors.deepPurple[400],
                                 ),
                               ),
                               Icon(CupertinoIcons.share,
-                                color: Colors.pink[400],),
+                                color: Colors.deepPurple[400],),
                             ],
                           ),
                         ],
@@ -176,7 +176,7 @@ class _DetailsPageState extends State<DetailsPage> {
               Container(
                 height: 150,
                 decoration: BoxDecoration(
-                  color: Colors.pink[400]?.withOpacity(0.06),
+                  color: Colors.deepPurple[400]?.withOpacity(0.06),
                   borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(30.0),
                     topLeft: Radius.circular(30.0),
@@ -299,7 +299,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           child: Material(
                             borderRadius: BorderRadius.circular(20.0),
                             elevation: 4.0,
-                            color: Colors.pink[400],
+                            color: Colors.deepPurple[400],
                             child: const Padding(
                               // padding: EdgeInsets.all(20.0),
                               padding: EdgeInsets.symmetric(horizontal: 60, vertical: 30),
@@ -351,7 +351,7 @@ class _DetailsPageState extends State<DetailsPage> {
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: 26.0,
-                              color: Colors.pink[400],
+                              color: Colors.deepPurple[400],
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -382,7 +382,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           widget.snap['petBreed'],
                           style: TextStyle(
                             fontSize: 16.0,
-                            color: Colors.pink[400],
+                            color: Colors.deepPurple[400],
                             fontWeight: FontWeight.w500,
                           ),
                         ),

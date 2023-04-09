@@ -66,12 +66,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
         username,
         uid,
         profilePicUrl,
-          _petName.text,
-          _petBreed.text,
-          _petAge.text,
-          _petGender,
-          _petSize,
-          _petType,
+        _petName.text,
+        _petBreed.text,
+        _petAge.text,
+        _petGender,
+        _petSize,
+        _petType,
       );
 
       if (res == "Success") {
@@ -203,7 +203,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 ),
                 AvatarGlow(
                   endRadius: 150,
-                  glowColor: Colors.pinkAccent,
+                  glowColor: Colors.deepPurpleAccent,
                   repeatPauseDuration: const Duration(milliseconds: 100),
                   duration: const Duration(milliseconds: 3000),
                   child: IconButton(
@@ -273,7 +273,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 )
               ],
             ),
-            backgroundColor: Colors.pink[100],
+            backgroundColor: Colors.deepPurple[100],
             // POST FORM
             body: Padding(
               padding: const EdgeInsets.symmetric(

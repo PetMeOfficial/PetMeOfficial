@@ -93,7 +93,7 @@ class _ForgotPassState extends State<ForgotPass> {
                                   style: ElevatedButton.styleFrom(
                                     padding: const EdgeInsets.fromLTRB(
                                         50, 10, 50, 10),
-                                    backgroundColor: Colors.pink[400],
+                                    backgroundColor: Colors.deepPurple[400],
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10.0)),

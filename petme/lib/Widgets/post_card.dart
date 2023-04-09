@@ -115,14 +115,14 @@ class PostCard extends StatelessWidget {
           //         onPressed: (){},
           //         icon: const Icon(
           //           Icons.pets_outlined,
-          //           color: Colors.pink,
+          //           color: Colors.deepPurple,
           //         )
           //     ),
           //     IconButton(
           //         onPressed: (){},
           //         icon: const Icon(
           //           Icons.comment_rounded,
-          //           color: Colors.pink,
+          //           color: Colors.deepPurple,
           //         )
           //     ),
           //   ],

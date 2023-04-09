@@ -101,7 +101,7 @@ class _adopterSignUpState extends State<adopterSignUp> {
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
-                                color: Colors.pink[400]!,
+                                color: Colors.deepPurple[400]!,
                                 width: 2.0, // Underline thickness
                               ))),
                       child: const Text(
@@ -175,16 +175,16 @@ class _adopterSignUpState extends State<adopterSignUp> {
                         controller: usernameController,
                         decoration: InputDecoration(
                             label: const Text('Username'),
-                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            labelStyle: TextStyle(color: Colors.deepPurple[400]),
                             prefixIcon: Icon(
                               Icons.person,
-                              color: Colors.pink[400],
+                              color: Colors.deepPurple[400],
                             ),
                             // hintText: 'User Name',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
                               borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.pink),
+                                  width: 2.0, color: Colors.deepPurple),
                             )),
                       ),
                       const SizedBox(
@@ -194,16 +194,16 @@ class _adopterSignUpState extends State<adopterSignUp> {
                         controller: nameController,
                         decoration: InputDecoration(
                             label: const Text('Name'),
-                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            labelStyle: TextStyle(color: Colors.deepPurple[400]),
                             prefixIcon: Icon(
                               Icons.person_2_outlined,
-                              color: Colors.pink[400],
+                              color: Colors.deepPurple[400],
                             ),
                             // hintText: 'Name',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
                               borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.pink),
+                                  width: 2.0, color: Colors.deepPurple),
                             )),
                       ), // Name
                       const SizedBox(
@@ -213,16 +213,16 @@ class _adopterSignUpState extends State<adopterSignUp> {
                         controller: emailController,
                         decoration: InputDecoration(
                             label: const Text('Email'),
-                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            labelStyle: TextStyle(color: Colors.deepPurple[400]),
                             prefixIcon: Icon(
                               Icons.email_outlined,
-                              color: Colors.pink[400],
+                              color: Colors.deepPurple[400],
                             ),
                             // hintText: 'Email',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
                               borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.pink),
+                                  width: 2.0, color: Colors.deepPurple),
                             )),
                       ), // Email
                       const SizedBox(
@@ -232,16 +232,16 @@ class _adopterSignUpState extends State<adopterSignUp> {
                         controller: phoneNumber,
                         decoration: InputDecoration(
                             label: const Text('Phone Number'),
-                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            labelStyle: TextStyle(color: Colors.deepPurple[400]),
                             prefixIcon: Icon(
                               Icons.numbers_outlined,
-                              color: Colors.pink[400],
+                              color: Colors.deepPurple[400],
                             ),
                             // hintText: 'Email',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
                               borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.pink),
+                                  width: 2.0, color: Colors.deepPurple),
                             )),
                       ),
                       const SizedBox(
@@ -252,17 +252,18 @@ class _adopterSignUpState extends State<adopterSignUp> {
                         controller: passwordController,
                         decoration: InputDecoration(
                             label: const Text('Password'),
-                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            labelStyle: TextStyle(color: Colors.deepPurple[400]),
                             prefixIcon: Icon(
                               Icons.fingerprint,
-                              color: Colors.pink[400],
+                              color: Colors.deepPurple[400],
                             ),
                             // hintText: 'Password',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
                               borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.pink),
-                            )),
+                                  width: 2.0, color: Colors.deepPurple),
+                            )
+                        ),
                       ), // Password
                       const SizedBox(
                         height: 50,
@@ -311,7 +312,7 @@ class _adopterSignUpState extends State<adopterSignUp> {
                                 style: ElevatedButton.styleFrom(
                                   padding:
                                   const EdgeInsets.fromLTRB(85, 10, 85, 10),
-                                  backgroundColor: Colors.pink[400],
+                                  backgroundColor: Colors.deepPurple[400],
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
                                       BorderRadius.circular(10.0)),
