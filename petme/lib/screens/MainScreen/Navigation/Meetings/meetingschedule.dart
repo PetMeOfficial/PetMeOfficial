@@ -303,7 +303,7 @@ class _MeetingsSchedulingPageState extends State<MeetingsSchedulingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Schedule Meeting'),backgroundColor: Colors.pink[400],),
+      appBar: AppBar(title: const Text('Schedule Meeting'),backgroundColor: Colors.deepPurple[400],),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -323,7 +323,7 @@ class _MeetingsSchedulingPageState extends State<MeetingsSchedulingPage> {
                     style: ElevatedButton.styleFrom(
                       padding:
                       const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                      backgroundColor: Colors.pink[300],
+                      backgroundColor: Colors.deepPurple[300],
                       shape: RoundedRectangleBorder(
                           borderRadius:
                           BorderRadius.circular(10.0)),
@@ -346,7 +346,7 @@ class _MeetingsSchedulingPageState extends State<MeetingsSchedulingPage> {
                     style: ElevatedButton.styleFrom(
                       padding:
                       const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                      backgroundColor: Colors.pink[300],
+                      backgroundColor: Colors.deepPurple[300],
                       shape: RoundedRectangleBorder(
                           borderRadius:
                           BorderRadius.circular(10.0)),
@@ -360,12 +360,12 @@ class _MeetingsSchedulingPageState extends State<MeetingsSchedulingPage> {
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Location',
-                  labelStyle: TextStyle(color: Colors.pink[400]),
+                  labelStyle: TextStyle(color: Colors.deepPurple[400]),
                   border: const OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(13),
                     borderSide: const BorderSide(
-                        width: 2.0, color: Colors.pink),
+                        width: 2.0, color: Colors.deepPurple),
                   )),
 
 
@@ -395,7 +395,7 @@ class _MeetingsSchedulingPageState extends State<MeetingsSchedulingPage> {
                 style: ElevatedButton.styleFrom(
                   padding:
                   const EdgeInsets.fromLTRB(85, 10, 85, 10),
-                  backgroundColor: Colors.pink[300],
+                  backgroundColor: Colors.deepPurple[300],
                   shape: RoundedRectangleBorder(
                       borderRadius:
                       BorderRadius.circular(10.0)),

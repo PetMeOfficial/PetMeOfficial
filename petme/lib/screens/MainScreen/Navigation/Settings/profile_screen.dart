@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:petme/providers/user_provider.dart';
+// import 'package:petme/screens/MainScreen/Navigation/Meetings/meetings_request_page.dart';
 import 'package:petme/screens/MainScreen/Navigation/Settings/help.dart';
 import 'package:petme/screens/MainScreen/Navigation/Settings/inviteafrd.dart';
 import 'package:provider/provider.dart';
@@ -254,6 +255,22 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
                           text: 'Help & Support',
                         ),
                       ),
+                      //
+                      // GestureDetector(
+                      //   onTap: (){
+                      //     Navigator.pushAndRemoveUntil(
+                      //         context,
+                      //         MaterialPageRoute(
+                      //             builder: (context) => MeetingRequestsScreen(petId: "petId")),
+                      //             (Route<dynamic> route) => true
+                      //     );
+                      //
+                      //   },
+                      //   child: const ProfileListItem(
+                      //     icon: LineAwesomeIcons.bell,
+                      //     text: 'Meetings Request',
+                      //   ),
+                      // ),
 
                       GestureDetector(
                         onTap: (){

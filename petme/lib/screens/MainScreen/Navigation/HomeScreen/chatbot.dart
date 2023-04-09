@@ -71,7 +71,7 @@ class _ChatBotState extends State<ChatBot> {
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: isUser ? Colors.pink[300] : Colors.grey[200],
+          color: isUser ? Colors.deepPurple[300] : Colors.grey[200],
         ),
         child: Text(text),
       ),
@@ -86,7 +86,7 @@ class _ChatBotState extends State<ChatBot> {
       appBar: AppBar(
 
         title: Text('PetMe ChatBot'),
-          backgroundColor: Colors.pink[300],
+          backgroundColor: Colors.deepPurple[300],
       ),
       body: Column(
         children: [

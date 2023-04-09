@@ -127,7 +127,7 @@ class _SignUpState extends State<SignUp> {
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
-                        color: Colors.pink[400]!,
+                        color: Colors.deepPurple[400]!,
                         width: 2.0, // Underline thickness
                       ))),
                       child: const Text(
@@ -180,16 +180,16 @@ class _SignUpState extends State<SignUp> {
                         controller: username,
                         decoration: InputDecoration(
                             label: const Text('Username'),
-                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            labelStyle: TextStyle(color: Colors.deepPurple[400]),
                             prefixIcon: Icon(
                               Icons.person,
-                              color: Colors.pink[400],
+                              color: Colors.deepPurple[400],
                             ),
                             // hintText: 'Email',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
                               borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.pink),
+                                  width: 2.0, color: Colors.deepPurple),
                             )),
                       ),
                       const SizedBox(
@@ -199,16 +199,16 @@ class _SignUpState extends State<SignUp> {
                         controller: petname,
                         decoration: InputDecoration(
                             label: const Text('Pet Name'),
-                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            labelStyle: TextStyle(color: Colors.deepPurple[400]),
                             prefixIcon: Icon(
                               Icons.pets,
-                              color: Colors.pink[400],
+                              color: Colors.deepPurple[400],
                             ),
                             // hintText: 'Email',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
                               borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.pink),
+                                  width: 2.0, color: Colors.deepPurple),
                             )),
                       ),
                       const SizedBox(
@@ -218,16 +218,16 @@ class _SignUpState extends State<SignUp> {
                         controller: category,
                         decoration: InputDecoration(
                             label: const Text('Category'),
-                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            labelStyle: TextStyle(color: Colors.deepPurple[400]),
                             prefixIcon: Icon(
                               Icons.category,
-                              color: Colors.pink[400],
+                              color: Colors.deepPurple[400],
                             ),
                             // hintText: 'Email',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
                               borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.pink),
+                                  width: 2.0, color: Colors.deepPurple),
                             )),
                       ),
                       const SizedBox(
@@ -237,16 +237,16 @@ class _SignUpState extends State<SignUp> {
                         controller: breed,
                         decoration: InputDecoration(
                             label: const Text('Breed'),
-                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            labelStyle: TextStyle(color: Colors.deepPurple[400]),
                             prefixIcon: Icon(
                               Icons.catching_pokemon_outlined,
-                              color: Colors.pink[400],
+                              color: Colors.deepPurple[400],
                             ),
                             // hintText: 'Email',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
                               borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.pink),
+                                  width: 2.0, color: Colors.deepPurple),
                             )),
                       ),
                       const SizedBox(
@@ -256,16 +256,16 @@ class _SignUpState extends State<SignUp> {
                         controller: ownername,
                         decoration: InputDecoration(
                             label: const Text('Owner Name'),
-                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            labelStyle: TextStyle(color: Colors.deepPurple[400]),
                             prefixIcon: Icon(
                               Icons.person_outline_rounded,
-                              color: Colors.pink[400],
+                              color: Colors.deepPurple[400],
                             ),
                             // hintText: 'Name',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
                               borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.pink),
+                                  width: 2.0, color: Colors.deepPurple),
                             )),
                       ), // Name
                       const SizedBox(
@@ -275,16 +275,16 @@ class _SignUpState extends State<SignUp> {
                         controller: owneremail,
                         decoration: InputDecoration(
                             label: const Text('Owner Email'),
-                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            labelStyle: TextStyle(color: Colors.deepPurple[400]),
                             prefixIcon: Icon(
                               Icons.email_outlined,
-                              color: Colors.pink[400],
+                              color: Colors.deepPurple[400],
                             ),
                             // hintText: 'Email',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
                               borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.pink),
+                                  width: 2.0, color: Colors.deepPurple),
                             )),
                       ), // Email
                       const SizedBox(
@@ -294,16 +294,16 @@ class _SignUpState extends State<SignUp> {
                         controller: phoneNumber,
                         decoration: InputDecoration(
                             label: const Text('Phone Number'),
-                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            labelStyle: TextStyle(color: Colors.deepPurple[400]),
                             prefixIcon: Icon(
                               Icons.numbers_outlined,
-                              color: Colors.pink[400],
+                              color: Colors.deepPurple[400],
                             ),
                             // hintText: 'Email',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
                               borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.pink),
+                                  width: 2.0, color: Colors.deepPurple),
                             )),
                       ),
                       const SizedBox(
@@ -314,16 +314,16 @@ class _SignUpState extends State<SignUp> {
                         controller: passwordController,
                         decoration: InputDecoration(
                             label: const Text('Password'),
-                            labelStyle: TextStyle(color: Colors.pink[400]),
+                            labelStyle: TextStyle(color: Colors.deepPurple[400]),
                             prefixIcon: Icon(
                               Icons.fingerprint,
-                              color: Colors.pink[400],
+                              color: Colors.deepPurple[400],
                             ),
                             // hintText: 'Password',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
                               borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.pink),
+                                  width: 2.0, color: Colors.deepPurple),
                             )),
                       ), // Password
                       const SizedBox(
@@ -352,7 +352,7 @@ class _SignUpState extends State<SignUp> {
                                 style: ElevatedButton.styleFrom(
                                   padding:
                                       const EdgeInsets.fromLTRB(85, 10, 85, 10),
-                                  backgroundColor: Colors.pink[400],
+                                  backgroundColor: Colors.deepPurple[400],
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
                                           BorderRadius.circular(10.0)),

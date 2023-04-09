@@ -181,7 +181,7 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
         ),
-        backgroundColor: Colors.pink[300],
+        backgroundColor: Colors.deepPurple[300],
         elevation: 0.0,
         actions: [
           TextButton(
@@ -191,7 +191,7 @@ class _MainPageState extends State<MainPage> {
             child: Text("Blogs", style: TextStyle(color: Colors.white, fontSize: 20),),
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(
-                Colors.pink[300]!,
+                Colors.deepPurple[300]!,
               ),
             ),
           ),
@@ -219,8 +219,8 @@ class _MainPageState extends State<MainPage> {
               gap: 10,
               duration: const Duration(microseconds: 100),
               backgroundColor: Colors.white54,
-              color: Colors.pink[100],
-              activeColor: Colors.pink[400],
+              color: Colors.deepPurple[100],
+              activeColor: Colors.deepPurple[400],
               curve: Curves.easeIn,
               // tabBorder: Border.all(color: Colors.black87),
               // tabBackgroundColor: Colors.black,

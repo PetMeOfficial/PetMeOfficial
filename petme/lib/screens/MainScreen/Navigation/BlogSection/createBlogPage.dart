@@ -2,8 +2,10 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:provider/provider.dart';
+import 'package:petme/models/user.dart' as model;
 import '../../../../Authentication/auth_page.dart';
+import '../../../../providers/user_provider.dart';
 import '../../../../utils/utils.dart';
 
 class BlogPost {
@@ -41,118 +43,178 @@ class _CreateBlogPageState extends State<CreateBlogPage> {
 
   @override
   Widget build(BuildContext context) {
+    model.User user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Blog Post'),
+        backgroundColor: Colors.deepPurple[300],
+        title: const Text('Create Blog Post'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Stack(
-                children: [
-                  _image != null
-                      ? CircleAvatar(
-                    radius: 64,
-                    backgroundImage: MemoryImage(_image!),
-                    backgroundColor: Colors.red,
-                  )
-                      : const CircleAvatar(
-                    radius: 64,
-                    backgroundImage: AssetImage('assets/no_profile.png'),
-                    backgroundColor: Colors.red,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Center(
+                  child: Stack(
+                    children: [
+                      _image != null
+                          ? CircleAvatar(
+                        radius: 84,
+                        backgroundImage: MemoryImage(_image!),
+                        backgroundColor: Colors.red,
+                      )
+                          :  CircleAvatar(
+                        radius: 64,
+                        backgroundImage: const AssetImage('assets/upload3.png'),
+                        backgroundColor: Colors.deepPurple[300],
+                      ),
+                      Positioned(
+                        bottom: -10,
+                        left: 80,
+                        child: IconButton(
+                          onPressed: selectImage,
+                          icon: const Icon(Icons.add_a_photo),
+                        ),
+                      )
+                    ],
                   ),
-                  Positioned(
-                    bottom: -10,
-                    left: 80,
-                    child: IconButton(
-                      onPressed: selectImage,
-                      icon: const Icon(Icons.add_a_photo),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: titleController,
+                  decoration: InputDecoration(
+                    labelText: 'Title',
+                      labelStyle: TextStyle(color: Colors.deepPurple[400]),
+                      prefixIcon: Icon(
+                        Icons.edit,
+                        color: Colors.deepPurple[400],
+                      ),
+                      // hintText: 'Password',
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(13),
+                        borderSide: const BorderSide(
+                            width: 2.0, color: Colors.deepPurple),
+                      )
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a title';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    setState(() {
+                      _title = value!;
+                    });
+                  },
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: descriptionController,
+                  decoration: InputDecoration(
+                    labelText: 'Description',
+                      labelStyle: TextStyle(color: Colors.deepPurple[400]),
+                      prefixIcon: Icon(
+                        Icons.edit,
+                        color: Colors.deepPurple[400],
+                      ),
+                      // hintText: 'Password',
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(13),
+                        borderSide: const BorderSide(
+                            width: 2.0, color: Colors.deepPurple),
+                      )
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a description';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    setState(() {
+                      _description = value!;
+                    });
+                  },
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: contentController,
+                  decoration: InputDecoration(
+                    labelText: 'Content',
+                    contentPadding: const EdgeInsets.symmetric(vertical: 60.0),
+                    labelStyle: TextStyle(color: Colors.deepPurple[400]),
+                    prefixIcon: Icon(
+                      Icons.edit,
+                      color: Colors.deepPurple[400],
                     ),
-                  )
-                ],
-              ),
-              TextFormField(
-                controller: titleController,
-                decoration: InputDecoration(
-                  labelText: 'Title',
+                    // hintText: 'Password',
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(13),
+                      borderSide: const BorderSide(
+                          width: 2.0, color: Colors.deepPurple),
+                    )
+                  ),
+                  maxLines: null,
+                  keyboardType: TextInputType.multiline,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter the blog content';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    setState(() {
+                      _content = value!;
+                    });
+                  },
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a title';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  setState(() {
-                    _title = value!;
-                  });
-                },
-              ),
-              TextFormField(
-                controller: descriptionController,
-                decoration: InputDecoration(
-                  labelText: 'Description',
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a description';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  setState(() {
-                    _description = value!;
-                  });
-                },
-              ),
-              TextFormField(
-                controller: contentController,
-                decoration: InputDecoration(
-                  labelText: 'Content',
-                ),
-                maxLines: null,
-                keyboardType: TextInputType.multiline,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter the blog content';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  setState(() {
-                    _content = value!;
-                  });
-                },
-              ),
-              SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
-                    final blogPost = BlogPost(
-                      title: _title,
-                      description: _description,
-                      // imageUrl: _imageUrl,
-                      content: _content,
-                    );
-                    authController.CreateblogPost(
-                      titleController.text,
-                      descriptionController.text,
-                      contentController.text,
-                      _image!,
+                const SizedBox(height: 26.0),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      final blogPost = BlogPost(
+                        title: _title,
+                        description: _description,
+                        // imageUrl: _imageUrl,
+                        content: _content,
+                      );
+                      authController.CreateblogPost(
+                        titleController.text,
+                        descriptionController.text,
+                        contentController.text,
+                        user.username,
+                        user.profilePicUrl,
+                        _image!,
+                      );
+                      print("object");
 
-                    );
-                    print("object");
-
-                  }
-                },
-                child: Text('Publish'),
-              ),
-            ],
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding:
+                    const EdgeInsets.fromLTRB(85, 10, 85, 10),
+                    backgroundColor: Colors.deepPurple[400],
+                    shape: RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.circular(10.0)),
+                  ),
+                  child: const Text(
+                      'Publish', style: TextStyle(fontSize: 23),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

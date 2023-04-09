@@ -5,15 +5,21 @@ class Blog {
   final String description;
   final String content;
   final String postImage;
+  final String username;
+  final String profilePicUrl;
+  dynamic datetime;
   // final String password;
 
-  const Blog(
+   Blog(
       {
         required this.title,
         required this.description,
         // required this.photoUrl,
         required this.content,
         required this.postImage,
+        required this.datetime,
+        required this.username,
+        required this.profilePicUrl,
         // required this.password,
 
       });
@@ -26,6 +32,9 @@ class Blog {
       description: snapshot["description"],
       content: snapshot["content"],
       postImage: snapshot["postImage"],
+      datetime: snapshot["datetime"],
+      username: snapshot["username"],
+      profilePicUrl: snapshot["profilePicUrl"],
       // password: snapshot["password"],
       // phoneNumber: snapshot["phoneNumber"],
 
@@ -37,6 +46,9 @@ class Blog {
     "description": description,
     "content": content,
     "postImage": postImage,
+    "datetime": datetime,
+    "username": username,
+    "profilePicUrl": profilePicUrl,
     // "password": password,
 
   };

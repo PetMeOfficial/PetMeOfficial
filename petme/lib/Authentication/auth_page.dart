@@ -176,6 +176,8 @@ class AuthPage extends GetxController {
       String title,
       String description,
       String content,
+      String username,
+      String profilePicUrl,
       Uint8List file,
 
       ) async {
@@ -186,12 +188,16 @@ class AuthPage extends GetxController {
           content.isNotEmpty
       ) {
 
-        String profilePicUrl = await StorageMethods().uploadImageToStorage('BlogPostImage', file, false);
+        String postImage = await StorageMethods().uploadImageToStorage('BlogPostImage', file, false);
         blogModel.Blog blog = blogModel.Blog(
           title: title,
           description: description,
           content: content,
-          postImage: profilePicUrl,
+          postImage: postImage,
+          username: username,
+          profilePicUrl: profilePicUrl,
+          datetime: DateTime.now().toString(),
+              // .toString(),
 
         );
         await FirebaseFirestore.instance.collection("Blogs").doc().set(blog.toJson());
