@@ -3,12 +3,20 @@ import 'package:dialog_flowtter/dialog_flowtter.dart';
 
 class ChatBot extends StatefulWidget {
   const ChatBot({Key? key}) : super(key: key);
+  
 
   @override
   _ChatBotState createState() => _ChatBotState();
 }
 
 class _ChatBotState extends State<ChatBot> {
+  final _controller = TextEditingController();
+  final _scrollController = ScrollController();
+  late DialogFlowtter _dialogflow;
+  List<String> _predefinedQuestions = [    'How do I reset my password?',    'How do I update my profile information?',    'How do I delete my account?',    'How do I contact customer support?',  ];
+  List<Widget> _messages = [];
+  
+
 
   @override
   void initState() {
@@ -17,34 +25,63 @@ class _ChatBotState extends State<ChatBot> {
     _messages.add(_buildChatBubble("Hi there! How can I assist you today?"));
   }
 
-  final _controller = TextEditingController();
-  late DialogFlowtter _dialogflow;
-  //final _dialogflow = Dialogflowter.fromFile('path/to/dialog_flow_auth.json');
-  List<String> _predefinedQuestions = [
-    'How do I reset my password?',
-    'How do I update my profile information?',
-    'How do I delete my account?',
-    'How do I contact customer support?',
-  ];
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _scrollToEnd() {
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
+  }
+
 
   List<Widget> _buildPredefinedQuestions() {
-    return _predefinedQuestions
-        .map((question) => ElevatedButton(
-      onPressed: () async {
-        final response = await _dialogflow.detectIntent(queryInput: QueryInput(text: TextInput(text: question)));
-        _displayResponse(response,question);
-      },
-      child: Text(question),
-    ))
-        .toList();
+    return _predefinedQuestions.map((question) {
+      return Padding(
+        padding: EdgeInsets.symmetric(vertical: 4),
+        child: ElevatedButton(
+          onPressed: () async {
+            final response = await _dialogflow.detectIntent(
+                queryInput: QueryInput(text: TextInput(text: question)));
+            _displayResponse(response, question);
+            _scrollToEnd();
+          },
+          style: ElevatedButton.styleFrom(
+            primary: Colors.deepPurple[300], // change button color
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: Text(
+              question,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
+            ),
+          ),
+        ),
+      );
+    }).toList();
   }
+
 
   void _onSend() async {
     final query = _controller.text;
     _controller.clear();
     _displayMessage(query, isUser: true);
-    final response = await _dialogflow.detectIntent(queryInput: QueryInput(text: TextInput(text: query)));
+    final response = await _dialogflow.detectIntent(
+        queryInput: QueryInput(text: TextInput(text: query)));
     _displayMessage(response.text!, isUser: false);
+    _scrollToEnd();
+    FocusScope.of(context).unfocus();
   }
 
   void _displayMessage(String message, {bool isUser = false}) {
@@ -52,7 +89,6 @@ class _ChatBotState extends State<ChatBot> {
       _messages.add(_buildChatBubble(message, isUser: isUser));
     });
   }
-
 
   void _displayResponse(DetectIntentResponse response, String query) {
     final botMessage = response.text;
@@ -62,23 +98,38 @@ class _ChatBotState extends State<ChatBot> {
     });
   }
 
-
-  Widget _buildChatBubble(String text, {bool isUser = false}) {
+  Widget _buildChatBubble(String text, {bool isUser = false, Widget? avatar}) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8),
       alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          color: isUser ? Colors.deepPurple[300] : Colors.grey[200],
-        ),
-        child: Text(text),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          if (!isUser)
+            CircleAvatar(
+              backgroundImage: AssetImage('assets/bot.jpg'),
+            ),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                color: isUser ? Colors.deepPurple[300] : Colors.grey[200],
+              ),
+              child: Text(
+                text,
+                softWrap: true,
+              ),
+            ),
+          ),
+          if (isUser)
+            CircleAvatar(
+              backgroundImage: AssetImage('assets/user.png'),
+            ),
+        ],
       ),
     );
   }
-
-  List<Widget> _messages = [];
 
   @override
   Widget build(BuildContext context) {
@@ -86,12 +137,14 @@ class _ChatBotState extends State<ChatBot> {
       appBar: AppBar(
 
         title: Text('PetMe ChatBot'),
-          backgroundColor: Colors.deepPurple[300],
+        backgroundColor: Colors.deepPurple[300],
       ),
+
       body: Column(
         children: [
           Expanded(
             child: SingleChildScrollView(
+              controller: _scrollController,
               child: Column(
                 children: [
                   ..._messages,
