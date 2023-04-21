@@ -39,7 +39,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF212121),
+      // backgroundColor: const Color(0xFF212121),
+      // backgroundColor: Colors.white,
+      // backgroundColor: Color(0xFFADD8E6),
+      backgroundColor: Color(0xFFF5F5DC),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance.collection('Adopters').snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot2) {
@@ -101,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                 Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.deepPurple[300],
+                    color: Color(0xFF1A237E),
                   ),
                 ),
                 Center(
