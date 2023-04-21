@@ -16,8 +16,8 @@ class BlogCard extends StatelessWidget {
           height: 20,
         ),
         Material(
-          elevation: 5,
-          borderRadius: BorderRadius.circular(20),
+          elevation: 9,
+          borderRadius: BorderRadius.circular(30),
           child: Column(
             children: [
               SizedBox(

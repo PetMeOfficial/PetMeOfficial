@@ -9,6 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:petme/screens/MainScreen/Navigation/BlogSection/blogfeedpage.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -20,6 +21,7 @@ import 'Navigation/Map/map_page.dart';
 import 'Navigation/Meetings/meetings_page.dart';
 import 'Navigation/PetProfile/add_post_screen.dart';
 import 'Navigation/Settings/settings_page.dart';
+import 'package:petme/screens/MainScreen/Navigation/Settings/constant.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -157,103 +159,140 @@ class _MainPageState extends State<MainPage> {
 
   static  final List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    MeetingsPage(),
+    // MeetingsPage(),
+    BlogFeedPage(),
     AddPostScreen(),
     MapPage(),
     SettingsPage(),
   ];
 
   void signUserOut() {
-    FirebaseAuth.instance.signOut();
+    FirebaseAuth.instance.signOut().then((value) => Get.snackbar(
+        "Signing Out", "Log in to Continue"));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          'PetMe',
-          style: GoogleFonts.anton(
-            textStyle: const TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 25,
-            ),
-          ),
-        ),
-        backgroundColor: Colors.deepPurple[300],
-        elevation: 0.0,
-        actions: [
-          TextButton(
-            onPressed: (){
-              Get.toNamed('blogfeed');
-            },
-            child: Text("Blogs", style: TextStyle(color: Colors.white, fontSize: 20),),
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(
-                Colors.deepPurple[300]!,
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            // Colors.deepPurple.shade800.withOpacity(0.8),
+            // Color(0xFF1A237E), // this color is same as kDarkSecondaryColor mentioned in constants.dart
+            kDarkSecondaryColor,
+            // Colors.deepPurple.shade200.withOpacity(0.8),
+            // Color(0xFF0077be),
+            kLightPrimaryColor,
+          ]
+        )
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          scrolledUnderElevation: 0,
+          bottomOpacity: 0,
+          title: Text(
+            'PetMe',
+            style: GoogleFonts.anton(
+              textStyle: const TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 25,
+                color: Colors.white
               ),
             ),
           ),
-        ],
-      )
-
-      ,
-      body: PageView(
-        children: [_widgetOptions.elementAt(_selectedIndex)],
-      ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 20,
-              color: Colors.black.withOpacity(.1),
+          // backgroundColor: Colors.deepPurple[300],
+          // backgroundColor: Colors.transparent,
+          backgroundColor: Color(0xFF1A237E),
+          elevation: 0,
+          actions: [
+            // TextButton(
+            //   onPressed: (){
+            //     // Get.toNamed('blogfeed');
+            //     FirebaseAuth.instance.signOut().then((value) =>
+            //         Get.snackbar("Signing Out", "Log in to Continue"));
+            //   },
+            //   child: Text("Blogs", style: TextStyle(color: Colors.white, fontSize: 20),),
+            //   style: ButtonStyle(
+            //     backgroundColor: MaterialStateProperty.all<Color>(
+            //       Colors.deepPurple[300]!,
+            //     ),
+            //   ),
+            // ),
+            IconButton(
+                onPressed: signUserOut,
+                icon: const Icon(Icons.logout, color: Colors.white,
+                )
             )
           ],
+        )
+
+        ,
+        body: PageView(
+          children: [_widgetOptions.elementAt(_selectedIndex)],
         ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 7),
-            child: GNav(
-              gap: 10,
-              duration: const Duration(microseconds: 100),
-              backgroundColor: Colors.white54,
-              color: Colors.deepPurple[100],
-              activeColor: Colors.deepPurple[400],
-              curve: Curves.easeIn,
-              // tabBorder: Border.all(color: Colors.black87),
-              // tabBackgroundColor: Colors.black,
-              padding: const EdgeInsets.all(11),
-              tabs: const [
-                GButton(
-                  icon: FontAwesomeIcons.house,
-                  // text: 'Home',
-                ),
-                GButton(
-                  icon: FontAwesomeIcons.userGroup,
-                  // text: 'Meetings',
-                ),
-                GButton(
-                  // icon: Icons.pets,
-                  icon: FontAwesomeIcons.paw,
-                  // text: 'Pet Profile',
-                ),
-                GButton(
-                  icon: FontAwesomeIcons.mapLocation,
-                  // text: 'Map',
-                ),
-                GButton(
-                  icon: FontAwesomeIcons.gear,
-                  // text: 'Settings',
-                ),
-              ],
-              selectedIndex: _selectedIndex,
-              onTabChange: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            // color: Colors.deepPurple[600],
+            color: Color(0xFF1A237E),
+            // color: Colors.blue[900],
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 20,
+                color: Colors.black.withOpacity(.1),
+              )
+            ],
+          ),
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
+              child: GNav(
+                gap: 10,
+                duration: const Duration(microseconds: 100),
+                // backgroundColor: Colors.white54,
+                // backgroundColor: Colors.deepPurple.shade300,
+                color: Color(0xFFADD8E6),
+                // color: Colors.black87,
+                // activeColor: Colors.deepPurple[900],
+                activeColor: Colors.white,
+                // activeColor: Colors.deepPurple[400],
+                curve: Curves.easeIn,
+                // tabBorder: Border.all(color: Colors.black87),
+                // tabBackgroundColor: Colors.black,
+                padding: const EdgeInsets.all(10),
+                tabs: const [
+                  GButton(
+                    icon: FontAwesomeIcons.house,
+                    // text: 'Home',
+                  ),
+                  GButton(
+                    // icon: FontAwesomeIcons.userGroup,
+                    icon: FontAwesomeIcons.pencil,
+                    // text: 'Meetings',
+                  ),
+                  GButton(
+                    // icon: Icons.pets,
+                    icon: FontAwesomeIcons.paw,
+                    // text: 'Pet Profile',
+                  ),
+                  GButton(
+                    icon: FontAwesomeIcons.mapLocation,
+                    // text: 'Map',
+                  ),
+                  GButton(
+                    icon: FontAwesomeIcons.gear,
+                    // text: 'Settings',
+                  ),
+                ],
+                selectedIndex: _selectedIndex,
+                onTabChange: (index) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                },
+              ),
             ),
           ),
         ),

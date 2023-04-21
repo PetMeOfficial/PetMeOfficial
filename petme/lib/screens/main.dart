@@ -44,6 +44,11 @@ void main() async {
       ),
     ],
     child: GetMaterialApp(
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          elevation: 0,
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       initialRoute: '/splash',
       defaultTransition: Transition.size,

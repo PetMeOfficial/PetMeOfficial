@@ -34,11 +34,11 @@ class _BlogFeedPageState extends State<BlogFeedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Blogs'),
-        backgroundColor: Colors.deepPurple[300],
-      ),
-      backgroundColor: Colors.black54,
+      // appBar: AppBar(
+      //   title: const Text('Blogs'),
+      //   backgroundColor: Colors.deepPurple[300],
+      // ),
+      backgroundColor: Colors.transparent,
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('Blogs').snapshots(),
         builder: (context,
