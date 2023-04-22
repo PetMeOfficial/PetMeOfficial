@@ -1,14 +1,18 @@
 import 'dart:convert';
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:petme/screens/MainScreen/Navigation/BlogSection/blogfeedpage.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -170,6 +174,37 @@ class _MainPageState extends State<MainPage> {
     FirebaseAuth.instance.signOut().then((value) => Get.snackbar(
         "Signing Out", "Log in to Continue"));
   }
+  var themeSwitcher = ThemeSwitcher(
+    builder: (context) {
+      return AnimatedCrossFade(
+        duration: const Duration(milliseconds: 200),
+        crossFadeState:
+        ThemeProvider.of(context).brightness == Brightness.dark
+            ? CrossFadeState.showFirst
+            : CrossFadeState.showSecond,
+        firstChild: GestureDetector(
+          onTap: () {
+            ThemeSwitcher.of(context).changeTheme(theme: kLightTheme);
+            Get.snackbar("Light Mode", "Enabled");
+          },
+          child: Icon(
+            LineAwesomeIcons.sun,
+            size: ScreenUtil().setSp(kSpacingUnit.w * 3) as double,
+          ),
+        ),
+        secondChild: GestureDetector(
+          onTap: () {
+            ThemeSwitcher.of(context).changeTheme(theme: kDarkTheme);
+            Get.snackbar("Dark Mode", "Enabled");
+          },
+          child: Icon(
+            LineAwesomeIcons.moon,
+            size: ScreenUtil().setSp(kSpacingUnit.w * 3) as double,
+          ),
+        ),
+      );
+    },
+  );
 
   @override
   Widget build(BuildContext context) {

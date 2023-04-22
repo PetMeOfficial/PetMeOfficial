@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 const kSpacingUnit = 10;
 
-const kDarkPrimaryColor = Color(0xFF0C0404);
+const kDarkPrimaryColor = Color(0xBE0C0404);
 const kDarkSecondaryColor = Color(0xFF1A237E);
 const kDarkBlueColor = Color(0xFF1A237E);
 const kLightPrimaryColor = Color(0xFF0077be);

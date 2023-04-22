@@ -39,9 +39,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: const Color(0xFF212121),
-      // backgroundColor: Colors.white,
-      // backgroundColor: Color(0xFFADD8E6),
       backgroundColor: Color(0xFFF5F5DC),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance.collection('Adopters').snapshots(),

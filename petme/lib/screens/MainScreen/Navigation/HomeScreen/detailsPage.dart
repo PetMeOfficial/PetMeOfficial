@@ -9,10 +9,15 @@ import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:petme/providers/user_provider.dart';
 import 'package:petme/screens/MainScreen/Navigation/Meetings/meetingschedule.dart';
+import 'package:petme/screens/MainScreen/Navigation/Settings/constant.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:petme/models/user.dart' as model;
+import 'package:quickalert/quickalert.dart';
+import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../main_page.dart';
 
 class DetailsPage extends StatefulWidget {
   final snap;
@@ -31,12 +36,120 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
+
+  void showAlert(){
+    QuickAlert.show(
+        context: context,
+        title: "Request Sent",
+        type: QuickAlertType.success
+    );
+  }
+
+  selectOption(parentContext) {
+    return showDialog(
+        context: parentContext,
+        builder: (context) {
+          return SimpleDialog(
+            shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            elevation: 1,
+            backgroundColor: kLightPrimaryColor,
+            title: const Text(
+              "Select Your Choice",
+              style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+            children: <Widget>[
+              SimpleDialogOption(
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  var whatsappUrl =
+                      "https://wa.me/$phone?"
+                      "text=Dear%20${petOwnerName},"
+                      "\n\nI%20hope%20this%20message%20finds%20you%20well.%20I%20came%20across%20your%20post%20about%20your%20pet%20who%20needs%20a%20new%20home,%20and%20I%20wanted%20to%20express%20my%20interest%20in%20adopting%20him/her.%20I%20have%20been%20searching%20for%20a%20furry%20friend%20to%20add%20to%20my%20family,%20and%20your%20pet%20seems%20like%20the%20perfect%20fit."
+                      "\n\nI%20have%20experience%20with%20pets%20and%20have%20owned%20several%20dogs%20and%20cats%20in%20the%20past.%20I%20have%20a%20spacious%20home%20with%20a%20big%20backyard%20where%20your%20pet%20can%20play%20and%20get%20plenty%20of%20exercise.%20I%20am%20also%20willing%20to%20provide%20all%20the%20necessary%20care%20and%20attention%20that%20your%20pet%20needs,%20including%20regular%20vet%20check-ups%20and%20grooming."
+                      "\n\nIf%20you%20are%20still%20looking%20for%20a%20new%20home%20for%20your%20pet,%20I%20would%20be%20honored%20to%20give%20him/her%20a%20loving%20and%20caring%20home.%20Please%20let%20me%20know%20if%20you%20are%20willing%20to%20consider%20me%20as%20a%20potential%20adopter.%20I%20would%20be%20more%20than%20happy%20to%20answer%20any%20questions%20you%20may%20have."
+                      "\n\nThank%20you%20for%20considering%20me%20as%20a%20potential%20adopter%20for%20your%20beloved%20pet."
+                      "\n\nBest%20regards,"
+                      "\n\n${adopterName}";
+                  await canLaunch(whatsappUrl)
+                      ? await launch(whatsappUrl)
+                      : throw "Could Not Launch Url: $whatsappUrl";
+                  Future.delayed(Duration(seconds: 7), (){
+                    showAlert();
+                  });
+                },
+                child: const Text(
+                  "Contact through WhatsApp",
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+              ),
+              SimpleDialogOption(
+                onPressed: () async {
+                  Navigator.of(context).pop();
+
+                  // Uint8List file = await pickImage(ImageSource.gallery);
+                  // setState(() {
+                  //   _file = file;
+                  // });
+                },
+                padding:
+                const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                child: const Text(
+                  "Contact through Email",
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+              ),
+              SimpleDialogOption(
+                child: const Text(
+                  "Cancel",
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MainPage()));
+                  final snack = SnackBar(
+                    duration: const Duration(seconds: 2),
+                    content: const Center(
+                      child: Text(
+                        "Cancelled!",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 16, horizontal: 12),
+                    behavior: SnackBarBehavior.floating,
+                    backgroundColor: Colors.red[300],
+                    elevation: 0,
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snack);
+                },
+              ),
+            ],
+          );
+        });
+  }
+
   String? finalToken = "";
   String petOwnerName = "";
   String adopterName = "";
   String petOwnerId = "";
   String adopterId = "";
   String phone = "";
+
+  Future<void> shareProfile() async {
+    await Share.share(
+        'Check out this profile right now!');
+  }
 
   void sendPushMessage(String token, title, body) async {
     try {
@@ -121,14 +234,20 @@ class _DetailsPageState extends State<DetailsPage> {
                                 onTap: () {
                                   Navigator.pop(context);
                                 },
-                                child: Icon(
+                                child: const Icon(
                                   Icons.arrow_back_ios,
-                                  color: Colors.pink[400],
+                                  color: kLightPrimaryColor,
                                 ),
                               ),
-                              Icon(
-                                CupertinoIcons.share,
-                                color: Colors.pink[400],
+                              InkWell(
+                                onTap: (){
+                                  shareProfile();
+                                },
+                                child: const Icon(
+                                  CupertinoIcons.share,
+                                  // color: Colors.pink[400],
+                                  color: kLightPrimaryColor,
+                                ),
                               ),
                             ],
                           ),
@@ -178,7 +297,7 @@ class _DetailsPageState extends State<DetailsPage> {
               Container(
                 height: 150,
                 decoration: BoxDecoration(
-                  color: Colors.pink[400]?.withOpacity(0.06),
+                  color: kLightPrimaryColor?.withOpacity(0.06),
                   borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(30.0),
                     topLeft: Radius.circular(30.0),
@@ -287,25 +406,27 @@ class _DetailsPageState extends State<DetailsPage> {
                                           // ));
                                         }
                                         if (finalToken != null) {
-                                          // Code for sending message
+                                          /// Code for sending message
                                           try {
                                             sendPushMessage(
                                               finalToken!,
                                               "Hey ${petOwnerName.toUpperCase()}!",
                                               "Someone is Interested in your Pet",
                                             );
-                                            var whatsappUrl =
-                                                "https://wa.me/$phone?"
-                                                "text=Dear%20${petOwnerName},"
-                                                "\n\nI%20hope%20this%20message%20finds%20you%20well.%20I%20came%20across%20your%20post%20about%20your%20pet%20who%20needs%20a%20new%20home,%20and%20I%20wanted%20to%20express%20my%20interest%20in%20adopting%20him/her.%20I%20have%20been%20searching%20for%20a%20furry%20friend%20to%20add%20to%20my%20family,%20and%20your%20pet%20seems%20like%20the%20perfect%20fit."
-                                                "\n\nI%20have%20experience%20with%20pets%20and%20have%20owned%20several%20dogs%20and%20cats%20in%20the%20past.%20I%20have%20a%20spacious%20home%20with%20a%20big%20backyard%20where%20your%20pet%20can%20play%20and%20get%20plenty%20of%20exercise.%20I%20am%20also%20willing%20to%20provide%20all%20the%20necessary%20care%20and%20attention%20that%20your%20pet%20needs,%20including%20regular%20vet%20check-ups%20and%20grooming."
-                                                "\n\nIf%20you%20are%20still%20looking%20for%20a%20new%20home%20for%20your%20pet,%20I%20would%20be%20honored%20to%20give%20him/her%20a%20loving%20and%20caring%20home.%20Please%20let%20me%20know%20if%20you%20are%20willing%20to%20consider%20me%20as%20a%20potential%20adopter.%20I%20would%20be%20more%20than%20happy%20to%20answer%20any%20questions%20you%20may%20have."
-                                                "\n\nThank%20you%20for%20considering%20me%20as%20a%20potential%20adopter%20for%20your%20beloved%20pet."
-                                                "\n\nBest%20regards,"
-                                                "\n\n${adopterName}";
-                                            await canLaunch(whatsappUrl)
-                                                ? await launch(whatsappUrl)
-                                                : throw "Could Not Launch Url: $whatsappUrl";
+                                            selectOption(context);
+                                            /// Below Code for WhatsApp
+                                            // var whatsappUrl =
+                                            //     "https://wa.me/$phone?"
+                                            //     "text=Dear%20${petOwnerName},"
+                                            //     "\n\nI%20hope%20this%20message%20finds%20you%20well.%20I%20came%20across%20your%20post%20about%20your%20pet%20who%20needs%20a%20new%20home,%20and%20I%20wanted%20to%20express%20my%20interest%20in%20adopting%20him/her.%20I%20have%20been%20searching%20for%20a%20furry%20friend%20to%20add%20to%20my%20family,%20and%20your%20pet%20seems%20like%20the%20perfect%20fit."
+                                            //     "\n\nI%20have%20experience%20with%20pets%20and%20have%20owned%20several%20dogs%20and%20cats%20in%20the%20past.%20I%20have%20a%20spacious%20home%20with%20a%20big%20backyard%20where%20your%20pet%20can%20play%20and%20get%20plenty%20of%20exercise.%20I%20am%20also%20willing%20to%20provide%20all%20the%20necessary%20care%20and%20attention%20that%20your%20pet%20needs,%20including%20regular%20vet%20check-ups%20and%20grooming."
+                                            //     "\n\nIf%20you%20are%20still%20looking%20for%20a%20new%20home%20for%20your%20pet,%20I%20would%20be%20honored%20to%20give%20him/her%20a%20loving%20and%20caring%20home.%20Please%20let%20me%20know%20if%20you%20are%20willing%20to%20consider%20me%20as%20a%20potential%20adopter.%20I%20would%20be%20more%20than%20happy%20to%20answer%20any%20questions%20you%20may%20have."
+                                            //     "\n\nThank%20you%20for%20considering%20me%20as%20a%20potential%20adopter%20for%20your%20beloved%20pet."
+                                            //     "\n\nBest%20regards,"
+                                            //     "\n\n${adopterName}";
+                                            // await canLaunch(whatsappUrl)
+                                            //     ? await launch(whatsappUrl)
+                                            //     : throw "Could Not Launch Url: $whatsappUrl";
                                           } catch (err) {
                                             if (kDebugMode) {
                                               print(err.toString());
@@ -337,7 +458,8 @@ class _DetailsPageState extends State<DetailsPage> {
                           child: Material(
                             borderRadius: BorderRadius.circular(20.0),
                             elevation: 4.0,
-                            color: Colors.pink[400],
+                            color: kLightPrimaryColor,
+                            // color: Colors.pink[400],
                             child: const Padding(
                               // padding: EdgeInsets.all(20.0),
                               padding: EdgeInsets.symmetric(
@@ -388,9 +510,10 @@ class _DetailsPageState extends State<DetailsPage> {
                             widget.snap['petName'],
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 26.0,
-                              color: Colors.pink[400],
+                              color: kLightPrimaryColor,
+                              // color: Colors.pink[400],
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -423,9 +546,10 @@ class _DetailsPageState extends State<DetailsPage> {
                       children: <Widget>[
                         Text(
                           widget.snap['petBreed'],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16.0,
-                            color: Colors.pink[400],
+                            // color: Colors.pink[400],
+                            color:kLightPrimaryColor,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
