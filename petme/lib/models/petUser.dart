@@ -56,6 +56,5 @@ class PetUser {
     "password": password,
     "uid": uid,
     "profilePicUrl": profilePicUrl,
-    // "photoUrl": photoUrl,
   };
 }

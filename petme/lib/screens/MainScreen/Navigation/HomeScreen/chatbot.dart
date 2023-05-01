@@ -13,7 +13,7 @@ class _ChatBotState extends State<ChatBot> {
   final _controller = TextEditingController();
   final _scrollController = ScrollController();
   late DialogFlowtter _dialogflow;
-  List<String> _predefinedQuestions = [
+  final List<String> _predefinedQuestions = [
     'How do I reset my password?',
     'Teething Process Of Pet ?',
     'How Do I Delete My Pet Profile?',
@@ -45,7 +45,7 @@ class _ChatBotState extends State<ChatBot> {
   void _scrollToEnd() {
     _scrollController.animateTo(
       _scrollController.position.maxScrollExtent,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
       curve: Curves.easeOut,
     );
   }
@@ -54,7 +54,7 @@ class _ChatBotState extends State<ChatBot> {
   List<Widget> _buildPredefinedQuestions() {
     return _predefinedQuestions.map((question) {
       return Padding(
-        padding: EdgeInsets.symmetric(vertical: 4),
+        padding: const EdgeInsets.symmetric(vertical: 4),
         child: ElevatedButton(
           onPressed: () async {
             final response = await _dialogflow.detectIntent(
@@ -63,16 +63,16 @@ class _ChatBotState extends State<ChatBot> {
             _scrollToEnd();
           },
           style: ElevatedButton.styleFrom(
-            primary: Color(0xFF487776), // change button color
+            backgroundColor: const Color(0xFF487776), // change button color
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
           ),
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Text(
               question,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 16,
               ),
@@ -82,7 +82,6 @@ class _ChatBotState extends State<ChatBot> {
       );
     }).toList();
   }
-
 
   void _onSend() async {
     final query = _controller.text;
@@ -111,23 +110,23 @@ class _ChatBotState extends State<ChatBot> {
     });
   }
 
-  Widget _buildChatBubble(String text, {bool isUser = false, Widget? avatar}) {
+  Widget _buildChatBubble(String text, {bool isUser = false,}) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 8),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           if (!isUser)
-            CircleAvatar(
+            const CircleAvatar(
               backgroundImage: AssetImage('assets/bot.jpg'),
             ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                color: isUser ? Color(0xFF487776) : Colors.grey[200],
+                color: isUser ? const Color(0xFF487776) : Colors.grey[200],
               ),
               child: Text(
                 text,
@@ -136,7 +135,7 @@ class _ChatBotState extends State<ChatBot> {
             ),
           ),
           if (isUser)
-            CircleAvatar(
+            const CircleAvatar(
               backgroundImage: AssetImage('assets/user.png'),
             ),
         ],
@@ -148,13 +147,11 @@ class _ChatBotState extends State<ChatBot> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('PetMe ChatBot'),
-        backgroundColor: Color(0xFF487776),
-        actions: [
-
-        ],
+        title: const Text('PetMe ChatBot'),
+        backgroundColor: const Color(0xFF487776),
+        actions: const [],
       ),
-      backgroundColor: Color(0xFFF5F5DC),
+      backgroundColor: const Color(0xFFF5F5DC),
       body: Column(
         children: [
           Expanded(
@@ -168,13 +165,13 @@ class _ChatBotState extends State<ChatBot> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Row(
               children: [
                 Expanded(
                   child: TextField(
                     controller: _controller,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Type your message here',
                     ),
                     enableSuggestions: false, // disable suggestions
@@ -183,7 +180,7 @@ class _ChatBotState extends State<ChatBot> {
                 ),
                 IconButton(
                   onPressed: _onSend,
-                  icon: Icon(Icons.send),
+                  icon: const Icon(Icons.send),
                 ),
                 IconButton(
                   onPressed: () {
@@ -202,7 +199,7 @@ class _ChatBotState extends State<ChatBot> {
           ),
           if (_showPredefinedQuestions)
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Wrap(
                 spacing: 8,
                 runSpacing: 8,

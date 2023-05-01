@@ -36,14 +36,14 @@ class _ProfileListItemState extends State<ProfileListItem> {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(kSpacingUnit.w * 3),
-        color: Color(0xFF487776),
+        color: const Color(0xFF487776),
       ),
       child: Row(
         children: <Widget>[
           Icon(
             widget.icon,
             size: kSpacingUnit.w * 4.0,
-            color: Color(0xFFF5F5DC),
+            color: const Color(0xFFF5F5DC),
           ),
           SizedBox(width: kSpacingUnit.w * 2.5),
           Text(
@@ -51,14 +51,14 @@ class _ProfileListItemState extends State<ProfileListItem> {
             style: kTitleTextStyle.copyWith(
               fontWeight: FontWeight.w600,
               fontSize: 15,
-              color: Color(0xFFF5F5DC)
+              color: const Color(0xFFF5F5DC)
             ),
           ),
           const Spacer(),
           if (widget.hasNavigation)
             Icon(
               LineAwesomeIcons.angle_right,
-              color: Color(0xFFF5F5DC),
+              color: const Color(0xFFF5F5DC),
               size: kSpacingUnit.w * 3.0,
             ),
         ],

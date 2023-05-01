@@ -1,5 +1,4 @@
-import 'dart:typed_data';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +16,8 @@ class BlogPost {
 }
 
 class CreateBlogPage extends StatefulWidget {
+  const CreateBlogPage({super.key});
+
   @override
   _CreateBlogPageState createState() => _CreateBlogPageState();
 }
@@ -46,7 +47,7 @@ class _CreateBlogPageState extends State<CreateBlogPage> {
     model.User user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF487776),
+        backgroundColor: const Color(0xFF487776),
         title: const Text('Create Blog Post'),
       ),
       body: SingleChildScrollView(
@@ -66,9 +67,9 @@ class _CreateBlogPageState extends State<CreateBlogPage> {
                         backgroundImage: MemoryImage(_image!),
                         backgroundColor: Colors.red,
                       )
-                          :  CircleAvatar(
+                          :  const CircleAvatar(
                         radius: 64,
-                        backgroundImage: const AssetImage('assets/upload3.png'),
+                        backgroundImage: AssetImage('assets/upload3.png'),
                         backgroundColor:Color(0xFF71B6B3),
                       ),
                       Positioned(
@@ -89,12 +90,11 @@ class _CreateBlogPageState extends State<CreateBlogPage> {
                   controller: titleController,
                   decoration: InputDecoration(
                     labelText: 'Title',
-                      labelStyle: TextStyle(color: Color(0xFF487776)),
-                      prefixIcon: Icon(
+                      labelStyle: const TextStyle(color: Color(0xFF487776)),
+                      prefixIcon: const Icon(
                         Icons.edit,
                         color: Color(0xFF487776),
                       ),
-                      // hintText: 'Password',
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(13),
                         borderSide: const BorderSide(
@@ -120,8 +120,8 @@ class _CreateBlogPageState extends State<CreateBlogPage> {
                   controller: descriptionController,
                   decoration: InputDecoration(
                     labelText: 'Description',
-                      labelStyle: TextStyle(color: Color(0xFF487776)),
-                      prefixIcon: Icon(
+                      labelStyle: const TextStyle(color: Color(0xFF487776)),
+                      prefixIcon: const Icon(
                         Icons.edit,
                         color: Color(0xFF487776),
                       ),
@@ -152,8 +152,8 @@ class _CreateBlogPageState extends State<CreateBlogPage> {
                   decoration: InputDecoration(
                     labelText: 'Content',
                     contentPadding: const EdgeInsets.symmetric(vertical: 60.0),
-                    labelStyle: TextStyle(color: Color(0xFF487776)),
-                    prefixIcon: Icon(
+                    labelStyle: const TextStyle(color: Color(0xFF487776)),
+                    prefixIcon: const Icon(
                       Icons.edit,
                       color: Color(0xFF487776),
                     ),
@@ -197,14 +197,16 @@ class _CreateBlogPageState extends State<CreateBlogPage> {
                         user.profilePicUrl,
                         _image!,
                       );
-                      print("object");
+                      if (kDebugMode) {
+                        print("object");
+                      }
 
                     }
                   },
                   style: ElevatedButton.styleFrom(
                     padding:
                     const EdgeInsets.fromLTRB(85, 10, 85, 10),
-                    backgroundColor: Color(0xFF487776),
+                    backgroundColor: const Color(0xFF487776),
                     shape: RoundedRectangleBorder(
                         borderRadius:
                         BorderRadius.circular(10.0)),

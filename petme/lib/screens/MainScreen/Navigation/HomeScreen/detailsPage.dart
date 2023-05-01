@@ -5,10 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:petme/providers/user_provider.dart';
-import 'package:petme/screens/MainScreen/Navigation/Meetings/meetingschedule.dart';
 import 'package:petme/screens/MainScreen/Navigation/Settings/constant.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -66,7 +64,7 @@ class _DetailsPageState extends State<DetailsPage> {
 
                       await launch(whatsappUrl);
 
-                  Future.delayed(Duration(seconds: 7), () {
+                  Future.delayed(const Duration(seconds: 7), () {
                     showAlert();
                   });
                 },
@@ -162,7 +160,7 @@ class _DetailsPageState extends State<DetailsPage> {
             "notification": <String, dynamic>{
               "title": title,
               "body": body,
-              "android_channel_id": "petme"
+              "android_channel_id": "PetMe"
             },
             "to": token,
           },
@@ -259,10 +257,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-                      // ChangeNotifierProvider(
-                      //   create: (context) => OwnerProvider(widget.snap["username"]),
-                      //   child: const OwnerWidget(),
-                      // ),
+
                       const SizedBox(
                         height: 90.0,
                       ),
@@ -287,7 +282,7 @@ class _DetailsPageState extends State<DetailsPage> {
               Container(
                 height: 150,
                 decoration: BoxDecoration(
-                  color: kLightPrimaryColor?.withOpacity(0.06),
+                  color: kLightPrimaryColor.withOpacity(0.06),
                   borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(30.0),
                     topLeft: Radius.circular(30.0),
@@ -298,23 +293,16 @@ class _DetailsPageState extends State<DetailsPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      // const SizedBox(
-                      //   width: 24.0,
-                      // ),
+
                       GestureDetector(
                         onTap: () async {
-                          // String token = widget.snap2['token'];
-                          // String username = widget.snap['username'];
-                          // print(token);
-                          // print(username);
+
                           var x = FirebaseAuth.instance.currentUser?.uid;
                           final adopterRef = FirebaseFirestore.instance
                               .collection("Adopters")
                               .where("username",
                                   isEqualTo: widget.snap['username'])
-                              .
-                              // where("token", isEqualTo: widget.snap['token']).
-                              get()
+                              .get()
                               .then((value) => {
                                     value.docs.forEach((element) async {
                                       var UID = element.id;
@@ -322,7 +310,6 @@ class _DetailsPageState extends State<DetailsPage> {
                                         print(UID);
                                       }
                                       var tokenList = element.data();
-                                      // var token = element.data().values;
 
                                       MapEntry entry = tokenList.entries
                                           .firstWhere((element) =>
@@ -401,16 +388,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                             // phone = widget.snap2['phoneNumber'].toString();
                                             phone = phoneNO;
                                             adopterName = user.username;
-                                            // print("My token is $finalToken");
                                           });
-
-                                          /// Route to Meeting Scheduler Page Below
-                                          // Get.to(MeetingsSchedulingPage(
-                                          //   petOwnerId: petOwnerId,
-                                          //   adopterId: adopterId,
-                                          //   ownerName: petOwnerName,
-                                          //   adopterName: adopterName,
-                                          // ));
                                         }
                                         if (finalToken != null) {
                                           /// Code for sending message
@@ -420,6 +398,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                               "Hey ${petOwnerName.toUpperCase()}!",
                                               "Someone is Interested in your Pet",
                                             );
+                                            print("Done ");
                                             selectOption(context);
 
                                           } catch (err) {
@@ -436,7 +415,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           child: Material(
                             borderRadius: BorderRadius.circular(20.0),
                             elevation: 4.0,
-                            color: Color(0xFF487776),
+                            color: const Color(0xFF487776),
                             // color: Colors.pink[400],
                             child: const Padding(
                               // padding: EdgeInsets.all(20.0),

@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF5F5DC),
+      backgroundColor: const Color(0xFFF5F5DC),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -45,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 fit: BoxFit.contain,
               ),
             ),
-            SizedBox(height: 24.0),
+            const SizedBox(height: 24.0),
             const Text(
               'When I needed a Hand',
               style: TextStyle(

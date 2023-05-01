@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 
 const kSpacingUnit = 10;
 
@@ -16,7 +14,6 @@ const kBeigeColor = Color(0xFFF5F5DC);
 const kPastelBlueColor = Color(0xFF487776);
 
 const kTitleTextStyle = TextStyle(
-  // fontSize: ScreenUtil().setSp(kSpacingUnit * 1.5),
   fontSize: 16,
   fontWeight: FontWeight.w600,
 );

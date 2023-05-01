@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -7,10 +6,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petme/models/user.dart' as model;
-import 'package:petme/models/Meetings.dart' as meetings;
 import 'package:petme/models/blogModel.dart' as blogModel;
 import 'package:petme/models/petUser.dart' as petModel;
-import 'package:petme/screens/FirebaseFunctions/auth_methods.dart';
 import 'package:petme/screens/FirebaseFunctions/storage_methods.dart';
 import 'package:petme/screens/MainScreen/main_page.dart';
 import 'package:petme/screens/Login/login_page.dart';
@@ -19,7 +16,6 @@ import 'package:http/http.dart' as http;
 class AuthPage extends GetxController {
   static AuthPage instance = Get.find();
   late Rx<User?> _user;
-  // const AuthPage({Key? key}) : super(key: key);
 
   void registerUserAdopter(
       String username,
@@ -44,7 +40,6 @@ class AuthPage extends GetxController {
             password: password
         );
         String profilePicUrl = await StorageMethods().uploadImageToStorage('profilePics', file, false);
-        // String MyToken = await AuthPage().saveToken();
         String? MyToken = await FirebaseMessaging.instance.getToken();
         model.User user = model.User(
           username: username,
@@ -74,62 +69,14 @@ class AuthPage extends GetxController {
                 .update({
               'token': NewToken,
             })
-            ;
-
-
-
-            // print(element.data());
-            // print(UID);
-            // print(token);
-            // print(tokenList);
-            // print(hello);
-          })
+            ;})
         });
-        // FirebaseMessaging Line Below for Token
-        // await FirebaseFirestore.instance.collection("Adopters").doc(cred.user!.uid).update({'tokenId' :''});
       } else {
         Get.snackbar(
             "Error Creating An Account", "Please Enter All The Fields");
       }
     } catch (e) {
       Get.snackbar("Error Creating An Account", e.toString());
-      debugPrint(e as String?);
-    }
-  }
-
-  void scheduleMeeting(
-   String petOwnerId,
-   String adopterId,
-   String ownerName,
-   String adopterName,
-   String location,
-   dynamic date,
-      ) async {
-    try {
-      if (
-      petOwnerId.isNotEmpty &&
-          adopterName.isNotEmpty &&
-          adopterId.isNotEmpty &&
-          ownerName.isNotEmpty &&
-          location.isNotEmpty
-      ) {
-        meetings.Meetings meet = meetings.Meetings(
-            petOwnerId: petOwnerId,
-            adopterId: adopterId,
-            ownerName: ownerName,
-            adopterName: adopterName,
-            location: location,
-            date: date);
-        await FirebaseFirestore.instance.collection("Meetings").doc().set(meet.toJson());
-
-        // FirebaseMessaging Line Below for Token
-        // await FirebaseFirestore.instance.collection("Adopters").doc(cred.user!.uid).update({'tokenId' :''});
-      } else {
-        Get.snackbar(
-            "Error Setting a Meeting", "Please Enter All The Fields");
-      }
-    } catch (e) {
-      Get.snackbar("Error Scheduking", e.toString());
       debugPrint(e as String?);
     }
   }
@@ -194,7 +141,7 @@ class AuthPage extends GetxController {
           username: username,
           profilePicUrl: profilePicUrl,
           datetime: DateTime.now().toString(),
-              // .toString(),
+
 
         );
         await FirebaseFirestore.instance.collection("Blogs").doc().set(blog.toJson());
@@ -285,16 +232,7 @@ class AuthPage extends GetxController {
           .doc(UID)
           .update({
             'token': MyToken,
-          })
-          ;
-
-
-
-          // print(element.data());
-          // print(UID);
-          // print(token);
-          // print(tokenList);
-          // print(hello);
+          });
         })
       });
 
@@ -319,8 +257,6 @@ class AuthPage extends GetxController {
     ever(_user, _setInitialScreen);
   }
 
-
-
   _setInitialScreen(User? user) {
     Future.delayed(const Duration(seconds: 3), () {
       if (user == null) {
@@ -328,27 +264,6 @@ class AuthPage extends GetxController {
       } else {
         Get.offAll(() => const MainPage());
       }
-
-
     });
-
   }
 }
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         body: StreamBuilder<User?>(
-//       stream: FirebaseAuth.instance.authStateChanges(),
-//       builder: (context, snapshot) {
-//         // if user logged in =>
-//         if (snapshot.hasData) {
-//           return const MainPage();
-//         }
-//         // if user not logged in =>
-//         else {
-//           return MyLogin();
-//         }
-//       },
-//     ));
-//   }
-// }

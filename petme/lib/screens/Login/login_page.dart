@@ -23,9 +23,6 @@ class _MyLoginState extends State<MyLogin> {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
-  // final user = FirebaseAuth.instance.currentUser!; // Null Error Line!!!!
-
   //Sign In method
   Future signIn() async {
     try{
@@ -57,8 +54,6 @@ class _MyLoginState extends State<MyLogin> {
                 child: Container(
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.02,
-                      // right: 45,
-                      // left: 55
                   ),
                   child: const Text(
                     'Find Your Furry \n        Soulmate Today!',
@@ -81,23 +76,6 @@ class _MyLoginState extends State<MyLogin> {
                   ),
                 ),
               ),
-              // Container(
-              //   padding: const EdgeInsets.only(left: 35, top: 75),
-              //   child: const Text(
-              //     'Log In',
-              //     style: TextStyle(
-              //         fontSize: 32,
-              //         color: Color(0xFF487776),
-              //         fontWeight: FontWeight.bold),
-              //   ),
-              // ), // LogIn
-              // Container(
-              //   padding: const EdgeInsets.only(left: 35, top: 115),
-              //   child: const Text(
-              //     'Log in to continue',
-              //     style: TextStyle(fontSize: 20, color: Color(0xFF487776)),
-              //   ),
-              // ), // Log in to continue
               Center(
                 child: Opacity(
                   opacity: 1,
@@ -114,7 +92,7 @@ class _MyLoginState extends State<MyLogin> {
                               hintText: 'Email id',
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                       color: Color(0xFF487776)
                                   ),
                               ),
@@ -216,7 +194,7 @@ class _MyLoginState extends State<MyLogin> {
                               // padding: const EdgeInsets.symmetric(horizontal: 25,vertical: 5),
                               padding: const EdgeInsets.fromLTRB(
                                   80, 10, 80, 10),
-                              backgroundColor: Color(0xFF487776),
+                              backgroundColor: const Color(0xFF487776),
                               shape: RoundedRectangleBorder(
                                   borderRadius:
                                   BorderRadius.circular(10.0)),

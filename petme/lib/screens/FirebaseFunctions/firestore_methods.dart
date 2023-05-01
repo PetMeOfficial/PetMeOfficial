@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
@@ -87,9 +86,6 @@ class FirestoreMethods{
     String res = "Some error occurred";
     try {
       await _firestore.collection('posts').doc(postId).delete();
-      // final desertRef = storageRef.child("posts/{$postId}");
-
-      // await FirebaseStorage.instance.ref(postId).delete();
       res = 'success';
     } catch (err) {
       res = err.toString();

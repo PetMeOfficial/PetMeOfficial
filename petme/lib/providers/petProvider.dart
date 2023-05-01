@@ -33,8 +33,4 @@ class PetsProvider extends ChangeNotifier {
     return pets.where((pet) => pet.petType == "Other").toList();
   }
 
-  // Future<void> fetchFavorites() async {
-  //   final firebaseService = FirestoreMethods();
-  //   pets = await firebaseService.loadFavorites();
-  // }
 }

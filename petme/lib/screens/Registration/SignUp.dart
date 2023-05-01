@@ -1,23 +1,21 @@
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:petme/screens/Registration/Pet/petSignUp.dart';
 import 'package:petme/Authentication/auth_page.dart';
 import 'package:get/get.dart';
 
-import '../../../utils/utils.dart';
+import '../../utils/utils.dart';
 
-class adopterSignUp extends StatefulWidget {
-  const adopterSignUp({super.key});
+class AdopterSignUp extends StatefulWidget {
+  const AdopterSignUp({super.key});
 
   @override
-  State<adopterSignUp> createState() => _adopterSignUpState();
+  State<AdopterSignUp> createState() => _AdopterSignUpState();
 }
 
-class _adopterSignUpState extends State<adopterSignUp> {
+class _AdopterSignUpState extends State<AdopterSignUp> {
   var authController = AuthPage.instance;
   final usernameController = TextEditingController();
   final phoneNumber = TextEditingController();
@@ -75,7 +73,7 @@ class _adopterSignUpState extends State<adopterSignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF5F5DC),
+      backgroundColor: const Color(0xFFF5F5DC),
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -176,8 +174,8 @@ class _adopterSignUpState extends State<adopterSignUp> {
                         controller: usernameController,
                         decoration: InputDecoration(
                             label: const Text('Username'),
-                            labelStyle: TextStyle(color: Color(0xFF487776)),
-                            prefixIcon: Icon(
+                            labelStyle: const TextStyle(color: Color(0xFF487776)),
+                            prefixIcon: const Icon(
                               Icons.person,
                               color: Color(0xFF487776),
                             ),
@@ -195,8 +193,8 @@ class _adopterSignUpState extends State<adopterSignUp> {
                         controller: nameController,
                         decoration: InputDecoration(
                             label: const Text('Name'),
-                            labelStyle: TextStyle(color: Color(0xFF487776)),
-                            prefixIcon: Icon(
+                            labelStyle: const TextStyle(color: Color(0xFF487776)),
+                            prefixIcon: const Icon(
                               Icons.person_2_outlined,
                               color: Color(0xFF487776),
                             ),
@@ -214,8 +212,8 @@ class _adopterSignUpState extends State<adopterSignUp> {
                         controller: emailController,
                         decoration: InputDecoration(
                             label: const Text('Email'),
-                            labelStyle: TextStyle(color: Color(0xFF487776)),
-                            prefixIcon: Icon(
+                            labelStyle: const TextStyle(color: Color(0xFF487776)),
+                            prefixIcon: const Icon(
                               Icons.email_outlined,
                               color: Color(0xFF487776),
                             ),
@@ -233,8 +231,8 @@ class _adopterSignUpState extends State<adopterSignUp> {
                         controller: phoneNumber,
                         decoration: InputDecoration(
                             label: const Text('Phone Number'),
-                            labelStyle: TextStyle(color: Color(0xFF487776)),
-                            prefixIcon: Icon(
+                            labelStyle: const TextStyle(color: Color(0xFF487776)),
+                            prefixIcon: const Icon(
                               Icons.numbers_outlined,
                               color: Color(0xFF487776),
                             ),
@@ -253,8 +251,8 @@ class _adopterSignUpState extends State<adopterSignUp> {
                         controller: passwordController,
                         decoration: InputDecoration(
                             label: const Text('Password'),
-                            labelStyle: TextStyle(color: Color(0xFF487776)),
-                            prefixIcon: Icon(
+                            labelStyle: const TextStyle(color: Color(0xFF487776)),
+                            prefixIcon: const Icon(
                               Icons.fingerprint,
                               color: Color(0xFF487776),
                             ),
@@ -313,7 +311,7 @@ class _adopterSignUpState extends State<adopterSignUp> {
                                 style: ElevatedButton.styleFrom(
                                   padding:
                                   const EdgeInsets.fromLTRB(85, 10, 85, 10),
-                                  backgroundColor: Color(0xFF487776),
+                                  backgroundColor: const Color(0xFF487776),
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
                                       BorderRadius.circular(10.0)),

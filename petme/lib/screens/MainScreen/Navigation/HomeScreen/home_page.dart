@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:petme/Widgets/post_card.dart';
 import 'package:provider/provider.dart';
 import '../../../../providers/petProvider.dart';
@@ -27,19 +26,10 @@ class _HomePageState extends State<HomePage> {
     petsProvider.fetchPets();
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   // TODO: implement build
-  //   return Scaffold();
-  // }
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF5F5DC),
+      backgroundColor: const Color(0xFFF5F5DC),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance.collection('Adopters').snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot2) {
@@ -47,12 +37,11 @@ class _HomePageState extends State<HomePage> {
               stream: FirebaseFirestore.instance.collection('posts').snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator(backgroundColor: Color(0xFF35BDD0),));
+                  return const Center(child: CircularProgressIndicator(backgroundColor: Color(0xFF35BDD0),));
                 }
                 return ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (BuildContext context, int index) {
-                    // final pet = provider[index];
                     return InkWell(
                       onTap: () {
                         Navigator.push(
@@ -93,7 +82,7 @@ class _HomePageState extends State<HomePage> {
               vertical: 7,
               horizontal: 10,
           ),
-          child: Container(
+          child: SizedBox(
             width: 60,
             height: 60,
             child: Stack(
@@ -116,9 +105,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-
-
-
     );
   }
 }

@@ -17,9 +17,10 @@
     </queries>
 
    <application
-        android:label="petme"
+        android:label="PetMe"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+       tools:ignore="MissingClass">
 
 
        <meta-data android:name="com.google.android.geo.API_KEY"
@@ -61,7 +62,7 @@
             android:name="flutterEmbedding"
             android:value="2" />
        <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver"
-           android:exported="true"
+           android:exported="false"
            tools:ignore="MissingClass">
        </receiver>
    </application>

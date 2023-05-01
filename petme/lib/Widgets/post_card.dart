@@ -1,7 +1,6 @@
-import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:petme/screens/FirebaseFunctions/firestore_methods.dart';
@@ -30,7 +29,7 @@ class PostCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             // color: Colors.deepPurple[400],
             // color: Colors.greenAccent[400],
-            color: Color(0xFF83C0BE),
+            color: const Color(0xFF83C0BE),
             child: Container(
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
@@ -97,20 +96,29 @@ class PostCard extends StatelessWidget {
                                   where("uid", isEqualTo: snap['uid']).get().then((value) => {
                                     value.docs.forEach((element) async {
                                       // var UID = element.id;
-                                      print("Current User's UID is: $x");
-                                      print("snap id: ${snap['uid']}");
+                                      if (kDebugMode) {
+                                        print("Current User's UID is: $x");
+                                      }
+                                      if (kDebugMode) {
+                                        print("snap id: ${snap['uid']}");
+                                      }
                                       if(x == snap['uid']){
                                         FirestoreMethods().deletePost(snap['postId']);
-                                        print("Will be deleted");
+                                        if (kDebugMode) {
+                                          print("Will be deleted");
+                                        }
                                       }else{
-                                        print("Wrong User Deleting post");
-                                        print(snap['uid']);
+                                        if (kDebugMode) {
+                                          print("Wrong User Deleting post");
+                                        }
+                                        if (kDebugMode) {
+                                          print(snap['uid']);
+                                        }
                                         // print(element.id);
                                       }
 
                                     })
                                   });
-                                  // FirestoreMethods().deletePost(snap['postId']);
                                   Navigator.of(context).pop();
                                 },
                                 child: Container(
@@ -125,7 +133,7 @@ class PostCard extends StatelessWidget {
 
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 7,
                   ),
                   SizedBox(
@@ -136,25 +144,7 @@ class PostCard extends StatelessWidget {
                       snap['postUrl'].toString(),
                       fit: BoxFit.cover,),
                   ),
-                  //Likes and Comments section
-                  // Row(
-                  //   children: [
-                  //     IconButton(
-                  //         onPressed: (){},
-                  //         icon: const Icon(
-                  //           Icons.pets_outlined,
-                  //           color: Colors.deepPurple,
-                  //         )
-                  //     ),
-                  //     IconButton(
-                  //         onPressed: (){},
-                  //         icon: const Icon(
-                  //           Icons.comment_rounded,
-                  //           color: Colors.deepPurple,
-                  //         )
-                  //     ),
-                  //   ],
-                  // ),
+
                   //Description
                   const SizedBox(
                     height: 10,

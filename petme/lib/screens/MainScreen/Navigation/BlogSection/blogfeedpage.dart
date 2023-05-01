@@ -24,13 +24,6 @@ class _BlogFeedPageState extends State<BlogFeedPage> {
     final petsProvider = context.read<PetsProvider>();
     petsProvider.fetchPets();
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   // TODO: implement build
-  //   return Scaffold();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,8 +55,6 @@ class _BlogFeedPageState extends State<BlogFeedPage> {
                         create: (_) => PetsProvider(),
                         child: BlogsDetailsPage(
                           snap: snapshot.data!.docs[index].data(),
-                          // snap2: snapshot2.data!.docs[index].data(),
-                          // pet: pet,
                         ),
                       ),
                     ),
@@ -112,41 +103,3 @@ class _BlogFeedPageState extends State<BlogFeedPage> {
     );
   }
 }
-// floatingActionButton: GestureDetector(
-//   onTap: () {
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(builder: (context) => CreateBlogPage()),
-//     );
-//   },
-//   child: Padding(
-//     padding: const EdgeInsets.symmetric(
-//       vertical: 20,
-//       horizontal: 10,
-//     ),
-//     child: Container(
-//       width: 60,
-//       height: 60,
-//       child: Stack(
-//         children: [
-//           Container(
-//             decoration: BoxDecoration(
-//               shape: BoxShape.circle,
-//               color: Colors.deepPurple[300],
-//             ),
-//           ),
-//           Center(
-//             child: Lottie.network(
-//               'https://assets3.lottiefiles.com/packages/lf20_we7qtj1g.json',
-//               repeat: true,
-//               fit: BoxFit.contain,
-//             ),
-//           ),
-//         ],
-//       ),
-//     ),
-//   ),
-// ),
-// );
-
-// }

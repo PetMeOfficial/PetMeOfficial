@@ -7,19 +7,15 @@ import 'package:petme/screens/FirebaseFunctions/firestore_methods.dart';
 import 'package:petme/models/user.dart' as model;
 import 'package:petme/screens/MainScreen/main_page.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../providers/user_provider.dart';
-
 
 class AddPostScreen extends StatefulWidget {
   const AddPostScreen({Key? key}) : super(key: key);
-
   @override
   State<AddPostScreen> createState() => _AddPostScreenState();
 }
 
 class _AddPostScreenState extends State<AddPostScreen> {
-
   Uint8List? _file;
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController  captionController = TextEditingController();
@@ -113,7 +109,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
               style: TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white),
+                  color: Color(0xFF487776)),
             ),
             children: <Widget>[
               SimpleDialogOption(
@@ -126,7 +122,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 },
                 child: const Text(
                   "From Camera",
-                  style: TextStyle(fontSize: 20, color: Colors.white),
+                  style: TextStyle(fontSize: 20, color: Color(0xFF487776)),
                 ),
               ),
               SimpleDialogOption(
@@ -141,13 +137,13 @@ class _AddPostScreenState extends State<AddPostScreen> {
                     const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
                 child: const Text(
                   "From Gallery",
-                  style: TextStyle(fontSize: 20, color: Colors.white),
+                  style: TextStyle(fontSize: 20, color: Color(0xFF487776)),
                 ),
               ),
               SimpleDialogOption(
                 child: const Text(
                   "Cancel",
-                  style: TextStyle(fontSize: 20, color: Colors.white),
+                  style: TextStyle(fontSize: 20, color: Color(0xFF487776)),
                 ),
                 onPressed: () {
                   Navigator.pop(context);
@@ -186,15 +182,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
     model.User user = Provider.of<UserProvider>(context).getUser;
     return _file == null
         ? Container(
-          // color: Colors.deepPurple[100],
         decoration: const BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  // Colors.deepPurple.shade800.withOpacity(0.0),
                   Color(0xFFD9CC86),
-                  // Colors.deepPurple.shade200.withOpacity(0.8),
                   Color(0xFFF8EBD3),
                 ]
             )
@@ -215,13 +208,13 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 ),
                 AvatarGlow(
                   endRadius: 150,
-                  glowColor: Color(0xFF487776),
+                  glowColor: const Color(0xFF487776),
                   repeatPauseDuration: const Duration(milliseconds: 100),
                   duration: const Duration(milliseconds: 3000),
                   child: IconButton(
                     icon: const Icon(FontAwesomeIcons.camera),
                     iconSize: 50,
-                    color: Color(0xFF487776),
+                    color: const Color(0xFF487776),
                     onPressed: () => selectImage(context),
                   ),
                 ),
@@ -235,11 +228,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
               backgroundColor: Colors.transparent,
               elevation: 0.0,
               leading: IconButton(
-                icon: const Icon(Icons.arrow_back),
+                icon: const Icon(Icons.arrow_back, color: Color(0xFF487776),),
                 onPressed: clearImage,
               ),
               title: const Text(
                 'Selected Image',
+                style: TextStyle(color: Color(0xFF487776)),
               ),
               centerTitle: false,
               actions: <Widget>[
@@ -260,8 +254,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => const MainPage()));
-                    final snackBar = SnackBar(
-                      content: const Center(
+                    const snackBar = SnackBar(
+                      content: Center(
                         child: Text("Successfully Posted !",
                             style: TextStyle(
                               color: Colors.black,
@@ -269,9 +263,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
                               fontSize: 20,
                             )),
                       ),
-                      duration: const Duration(seconds: 3),
-                      backgroundColor: Colors.green[200],
-                      margin: const EdgeInsets.symmetric(
+                      duration: Duration(seconds: 3),
+                      backgroundColor: Color(0xFFF5F5DC),
+                      margin: EdgeInsets.symmetric(
                           vertical: 16, horizontal: 12),
                       behavior: SnackBarBehavior.floating,
                     );
@@ -280,17 +274,14 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   child: const Text(
                     "Post",
                     style: TextStyle(
-                        color: Color(0xFFBAD5D9),
+                        color: Color(0xFF487776),
                         fontWeight: FontWeight.bold,
                         fontSize: 22.0),
                   ),
                 )
               ],
             ),
-            // backgroundColor: Colors.deepPurple[600],
-            backgroundColor: Color(0xFFCAD5E2),
-            // backgroundColor: Colors.transparent,
-            // POST FORM
+            backgroundColor: const Color(0xFFF5F5DC),
             body: Padding(
               padding: const EdgeInsets.symmetric(
                   vertical: 10,
@@ -305,13 +296,6 @@ class _AddPostScreenState extends State<AddPostScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          // CircleAvatar(
-                          //   radius: 25,
-                          //   child: SizedBox(
-                          //     width: MediaQuery.of(context).size.width * 0.1,
-                          //     child: Text(user.username, style: const TextStyle(fontWeight: FontWeight.bold),),
-                          //   ),
-                          // ),
                           CircleAvatar(
                             radius: 30,
                             backgroundImage: NetworkImage(
@@ -325,7 +309,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                               decoration: const InputDecoration(
                                 hintText: 'Write A Caption for Post ...',
                                 border: InputBorder.none,
-                                hintStyle: TextStyle(color: Colors.white)
+                                hintStyle: TextStyle(color: Color(0xFF487776))
                               ),
                               maxLines: 3,
                             ),
@@ -367,19 +351,16 @@ class _AddPostScreenState extends State<AddPostScreen> {
                       style: const TextStyle(
                         color: Colors.black,
                       ),
-                      // onChanged: (value) {
-                      //   print(value);
-                      // },
                       validator: (val) =>
                       val!.isEmpty ? 'Please enter the pet\'s name!' : null,
                       decoration: const InputDecoration(
                         labelText: 'Name',
                         hintText: 'Enter the pet\'s name!',
                         hintStyle: TextStyle(
-                          color: Colors.white,
+                          color: Color(0xFF487776),
                         ),
                         labelStyle: TextStyle(
-                          color: Colors.white,
+                          color: Color(0xFF487776),
                         ),
                       ),
                     ),
@@ -390,19 +371,16 @@ class _AddPostScreenState extends State<AddPostScreen> {
                       style: const TextStyle(
                         color: Colors.black,
                       ),
-                      // onChanged: (value) {
-                      //   print(value);
-                      // },
                       validator: (val) =>
                       val!.isEmpty ? 'Please enter the pet\'s breed!' : null,
                       decoration: const InputDecoration(
                         labelText: 'Breed',
                         hintText: 'Enter the pet\'s breed!',
                         hintStyle: TextStyle(
-                          color: Colors.white,
+                          color: Color(0xFF487776),
                         ),
                         labelStyle: TextStyle(
-                          color: Colors.white,
+                          color: Color(0xFF487776),
                         ),
                       ),
                     ),
@@ -412,21 +390,18 @@ class _AddPostScreenState extends State<AddPostScreen> {
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.next,
                       style: const TextStyle(
-                        color: Colors.white,
+                        color: Color(0xFF487776),
                       ),
-                      // onChanged: (value) {
-                      //   print(value);
-                      // },
                       validator: (val) =>
                       val!.isEmpty ? 'Please enter the pet\'s age!' : null,
                       decoration: const InputDecoration(
                         labelText: 'Age',
                         hintText: 'Enter the pet\'s age!',
                         hintStyle: TextStyle(
-                          color: Colors.white,
+                          color: Color(0xFF487776),
                         ),
                         labelStyle: TextStyle(
-                          color: Colors.white,
+                          color: Color(0xFF487776),
                         ),
                       ),
                     ),const SizedBox(height: 10.0),
@@ -434,21 +409,18 @@ class _AddPostScreenState extends State<AddPostScreen> {
                       controller: descriptionController,
                       textInputAction: TextInputAction.next,
                       style: const TextStyle(
-                        color: Colors.white,
+                        color: Color(0xFF487776),
                       ),
-                      // onChanged: (value) {
-                      //   print(value);
-                      // },
                       validator: (val) =>
                       val!.isEmpty ? 'Please enter the description!' : null,
                       decoration: const InputDecoration(
                         labelText: 'Description',
                         hintText: 'Enter Description',
                         hintStyle: TextStyle(
-                          color: Colors.white,
+                          color: Color(0xFF487776),
                         ),
                         labelStyle: TextStyle(
-                          color: Colors.white,
+                          color: Color(0xFF487776),
                         ),
                       ),
                     ),
@@ -460,11 +432,11 @@ class _AddPostScreenState extends State<AddPostScreen> {
                           children: [
                             const Text(
                               "Gender",
-                              style: TextStyle(fontSize: 18, color: Colors.white),
+                              style: TextStyle(fontSize: 18, color: Color(0xFF487776)),
                             ),
                             DropdownButton(
                               value: _petGender,
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Color(0xFF487776)),
                               icon: const Icon(Icons.keyboard_arrow_down),
                               items: genders.map((String items) {
                                 return DropdownMenuItem(
@@ -484,11 +456,11 @@ class _AddPostScreenState extends State<AddPostScreen> {
                           children: [
                             const Text(
                               'Size',
-                              style: TextStyle(fontSize: 18, color: Colors.white),
+                              style: TextStyle(fontSize: 18, color: Color(0xFF487776)),
                             ),
                             DropdownButton(
                               value: _petSize,
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Color(0xFF487776)),
                               icon: const Icon(Icons.keyboard_arrow_down),
                               items: sizes.map((String items) {
                                 return DropdownMenuItem(
@@ -508,12 +480,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
                           children: [
                             const Text(
                               'Type',
-                              style: TextStyle(fontSize: 18, color: Colors.white),
+                              style: TextStyle(fontSize: 18, color: Color(0xFF487776)),
                             ),
                             DropdownButton(
                               value: _petType,
                               icon: const Icon(Icons.keyboard_arrow_down),
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Color(0xFF487776)),
                               items: types.map((String items) {
                                 return DropdownMenuItem(
                                   value: items,

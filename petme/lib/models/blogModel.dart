@@ -8,7 +8,6 @@ class Blog {
   final String username;
   final String profilePicUrl;
   dynamic datetime;
-  // final String password;
 
    Blog(
       {
@@ -20,8 +19,6 @@ class Blog {
         required this.datetime,
         required this.username,
         required this.profilePicUrl,
-        // required this.password,
-
       });
 
   static Blog fromSnap(DocumentSnapshot snap) {
@@ -35,9 +32,6 @@ class Blog {
       datetime: snapshot["datetime"],
       username: snapshot["username"],
       profilePicUrl: snapshot["profilePicUrl"],
-      // password: snapshot["password"],
-      // phoneNumber: snapshot["phoneNumber"],
-
     );
   }
 
@@ -49,7 +43,5 @@ class Blog {
     "datetime": datetime,
     "username": username,
     "profilePicUrl": profilePicUrl,
-    // "password": password,
-
   };
 }

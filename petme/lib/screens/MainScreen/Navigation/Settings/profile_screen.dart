@@ -1,13 +1,9 @@
-
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:petme/providers/user_provider.dart';
-// import 'package:petme/screens/MainScreen/Navigation/Meetings/meetings_request_page.dart';
 import 'package:petme/screens/MainScreen/Navigation/Settings/help.dart';
 import 'package:petme/screens/MainScreen/Navigation/Settings/inviteafrd.dart';
 import 'package:provider/provider.dart';
@@ -16,54 +12,51 @@ import 'constant.dart';
 import 'profile_list_item.dart';
 import 'package:petme/models/user.dart' as model;
 import 'privacy.dart';
-import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 class ProfileScreen extends StatefulWidget {
-  ProfileScreen({Key? key}) : super(key: key);
-
+  const ProfileScreen({Key? key}) : super(key: key);
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends  State<ProfileScreen>{
-
   @override
   Widget build(BuildContext context) {
-    return ThemeProvider(
-      initTheme: kDarkTheme,
+    return Center(
+      // initTheme: kDarkTheme,
       child: Builder(
         builder: (context) {
-          return MaterialApp(
+          return const MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: ThemeProvider.of(context),
-            home: const ProfileScreenState(),
+            home: ProfileScreenState(),
           );
         },
       ),
     );
   }
-
 }
-
-
 
 class ProfileScreenState extends StatefulWidget {
   const ProfileScreenState({super.key});
-
   @override
   State<ProfileScreenState> createState() => _ProfileScreenStateState();
 }
+
 
 class _ProfileScreenStateState extends State<ProfileScreenState> {
   @override
   Widget build(BuildContext context) {
     model.User user = Provider.of<UserProvider>(context).getUser;
+
+    // SizeConfig().init(context);
     ScreenUtil.init(context,
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        allowFontScaling: true
+      designSize: Size(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height),
+      //   height: MediaQuery.of(context).size.height,
+      //   width: MediaQuery.of(context).size.width,
+      //   // allowFontScaling: true
+      // allo
     );
+
 
     var profileInfo = Expanded(
       child: Column(
@@ -71,7 +64,10 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
           Container(
             height: kSpacingUnit.w * 9,
             width: kSpacingUnit.w * 9,
-            margin: EdgeInsets.only(top: kSpacingUnit.w * 1),
+            margin: EdgeInsets.only(
+                top: kSpacingUnit.w * 0.5,
+                right: kSpacingUnit.w * 3.5
+            ),
             child: Stack(
               children: <Widget>[
                 Stack(
@@ -80,7 +76,6 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
                       radius: kSpacingUnit.w * 4.5,
                       // backgroundImage: AssetImage('assets/avatar.png'),
                       backgroundImage: NetworkImage(user.profilePicUrl),
-
                     )
                   ],
                 ),
@@ -104,7 +99,7 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
                           height: kSpacingUnit.w * 2.5,
                           width: kSpacingUnit.w * 2.5,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).colorScheme.secondary,
                             shape: BoxShape.circle,
                           ),
                           child: Center(
@@ -113,7 +108,7 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
                             child: Icon(
                               LineAwesomeIcons.pen,
                               color: kDarkPrimaryColor,
-                              size: ScreenUtil().setSp(kSpacingUnit.w * 1.5) as double,
+                              size: ScreenUtil().setSp(kSpacingUnit.w * 1.5),
                             ),
                           ),
                         ),
@@ -128,16 +123,16 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
                     height: kSpacingUnit.w * 2.5,
                     width: kSpacingUnit.w * 2.5,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).colorScheme.secondary,
                       shape: BoxShape.circle,
                     ),
                     child: Center(
                       heightFactor: kSpacingUnit.w * 1.5,
-                      widthFactor: kSpacingUnit.w * 1.5,
+                      widthFactor: kSpacingUnit.w * 1.0,
                       child: Icon(
                         LineAwesomeIcons.pen,
                         color: kDarkPrimaryColor,
-                        size: ScreenUtil().setSp(kSpacingUnit.w * 1.5) as double,
+                        size: ScreenUtil().setSp(kSpacingUnit.w * 1.5),
                       ),
                     ),
                   ),
@@ -146,51 +141,57 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
             ),
           ),
           SizedBox(height: kSpacingUnit.w * 1),
-          Text(
-            user.username.toUpperCase(),
-            style: kTitleTextStyle,
+          Container(
+            margin: EdgeInsets.only(right: kSpacingUnit.w * 3.5),
+            child: Text(
+              user.username.toUpperCase(),
+              style: kTitleTextStyle,
+            ),
           ),
           SizedBox(height: kSpacingUnit.w * 0.5),
-          Text(
-            user.email,
-            style: kCaptionTextStyle,
+          Container(
+            margin: EdgeInsets.only(top: kSpacingUnit.w * 0.5, right: kSpacingUnit.w * 3.5),
+            child: Text(
+              user.email,
+              style: kCaptionTextStyle,
+            ),
           ),
           SizedBox(height: kSpacingUnit.w * 1.5),
         ],
       ),
     );
 
-    var themeSwitcher = ThemeSwitcher(
-      builder: (context) {
-        return AnimatedCrossFade(
-          duration: const Duration(milliseconds: 200),
-          crossFadeState:
-          ThemeProvider.of(context).brightness == Brightness.dark
-              ? CrossFadeState.showFirst
-              : CrossFadeState.showSecond,
-          firstChild: GestureDetector(
-            onTap: () {
-              ThemeSwitcher.of(context).changeTheme(theme: kLightTheme);
-              Get.snackbar("Light Mode", "Enabled");
-            },
-            child: Icon(
-              LineAwesomeIcons.sun,
-              size: ScreenUtil().setSp(kSpacingUnit.w * 3) as double,
-            ),
-          ),
-          secondChild: GestureDetector(
-            onTap: () {
-              ThemeSwitcher.of(context).changeTheme(theme: kDarkTheme);
-              Get.snackbar("Dark Mode", "Enabled");
-            },
-            child: Icon(
-              LineAwesomeIcons.moon,
-              size: ScreenUtil().setSp(kSpacingUnit.w * 3) as double,
-            ),
-          ),
-        );
-      },
-    );
+    // var themeSwitcher = ThemeSwitcher(
+    //   builder: (context) {
+    //     return AnimatedCrossFade(
+    //       duration: const Duration(milliseconds: 200),
+    //       crossFadeState:
+    //       ThemeProvider.of(context).brightness == Brightness.dark
+    //           ? CrossFadeState.showFirst
+    //           : CrossFadeState.showSecond,
+    //       firstChild: GestureDetector(
+    //         onTap: () {
+    //           ThemeSwitcher.of(context).changeTheme(theme: kLightTheme);
+    //           Get.snackbar("Light Mode", "Enabled");
+    //         },
+    //         child: Icon(
+    //           LineAwesomeIcons.sun,
+    //           size: ScreenUtil().setSp(kSpacingUnit.w * 3) as double,
+    //         ),
+    //       ),
+    //       secondChild: GestureDetector(
+    //         onTap: () {
+    //           ThemeSwitcher.of(context).changeTheme(theme: kDarkTheme);
+    //           Get.snackbar("Dark Mode", "Enabled");
+    //         },
+    //         child: Icon(
+    //           LineAwesomeIcons.moon,
+    //           size: ScreenUtil().setSp(kSpacingUnit.w * 3) as double,
+    //         ),
+    //       ),
+    //     );
+    //   },
+    // );
 
     var header = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -201,18 +202,16 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
           onTap: () => Get.offAll(() => const MainPage()),
           child: Icon(
             LineAwesomeIcons.arrow_left,
-            size: ScreenUtil().setSp(kSpacingUnit.w * 3) as double,
+            size: ScreenUtil().setSp(kSpacingUnit.w * 3),
           ),
         ),
         profileInfo,
-        themeSwitcher,
+        // themeSwitcher,
         SizedBox(width: kSpacingUnit.w * 2),
       ],
     );
 
-
-
-    return ThemeSwitchingArea(
+    return Center(
       child: Builder(
         builder: (context) {
           return Scaffold(
@@ -255,23 +254,6 @@ class _ProfileScreenStateState extends State<ProfileScreenState> {
                           text: 'Help & Support',
                         ),
                       ),
-                      //
-                      // GestureDetector(
-                      //   onTap: (){
-                      //     Navigator.pushAndRemoveUntil(
-                      //         context,
-                      //         MaterialPageRoute(
-                      //             builder: (context) => MeetingRequestsScreen(petId: "petId")),
-                      //             (Route<dynamic> route) => true
-                      //     );
-                      //
-                      //   },
-                      //   child: const ProfileListItem(
-                      //     icon: LineAwesomeIcons.bell,
-                      //     text: 'Meetings Request',
-                      //   ),
-                      // ),
-
                       GestureDetector(
                         onTap: (){
                           Navigator.pushAndRemoveUntil(

@@ -7,13 +7,9 @@ import 'package:petme/Authentication/auth_page.dart';
 import 'package:petme/providers/user_provider.dart';
 import 'package:petme/screens/MainScreen/Navigation/BlogSection/createBlogPage.dart';
 import 'package:petme/screens/MainScreen/Navigation/HomeScreen/home_page.dart';
-import 'package:petme/screens/MainScreen/Navigation/Meetings/meetings_page.dart';
-import 'package:petme/screens/MainScreen/Navigation/Meetings/meetingschedule.dart';
-// import 'package:petme/screens/MainScreen/Navigation/Meetings/requests.dart';
 import 'package:petme/screens/MainScreen/main_page.dart';
-import 'package:petme/screens/Registration/Adopter/adopterSignUp.dart';
+import 'package:petme/screens/Registration/SignUp.dart';
 import 'package:petme/screens/Login/login_page.dart';
-import 'package:petme/screens/Registration/Pet/petSignUp.dart';
 import 'package:petme/screens/SplashScreen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:petme/screens/Login/forgotPass.dart';
@@ -70,11 +66,10 @@ void main() async {
             name: '/splash',
             page: () => const SplashScreen(),
             transition: Transition.downToUp),
-        GetPage(name: '/adopter', page: () => const adopterSignUp()),
+        GetPage(name: '/adopter', page: () => const AdopterSignUp()),
         GetPage(name: '/forgot', page: () => const ForgotPass()),
         GetPage(name: '/mainPage', page: () => const MainPage()),
         GetPage(name: '/homePage', page: () => const HomePage()),
-        GetPage(name: '/meetings', page: () => MeetingsPage()),
         // GetPage(name: '/requests', page: () => RequestScreen()),
       ],
     ),

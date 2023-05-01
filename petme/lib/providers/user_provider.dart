@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 import 'package:petme/models/user.dart';
 import 'package:petme/screens/FirebaseFunctions/auth_methods.dart';
@@ -8,20 +7,6 @@ class UserProvider with ChangeNotifier {
   User? _user;
   String? id;
   final AuthMethods _authMethods = AuthMethods();
-
-
-
-
-  void _getOwner() {
-    FirebaseFirestore.instance
-        .collection('Adopters')
-        .doc(id)
-        .snapshots()
-        .listen((DocumentSnapshot documentSnapshot) async {
-      _user = User.fromSnap(documentSnapshot);
-      notifyListeners();
-    });
-  }
 
   User get getUser => _user!;
 

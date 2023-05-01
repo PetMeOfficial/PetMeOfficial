@@ -13,7 +13,7 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   final Completer<GoogleMapController> _controller = Completer();
 
-  List<Marker> _marker = [];
+  final List<Marker> _marker = [];
   // List<Marker> _markers = [];
   final List<Marker> _list = const [
     Marker(
@@ -72,7 +72,7 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFFF5F5DC),
+        backgroundColor: const Color(0xFFF5F5DC),
         body: GoogleMap(
           initialCameraPosition: _CamPosition,
           markers: Set<Marker>.of(_marker),
