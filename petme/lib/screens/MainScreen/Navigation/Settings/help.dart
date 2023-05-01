@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
+
 
 class HelpSupportPage extends StatelessWidget {
   const HelpSupportPage({Key? key}) : super(key: key);
@@ -7,51 +10,103 @@ class HelpSupportPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Help & Support'),
+        centerTitle: false,
+        title: Align(
+          alignment: Alignment.centerLeft,
+          child: Text('Help & Support'), // Set the background color
+        )
+
       ),
+
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Frequently Asked Questions',
-              style: Theme.of(context).textTheme.headline6,
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Q: How do I create an account?\nA: You can create an account by clicking on the "Sign up" button on the app\'s home screen.',
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Q: How do I search for adoptable pets?\nA: You can search for adoptable pets by clicking on the "Find a Pet" button on the app\'s home screen and selecting your preferred search criteria.',
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Q: How do I contact a pet adoption agency?\nA: You can contact a pet adoption agency by clicking on the "Contact Us" button on the pet adoption agency\'s profile page.',
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-            SizedBox(height: 16),
-            Text(
               'Contact Us',
               style: Theme.of(context).textTheme.headline6,
             ),
-            SizedBox(height: 8),
+            SizedBox(height: 16),
             Text(
-              'If you have any questions or concerns about our pet adoption app, please contact us at:',
+              'If you have any questions or concerns about our pet adoption app, please feel free to contact us through the following channels:',
               style: Theme.of(context).textTheme.bodyText1,
             ),
-            SizedBox(height: 8),
+            SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.only(left: 16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Email: '),
-                  Text('Phone: '),
-                  Text('Address: '),
+                  Text(
+                    'Email: support@petme.com',
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Phone: +91',
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Address: ',
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 16),
+            Text(
+              'Report a Problem',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            SizedBox(height: 16),
+            Text(
+              'If you encounter any issues or problems with our app, please let us know by filling out the form below:',
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+            SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextFormField(
+                    decoration: InputDecoration(
+                      hintText: 'Name',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      hintText: 'Email',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your email.';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      // Save the email address to a variable or database
+                    },
+                  ),
+
+                  SizedBox(height: 8),
+                  TextFormField(
+                    maxLines: 5,
+                    decoration: InputDecoration(
+                      hintText: 'Problem description',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text('Submit'),
+                  ),
                 ],
               ),
             ),

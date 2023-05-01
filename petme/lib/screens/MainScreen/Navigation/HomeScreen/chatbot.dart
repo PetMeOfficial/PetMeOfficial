@@ -13,9 +13,14 @@ class _ChatBotState extends State<ChatBot> {
   final _controller = TextEditingController();
   final _scrollController = ScrollController();
   late DialogFlowtter _dialogflow;
-  List<String> _predefinedQuestions = [    'How do I reset my password?',    'How do I update my profile information?',    'How do I delete my account?',    'How do I contact customer support?',  ];
+  List<String> _predefinedQuestions = [
+    'How do I reset my password?',
+    'Teething Process Of Pet ?',
+    'How Do I Delete My Pet Profile?',
+    'How do I contact customer support?',
+  ];
   List<Widget> _messages = [];
-  
+  bool _showPredefinedQuestions = true;
 
 
   @override
@@ -23,6 +28,12 @@ class _ChatBotState extends State<ChatBot> {
     super.initState();
     DialogFlowtter.fromFile().then((value) => _dialogflow = value);
     _messages.add(_buildChatBubble("Hi there! How can I assist you today?"));
+  }
+
+  void _togglePredefinedQuestions() {
+    setState(() {
+      _showPredefinedQuestions = false;
+    });
   }
 
   @override
@@ -52,7 +63,7 @@ class _ChatBotState extends State<ChatBot> {
             _scrollToEnd();
           },
           style: ElevatedButton.styleFrom(
-            primary: Colors.deepPurple[300], // change button color
+            primary: Color(0xFF487776), // change button color
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
@@ -81,8 +92,10 @@ class _ChatBotState extends State<ChatBot> {
         queryInput: QueryInput(text: TextInput(text: query)));
     _displayMessage(response.text!, isUser: false);
     _scrollToEnd();
+    _togglePredefinedQuestions(); // hide predefined questions
     FocusScope.of(context).unfocus();
   }
+
 
   void _displayMessage(String message, {bool isUser = false}) {
     setState(() {
@@ -114,7 +127,7 @@ class _ChatBotState extends State<ChatBot> {
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                color: isUser ? Colors.deepPurple[300] : Colors.grey[200],
+                color: isUser ? Color(0xFF487776) : Colors.grey[200],
               ),
               child: Text(
                 text,
@@ -135,9 +148,11 @@ class _ChatBotState extends State<ChatBot> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
         title: Text('PetMe ChatBot'),
-        backgroundColor: Colors.deepPurple[300],
+        backgroundColor: Color(0xFF487776),
+        actions: [
+
+        ],
       ),
 
       body: Column(
@@ -162,23 +177,38 @@ class _ChatBotState extends State<ChatBot> {
                     decoration: InputDecoration(
                       hintText: 'Type your message here',
                     ),
+                    enableSuggestions: false, // disable suggestions
                   ),
+
                 ),
                 IconButton(
                   onPressed: _onSend,
                   icon: Icon(Icons.send),
                 ),
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      _showPredefinedQuestions = !_showPredefinedQuestions;
+                    });
+                  },
+                  icon: Icon(
+                    _showPredefinedQuestions ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_up,
+                  ),
+                ),
+
+
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: _buildPredefinedQuestions(),
+          if (_showPredefinedQuestions)
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: _buildPredefinedQuestions(),
+              ),
             ),
-          ),
         ],
       ),
     );

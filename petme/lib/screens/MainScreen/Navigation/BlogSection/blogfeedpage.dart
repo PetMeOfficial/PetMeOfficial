@@ -38,7 +38,7 @@ class _BlogFeedPageState extends State<BlogFeedPage> {
       //   title: const Text('Blogs'),
       //   backgroundColor: Colors.deepPurple[300],
       // ),
-      backgroundColor: Colors.transparent,
+      backgroundColor:Color(0xFFDACB99),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('Blogs').snapshots(),
         builder: (context,
@@ -46,7 +46,7 @@ class _BlogFeedPageState extends State<BlogFeedPage> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
                 child: CircularProgressIndicator(
-              backgroundColor: Colors.deepPurple[400],
+              backgroundColor: Color(0xFF9ED72D),
             ));
           }
           return ListView.builder(
@@ -86,7 +86,7 @@ class _BlogFeedPageState extends State<BlogFeedPage> {
                 MaterialPageRoute(builder: (context) => CreateBlogPage()),
               );
             },
-          backgroundColor: Colors.deepPurple[400],
+          backgroundColor:Color(0xFF71B6B3),
             label: Row(
               children: [
                 const Icon(

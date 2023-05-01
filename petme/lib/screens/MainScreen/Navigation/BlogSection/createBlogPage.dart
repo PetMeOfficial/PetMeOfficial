@@ -46,7 +46,7 @@ class _CreateBlogPageState extends State<CreateBlogPage> {
     model.User user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple[300],
+        backgroundColor: Color(0xFF487776),
         title: const Text('Create Blog Post'),
       ),
       body: SingleChildScrollView(
@@ -69,7 +69,7 @@ class _CreateBlogPageState extends State<CreateBlogPage> {
                           :  CircleAvatar(
                         radius: 64,
                         backgroundImage: const AssetImage('assets/upload3.png'),
-                        backgroundColor: Colors.deepPurple[300],
+                        backgroundColor:Color(0xFF71B6B3),
                       ),
                       Positioned(
                         bottom: -10,
@@ -204,7 +204,7 @@ class _CreateBlogPageState extends State<CreateBlogPage> {
                   style: ElevatedButton.styleFrom(
                     padding:
                     const EdgeInsets.fromLTRB(85, 10, 85, 10),
-                    backgroundColor: Colors.deepPurple[400],
+                    backgroundColor: Color(0xFF487776),
                     shape: RoundedRectangleBorder(
                         borderRadius:
                         BorderRadius.circular(10.0)),

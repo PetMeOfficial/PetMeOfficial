@@ -193,7 +193,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 end: Alignment.bottomCenter,
                 colors: [
                   // Colors.deepPurple.shade800.withOpacity(0.0),
-                  Color(0xFF1A237E),
+                  Color(0xFFDACB99),
                   // Colors.deepPurple.shade200.withOpacity(0.8),
                   Color(0xFF0077be),
                 ]
@@ -280,7 +280,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   child: const Text(
                     "Post",
                     style: TextStyle(
-                        color: Colors.blueAccent,
+                        color: Color(0xFFBAD5D9),
                         fontWeight: FontWeight.bold,
                         fontSize: 22.0),
                   ),
@@ -288,7 +288,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
               ],
             ),
             // backgroundColor: Colors.deepPurple[600],
-            backgroundColor: Color(0xFF1A237E),
+            backgroundColor: Color(0xFFCAD5E2),
             // backgroundColor: Colors.transparent,
             // POST FORM
             body: Padding(
