@@ -6,9 +6,10 @@ class PrivacyPolicyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Privacy Policy'),
-      ),
+      // appBar: AppBar(
+      //   title: Text('Privacy Policy'),
+      //   backgroundColor: Color(0xFF487776),
+      // ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -16,6 +17,9 @@ class PrivacyPolicyPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
+                'Privacy Policy\n',
+                style: Theme.of(context).textTheme.headline5,
+              ),Text(
                 'Introduction',
                 style: Theme.of(context).textTheme.headline6,
               ),
@@ -39,7 +43,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: const [
                     Text('• Name'),
                     Text('• Email address'),
                     Text('• Phone number'),
@@ -63,7 +67,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: const [
                     Text('• Connect you with pet adoption agencies'),
                     Text('• Improve our app and services'),
                     Text('• Communicate with you about your pet adoption preferences'),

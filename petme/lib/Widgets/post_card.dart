@@ -30,7 +30,7 @@ class PostCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             // color: Colors.deepPurple[400],
             // color: Colors.greenAccent[400],
-            color: Color(0xFF71B6B3),
+            color: Color(0xFF83C0BE),
             child: Container(
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(

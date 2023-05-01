@@ -49,7 +49,7 @@ class _DetailsPageState extends State<DetailsPage> {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             elevation: 1,
-            backgroundColor: kLightPrimaryColor,
+            backgroundColor: Color(0xFF487776),
             title: const Text(
               "Select Your Choice",
               style: TextStyle(
@@ -226,7 +226,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                 },
                                 child: const Icon(
                                   Icons.arrow_back_ios,
-                                  color: kLightPrimaryColor,
+                                  color: Color(0xFF487776),
                                 ),
                               ),
                               InkWell(
@@ -236,7 +236,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                 child: const Icon(
                                   CupertinoIcons.share,
                                   // color: Colors.pink[400],
-                                  color: kLightPrimaryColor,
+                                  color: Color(0xFF487776),
                                 ),
                               ),
                             ],
@@ -436,7 +436,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           child: Material(
                             borderRadius: BorderRadius.circular(20.0),
                             elevation: 4.0,
-                            color: kLightPrimaryColor,
+                            color: Color(0xFF487776),
                             // color: Colors.pink[400],
                             child: const Padding(
                               // padding: EdgeInsets.all(20.0),
@@ -490,7 +490,7 @@ class _DetailsPageState extends State<DetailsPage> {
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                               fontSize: 26.0,
-                              color: kLightPrimaryColor,
+                              color: Color(0xFF487776),
                               // color: Colors.pink[400],
                               fontWeight: FontWeight.bold,
                             ),
@@ -527,7 +527,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           style: const TextStyle(
                             fontSize: 16.0,
                             // color: Colors.pink[400],
-                            color: kLightPrimaryColor,
+                            color: Color(0xFF487776),
                             fontWeight: FontWeight.w500,
                           ),
                         ),

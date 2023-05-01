@@ -165,7 +165,7 @@ class _BlogsDetailsPageState extends State<BlogsDetailsPage> {
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 22.0,
+                                  fontSize: 18.0,
                                 ),
                               ),
                             ),
@@ -181,8 +181,8 @@ class _BlogsDetailsPageState extends State<BlogsDetailsPage> {
                                     "                 Written By: ${widget.snap['username']}",
                                 // maxLines: 20,
                                 // overflow: TextOverflow.fade,
-                                style: TextStyle(
-                                  color: Colors.deepPurple[300],
+                                style: const TextStyle(
+                                  color: Color(0xFF487776),
                                   fontWeight: FontWeight.w500,
                                   fontSize: 18.0,
                                 ),
@@ -379,7 +379,7 @@ class _BlogsDetailsPageState extends State<BlogsDetailsPage> {
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: 26.0,
-                              color: Colors.deepPurple[400],
+                              color: Color(0xFF487776),
                               fontWeight: FontWeight.bold,
                             ),
                           ),

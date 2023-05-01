@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:petme/Authentication/auth_page.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 4), () {
       Get.put(AuthPage());
     });
   }
@@ -23,22 +24,42 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF487776),
+      backgroundColor: Color(0xFFF5F5DC),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'PetMe',
               style: TextStyle(
-                color: Colors.white,
-                fontSize: 48.0,
+                color: Color(0xFF487776),
+                fontSize: 58.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
+            // SizedBox(height: 30.0),
+            Container(
+              child: Lottie.asset(
+                'assets/splash_pet.json',
+                repeat: true,
+                fit: BoxFit.contain,
+              ),
+            ),
             SizedBox(height: 24.0),
-            CircularProgressIndicator(
-              color: Colors.white,
+            const Text(
+              'When I needed a Hand',
+              style: TextStyle(
+                color: Color(0xFF487776),
+                fontSize: 28.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),const Text(
+              'I found a Paw',
+              style: TextStyle(
+                color: Color(0xFF487776),
+                fontSize: 38.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),

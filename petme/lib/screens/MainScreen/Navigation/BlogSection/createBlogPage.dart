@@ -89,16 +89,16 @@ class _CreateBlogPageState extends State<CreateBlogPage> {
                   controller: titleController,
                   decoration: InputDecoration(
                     labelText: 'Title',
-                      labelStyle: TextStyle(color: Colors.deepPurple[400]),
+                      labelStyle: TextStyle(color: Color(0xFF487776)),
                       prefixIcon: Icon(
                         Icons.edit,
-                        color: Colors.deepPurple[400],
+                        color: Color(0xFF487776),
                       ),
                       // hintText: 'Password',
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(13),
                         borderSide: const BorderSide(
-                            width: 2.0, color: Colors.deepPurple),
+                            width: 2.0, color: Color(0xFF487776)),
                       )
                   ),
                   validator: (value) {
@@ -120,16 +120,16 @@ class _CreateBlogPageState extends State<CreateBlogPage> {
                   controller: descriptionController,
                   decoration: InputDecoration(
                     labelText: 'Description',
-                      labelStyle: TextStyle(color: Colors.deepPurple[400]),
+                      labelStyle: TextStyle(color: Color(0xFF487776)),
                       prefixIcon: Icon(
                         Icons.edit,
-                        color: Colors.deepPurple[400],
+                        color: Color(0xFF487776),
                       ),
                       // hintText: 'Password',
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(13),
                         borderSide: const BorderSide(
-                            width: 2.0, color: Colors.deepPurple),
+                            width: 2.0, color: Color(0xFF487776)),
                       )
                   ),
                   validator: (value) {
@@ -152,16 +152,16 @@ class _CreateBlogPageState extends State<CreateBlogPage> {
                   decoration: InputDecoration(
                     labelText: 'Content',
                     contentPadding: const EdgeInsets.symmetric(vertical: 60.0),
-                    labelStyle: TextStyle(color: Colors.deepPurple[400]),
+                    labelStyle: TextStyle(color: Color(0xFF487776)),
                     prefixIcon: Icon(
                       Icons.edit,
-                      color: Colors.deepPurple[400],
+                      color: Color(0xFF487776),
                     ),
                     // hintText: 'Password',
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(13),
                       borderSide: const BorderSide(
-                          width: 2.0, color: Colors.deepPurple),
+                          width: 2.0, color: Color(0xFF487776)),
                     )
                   ),
                   maxLines: null,

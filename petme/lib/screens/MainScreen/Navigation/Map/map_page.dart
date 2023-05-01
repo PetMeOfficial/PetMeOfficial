@@ -72,7 +72,7 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.deepPurple[100],
+        backgroundColor: Color(0xFFF5F5DC),
         body: GoogleMap(
           initialCameraPosition: _CamPosition,
           markers: Set<Marker>.of(_marker),

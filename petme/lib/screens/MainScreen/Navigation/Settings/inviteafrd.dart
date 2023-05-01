@@ -12,9 +12,9 @@ class InviteFriendPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Invite a Friend'),
-      ),
+      // appBar: AppBar(
+      //   title: Text('Invite a Friend'),
+      // ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -58,6 +58,15 @@ class InviteFriendPage extends StatelessWidget {
             ElevatedButton(
               onPressed: () => shareApp(),
               child: Text('Share App'),
+              style: ElevatedButton.styleFrom(
+                // padding: const EdgeInsets.symmetric(horizontal: 25,vertical: 5),
+                padding: const EdgeInsets.fromLTRB(
+                    80, 10, 80, 10),
+                backgroundColor: Color(0xFF487776),
+                shape: RoundedRectangleBorder(
+                    borderRadius:
+                    BorderRadius.circular(10.0)),
+              ),
             ),
           ],
         ),

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,10 +13,8 @@ import 'package:petme/models/petUser.dart' as petModel;
 import 'package:petme/screens/FirebaseFunctions/auth_methods.dart';
 import 'package:petme/screens/FirebaseFunctions/storage_methods.dart';
 import 'package:petme/screens/MainScreen/main_page.dart';
-// import 'package:petme/firebaseAuthe/auth_page.dart';
 import 'package:petme/screens/Login/login_page.dart';
 import 'package:http/http.dart' as http;
-// import 'package:petme/screens/petSignUp.dart';
 
 class AuthPage extends GetxController {
   static AuthPage instance = Get.find();
@@ -304,7 +301,7 @@ class AuthPage extends GetxController {
       if (email.isNotEmpty && password.isNotEmpty) {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: email, password: password);
-        Get.snackbar("Authentication Complete", "Signing In", colorText: Colors.greenAccent[400], backgroundColor: Colors.white);
+        Get.snackbar("Pawsome to See You Again!", "", colorText: Color(0xFF487776), backgroundColor: Color(0xFFF5F5DC));
       } else {
         Get.snackbar("Error Logging in", "Please Enter All The Fields");
       }

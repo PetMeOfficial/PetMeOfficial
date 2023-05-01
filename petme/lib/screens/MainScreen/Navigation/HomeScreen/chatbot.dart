@@ -154,7 +154,7 @@ class _ChatBotState extends State<ChatBot> {
 
         ],
       ),
-
+      backgroundColor: Color(0xFFF5F5DC),
       body: Column(
         children: [
           Expanded(

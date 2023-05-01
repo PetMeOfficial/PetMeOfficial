@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ChatBot()),
+            MaterialPageRoute(builder: (context) => const ChatBot()),
           );
         },
         child: Padding(
@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
             child: Stack(
               children: [
                 Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: Color(0xFF487776),
                   ),

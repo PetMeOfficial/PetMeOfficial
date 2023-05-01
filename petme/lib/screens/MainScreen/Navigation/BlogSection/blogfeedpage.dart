@@ -38,7 +38,7 @@ class _BlogFeedPageState extends State<BlogFeedPage> {
       //   title: const Text('Blogs'),
       //   backgroundColor: Colors.deepPurple[300],
       // ),
-      backgroundColor:Color(0xFFDACB99),
+      backgroundColor:Color(0xFFF5F5DC),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('Blogs').snapshots(),
         builder: (context,

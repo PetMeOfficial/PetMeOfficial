@@ -26,7 +26,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple[100],
+      backgroundColor: Color(0xFF487776),
       body: ProfileScreen()
     );
   }

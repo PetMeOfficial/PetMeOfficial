@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 
@@ -9,14 +11,14 @@ class HelpSupportPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          centerTitle: false,
-          title: Align(
-            alignment: Alignment.centerLeft,
-            child: Text('Help & Support'), // Set the background color
-          )
-
-      ),
+      // appBar: AppBar(
+      //     centerTitle: false,
+      //     title: Align(
+      //       alignment: Alignment.centerLeft,
+      //       child: Text('Help & Support'), // Set the background color
+      //     )
+      //
+      // ),
 
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -44,18 +46,18 @@ class HelpSupportPage extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'Phone: +91',
+                    'Phone: +91 79770 16965',
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'Address: ',
+                    'Address: Sector 29, Nigdi Pradhikaran, Akurdi, Pune, Maharashtra 411044',
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               'Report a Problem',
               style: Theme.of(context).textTheme.headline6,
@@ -72,16 +74,27 @@ class HelpSupportPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Name',
                       border: OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Color(0xFF487776), // Set border color to green when the TextField is focused
+                        ),
+                      ),
+
                     ),
                   ),
                   SizedBox(height: 8),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Email',
                       border: OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Color(0xFF487776), // Set border color to green when the TextField is focused
+                        ),
+                      ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -97,15 +110,33 @@ class HelpSupportPage extends StatelessWidget {
                   SizedBox(height: 8),
                   TextFormField(
                     maxLines: 5,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Problem description',
                       border: OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Color(0xFF487776), // Set border color to green when the TextField is focused
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(height: 16),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.snackbar("Server Down, Please Try Again!", "or Email Us at: support@petme.com",
+                          colorText: Color(0xFF487776),
+                          backgroundColor: Color(0xFFF5F5DC));
+                    },
                     child: Text('Submit'),
+                    style: ElevatedButton.styleFrom(
+                      // padding: const EdgeInsets.symmetric(horizontal: 25,vertical: 5),
+                      padding: const EdgeInsets.fromLTRB(
+                          80, 10, 80, 10),
+                      backgroundColor: Color(0xFF487776),
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                          BorderRadius.circular(10.0)),
+                    ),
                   ),
                 ],
               ),
@@ -116,4 +147,3 @@ class HelpSupportPage extends StatelessWidget {
     );
   }
 }
- 

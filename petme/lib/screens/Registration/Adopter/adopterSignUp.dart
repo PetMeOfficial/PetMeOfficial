@@ -75,70 +75,71 @@ class _adopterSignUpState extends State<adopterSignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFF5F5DC),
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const SizedBox(
-                  height: 240,
-                  width: 45,
-                ),
-                TextButton(
-                    onPressed: () {
-                      // Navigator.pushNamed(context, 'adopter');
-                      Navigator.push(context, PageRouteBuilder(pageBuilder:
-                          (BuildContext context, Animation<double> animation1,
-                          Animation<double> animation2) {
-                        return const adopterSignUp();
-                      }));
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.only(
-                        bottom: 4, // Space between underline and text
-                      ),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                                color: Colors.deepPurple[400]!,
-                                width: 2.0, // Underline thickness
-                              ))),
-                      child: const Text(
-                        "Adopter",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 32,
-                        ),
-                      ),
-                    )), // Adopter Text
-                const SizedBox(
-                  //  height: 120,
-                  width: 100,
-                ),
-                TextButton(
-                    onPressed: () {
-                      // Navigator.pushNamed(context, 'adopter');
-                      Navigator.push(context, PageRouteBuilder(pageBuilder:
-                          (BuildContext context, Animation<double> animation1,
-                          Animation<double> animation2) {
-                        return const SignUp();
-                      }));
-                    },
-                    child: const Text(
-                      'Pet',
-                      style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    )), // Pet Text
-              ],
+            Container(
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.08,
+                  right: 35,
+                  left: 35),
+              child: const Text(
+                'Welcome to PetMe!',
+                style: TextStyle(
+                    fontSize: 35,
+                    color: Color(0xFF487776),
+                    fontWeight: FontWeight.bold),
+              ),
             ),
+            // Center(
+            //   child: Row(
+            //     // mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //     children: [
+            //       const SizedBox(
+            //         height: 240,
+            //         width: 45,
+            //       ),
+            //       TextButton(
+            //           onPressed: () {
+            //             // Navigator.pushNamed(context, 'adopter');
+            //             Navigator.push(context, PageRouteBuilder(pageBuilder:
+            //                 (BuildContext context, Animation<double> animation1,
+            //                 Animation<double> animation2) {
+            //               return const adopterSignUp();
+            //             }));
+            //           },
+            //           child: Container(
+            //             padding: const EdgeInsets.only(
+            //               bottom: 4, // Space between underline and text
+            //             ),
+            //             decoration: BoxDecoration(
+            //                 border: Border(
+            //                     bottom: BorderSide(
+            //                       color: Color(0xFF487776)!,
+            //                       width: 2.0, // Underline thickness
+            //                     ))),
+            //             child: const Text(
+            //               "Adopter",
+            //               style: TextStyle(
+            //                 color: Colors.black,
+            //                 fontWeight: FontWeight.bold,
+            //                 fontSize: 32,
+            //               ),
+            //             ),
+            //           )), // Adopter Text
+            //       const SizedBox(
+            //         //  height: 120,
+            //         width: 100,
+            //       ),
+            //        // Pet Text
+            //     ],
+            //   ),
+            // ),
             Center(
               child: Container(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.27,
+                    top: MediaQuery.of(context).size.height * 0.15,
                     right: 35,
                     left: 35),
                 child: Form(
@@ -169,104 +170,104 @@ class _adopterSignUpState extends State<adopterSignUp> {
                         ],
                       ),
                       const SizedBox(
-                        height: 35,
+                        height: 25,
                       ),
                       TextFormField(
                         controller: usernameController,
                         decoration: InputDecoration(
                             label: const Text('Username'),
-                            labelStyle: TextStyle(color: Colors.deepPurple[400]),
+                            labelStyle: TextStyle(color: Color(0xFF487776)),
                             prefixIcon: Icon(
                               Icons.person,
-                              color: Colors.deepPurple[400],
+                              color: Color(0xFF487776),
                             ),
                             // hintText: 'User Name',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
                               borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.deepPurple),
+                                  width: 2.0, color: Color(0xFF487776)),
                             )),
                       ),
                       const SizedBox(
-                        height: 35,
+                        height: 25,
                       ),
                       TextFormField(
                         controller: nameController,
                         decoration: InputDecoration(
                             label: const Text('Name'),
-                            labelStyle: TextStyle(color: Colors.deepPurple[400]),
+                            labelStyle: TextStyle(color: Color(0xFF487776)),
                             prefixIcon: Icon(
                               Icons.person_2_outlined,
-                              color: Colors.deepPurple[400],
+                              color: Color(0xFF487776),
                             ),
                             // hintText: 'Name',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
                               borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.deepPurple),
+                                  width: 2.0, color: Color(0xFF487776)),
                             )),
                       ), // Name
                       const SizedBox(
-                        height: 35,
+                        height: 25,
                       ),
                       TextFormField(
                         controller: emailController,
                         decoration: InputDecoration(
                             label: const Text('Email'),
-                            labelStyle: TextStyle(color: Colors.deepPurple[400]),
+                            labelStyle: TextStyle(color: Color(0xFF487776)),
                             prefixIcon: Icon(
                               Icons.email_outlined,
-                              color: Colors.deepPurple[400],
+                              color: Color(0xFF487776),
                             ),
                             // hintText: 'Email',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
                               borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.deepPurple),
+                                  width: 2.0, color: Color(0xFF487776)),
                             )),
                       ), // Email
                       const SizedBox(
-                        height: 35,
+                        height: 25,
                       ),
                       TextFormField(
                         controller: phoneNumber,
                         decoration: InputDecoration(
                             label: const Text('Phone Number'),
-                            labelStyle: TextStyle(color: Colors.deepPurple[400]),
+                            labelStyle: TextStyle(color: Color(0xFF487776)),
                             prefixIcon: Icon(
                               Icons.numbers_outlined,
-                              color: Colors.deepPurple[400],
+                              color: Color(0xFF487776),
                             ),
                             // hintText: 'Email',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
                               borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.deepPurple),
+                                  width: 2.0, color: Color(0xFF487776)),
                             )),
                       ),
                       const SizedBox(
-                        height: 35,
+                        height: 25,
                       ),
                       TextFormField(
                         obscureText: true,
                         controller: passwordController,
                         decoration: InputDecoration(
                             label: const Text('Password'),
-                            labelStyle: TextStyle(color: Colors.deepPurple[400]),
+                            labelStyle: TextStyle(color: Color(0xFF487776)),
                             prefixIcon: Icon(
                               Icons.fingerprint,
-                              color: Colors.deepPurple[400],
+                              color: Color(0xFF487776),
                             ),
                             // hintText: 'Password',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(13),
                               borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.deepPurple),
+                                  width: 2.0, color: Color(0xFF487776)),
                             )
                         ),
                       ), // Password
                       const SizedBox(
-                        height: 50,
+                        height: 40,
                       ),
                       GestureDetector(
                         onTap: () => authController.registerUserAdopter(
@@ -312,7 +313,7 @@ class _adopterSignUpState extends State<adopterSignUp> {
                                 style: ElevatedButton.styleFrom(
                                   padding:
                                   const EdgeInsets.fromLTRB(85, 10, 85, 10),
-                                  backgroundColor: Colors.deepPurple[400],
+                                  backgroundColor: Color(0xFF487776),
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
                                       BorderRadius.circular(10.0)),
@@ -327,7 +328,7 @@ class _adopterSignUpState extends State<adopterSignUp> {
                         ),
                       ),
                       const SizedBox(
-                        height: 18,
+                        height: 10,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,

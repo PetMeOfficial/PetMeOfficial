@@ -193,9 +193,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 end: Alignment.bottomCenter,
                 colors: [
                   // Colors.deepPurple.shade800.withOpacity(0.0),
-                  Color(0xFFDACB99),
+                  Color(0xFFD9CC86),
                   // Colors.deepPurple.shade200.withOpacity(0.8),
-                  Color(0xFF0077be),
+                  Color(0xFFF8EBD3),
                 ]
             )
         ),
@@ -210,18 +210,18 @@ class _AddPostScreenState extends State<AddPostScreen> {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
-                        color: Colors.white),
+                        color: Color(0xFF487776)),
                   ),
                 ),
                 AvatarGlow(
                   endRadius: 150,
-                  glowColor: Colors.deepPurple.shade100,
+                  glowColor: Color(0xFF487776),
                   repeatPauseDuration: const Duration(milliseconds: 100),
                   duration: const Duration(milliseconds: 3000),
                   child: IconButton(
                     icon: const Icon(FontAwesomeIcons.camera),
                     iconSize: 50,
-                    color: Colors.white,
+                    color: Color(0xFF487776),
                     onPressed: () => selectImage(context),
                   ),
                 ),

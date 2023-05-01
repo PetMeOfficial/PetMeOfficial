@@ -63,7 +63,7 @@ void main() async {
       // },
       getPages: [
         GetPage(name: '/login', page: () => MyLogin()),
-        GetPage(name: '/signup', page: () => const SignUp()),
+        // GetPage(name: '/signup', page: () => const SignUp()),
         GetPage(name: '/blogpage', page: () => CreateBlogPage()),
         GetPage(name: '/blogfeed', page: () => BlogFeedPage()),
         GetPage(
