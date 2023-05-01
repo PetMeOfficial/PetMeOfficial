@@ -22,15 +22,15 @@ class PostCard extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(
-            vertical: 14,
+            vertical: 10,
             horizontal: 20
           ),
           child: Material(
-            elevation: 9,
-            borderRadius: BorderRadius.circular(30),
+            elevation: 20,
+            borderRadius: BorderRadius.circular(10),
             // color: Colors.deepPurple[400],
             // color: Colors.greenAccent[400],
-            color: Color(0xFF0077be),
+            color: Color(0xFF71B6B3),
             child: Container(
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(

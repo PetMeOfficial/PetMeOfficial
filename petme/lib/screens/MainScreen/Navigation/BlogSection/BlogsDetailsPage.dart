@@ -163,7 +163,7 @@ class _BlogsDetailsPageState extends State<BlogsDetailsPage> {
                                 // maxLines: 20,
                                 // overflow: TextOverflow.fade,
                                 style: const TextStyle(
-                                  color: Colors.black54,
+                                  color: Colors.black,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 22.0,
                                 ),

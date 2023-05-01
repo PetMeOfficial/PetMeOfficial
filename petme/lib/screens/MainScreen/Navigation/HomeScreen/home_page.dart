@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
               stream: FirebaseFirestore.instance.collection('posts').snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator(backgroundColor: Colors.deepPurple[400],));
+                  return Center(child: CircularProgressIndicator(backgroundColor: Color(0xFF35BDD0),));
                 }
                 return ListView.builder(
                   itemCount: snapshot.data!.docs.length,
@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                 Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Color(0xFF1A237E),
+                    color: Color(0xFF487776),
                   ),
                 ),
                 Center(

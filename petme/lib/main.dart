@@ -18,9 +18,9 @@ import 'package:petme/screens/SplashScreen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:petme/screens/Login/forgotPass.dart';
 import 'package:provider/provider.dart';
-import '../providers/petProvider.dart';
-import 'MainScreen/Navigation/BlogSection/blogfeedpage.dart';
-import 'firebase_options.dart';
+import 'providers/petProvider.dart';
+import 'screens/MainScreen/Navigation/BlogSection/blogfeedpage.dart';
+import 'screens/firebase_options.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print('Handling Background Message ${message.messageId}');

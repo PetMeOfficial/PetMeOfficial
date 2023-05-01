@@ -240,7 +240,7 @@ class _MainPageState extends State<MainPage> {
           ),
           // backgroundColor: Colors.deepPurple[300],
           // backgroundColor: Colors.transparent,
-          backgroundColor: Color(0xFF1A237E),
+          backgroundColor: Color(0xFF487776),
           elevation: 0,
           actions: [
             // TextButton(
@@ -271,7 +271,7 @@ class _MainPageState extends State<MainPage> {
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
             // color: Colors.deepPurple[600],
-            color: Color(0xFF1A237E),
+            color: Color(0xFF487776),
             // color: Colors.blue[900],
             boxShadow: [
               BoxShadow(
@@ -288,7 +288,7 @@ class _MainPageState extends State<MainPage> {
                 duration: const Duration(microseconds: 100),
                 // backgroundColor: Colors.white54,
                 // backgroundColor: Colors.deepPurple.shade300,
-                color: Color(0xFFADD8E6),
+                color: Color(0xFFCECCB8),
                 // color: Colors.black87,
                 // activeColor: Colors.deepPurple[900],
                 activeColor: Colors.white,

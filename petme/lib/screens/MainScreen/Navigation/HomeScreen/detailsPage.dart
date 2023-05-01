@@ -36,13 +36,9 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-
-  void showAlert(){
+  void showAlert() {
     QuickAlert.show(
-        context: context,
-        title: "Request Sent",
-        type: QuickAlertType.success
-    );
+        context: context, title: "Request Sent", type: QuickAlertType.success);
   }
 
   selectOption(parentContext) {
@@ -51,7 +47,7 @@ class _DetailsPageState extends State<DetailsPage> {
         builder: (context) {
           return SimpleDialog(
             shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             elevation: 1,
             backgroundColor: kLightPrimaryColor,
             title: const Text(
@@ -65,19 +61,12 @@ class _DetailsPageState extends State<DetailsPage> {
               SimpleDialogOption(
                 onPressed: () async {
                   Navigator.of(context).pop();
-                  var whatsappUrl =
-                      "https://wa.me/$phone?"
-                      "text=Dear%20${petOwnerName},"
-                      "\n\nI%20hope%20this%20message%20finds%20you%20well.%20I%20came%20across%20your%20post%20about%20your%20pet%20who%20needs%20a%20new%20home,%20and%20I%20wanted%20to%20express%20my%20interest%20in%20adopting%20him/her.%20I%20have%20been%20searching%20for%20a%20furry%20friend%20to%20add%20to%20my%20family,%20and%20your%20pet%20seems%20like%20the%20perfect%20fit."
-                      "\n\nI%20have%20experience%20with%20pets%20and%20have%20owned%20several%20dogs%20and%20cats%20in%20the%20past.%20I%20have%20a%20spacious%20home%20with%20a%20big%20backyard%20where%20your%20pet%20can%20play%20and%20get%20plenty%20of%20exercise.%20I%20am%20also%20willing%20to%20provide%20all%20the%20necessary%20care%20and%20attention%20that%20your%20pet%20needs,%20including%20regular%20vet%20check-ups%20and%20grooming."
-                      "\n\nIf%20you%20are%20still%20looking%20for%20a%20new%20home%20for%20your%20pet,%20I%20would%20be%20honored%20to%20give%20him/her%20a%20loving%20and%20caring%20home.%20Please%20let%20me%20know%20if%20you%20are%20willing%20to%20consider%20me%20as%20a%20potential%20adopter.%20I%20would%20be%20more%20than%20happy%20to%20answer%20any%20questions%20you%20may%20have."
-                      "\n\nThank%20you%20for%20considering%20me%20as%20a%20potential%20adopter%20for%20your%20beloved%20pet."
-                      "\n\nBest%20regards,"
-                      "\n\n${adopterName}";
-                  await canLaunch(whatsappUrl)
-                      ? await launch(whatsappUrl)
-                      : throw "Could Not Launch Url: $whatsappUrl";
-                  Future.delayed(Duration(seconds: 7), (){
+                  var text = "Hello, I came across your pet's profile on the pet adoption app and I'm interested in learning more about him/her. Could you please provide me with additional information regarding your pet's personality, health, and any other important details that you think would be helpful for me to know? I believe that your pet would be a great addition to my home and I look forward to hearing back from you. Thank you for your time!";
+                  var whatsappUrl = "https://wa.me/$phone?text=$text";
+
+                      await launch(whatsappUrl);
+
+                  Future.delayed(Duration(seconds: 7), () {
                     showAlert();
                   });
                 },
@@ -88,15 +77,16 @@ class _DetailsPageState extends State<DetailsPage> {
               ),
               SimpleDialogOption(
                 onPressed: () async {
+                  String body = "Hello, I came across your pet's profile on the pet adoption app and I'm interested in learning more about him/her. Could you please provide me with additional information regarding your pet's personality, health, and any other important details that you think would be helpful for me to know? I believe that your pet would be a great addition to my home and I look forward to hearing back from you. Thank you for your time!";
+                  String subject = "Interested in adopting your pet";
+                  String params = 'mailto:$email?subject=$subject&body=$body';
+                  launch(params);
                   Navigator.of(context).pop();
+                  DocumentSnapshot ownerSnapshot = await FirebaseFirestore.instance.collection('Adopters').doc(email).get();
+                  String ownerEmail = ownerSnapshot.get('email');
 
-                  // Uint8List file = await pickImage(ImageSource.gallery);
-                  // setState(() {
-                  //   _file = file;
-                  // });
                 },
-                padding:
-                const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
                 child: const Text(
                   "Contact through Email",
                   style: TextStyle(fontSize: 20, color: Colors.white),
@@ -145,10 +135,10 @@ class _DetailsPageState extends State<DetailsPage> {
   String petOwnerId = "";
   String adopterId = "";
   String phone = "";
+  String email = "";
 
   Future<void> shareProfile() async {
-    await Share.share(
-        'Check out this profile right now!');
+    await Share.share('Check out this profile right now!');
   }
 
   void sendPushMessage(String token, title, body) async {
@@ -240,7 +230,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                 ),
                               ),
                               InkWell(
-                                onTap: (){
+                                onTap: () {
                                   shareProfile();
                                 },
                                 child: const Icon(
@@ -388,6 +378,22 @@ class _DetailsPageState extends State<DetailsPage> {
                                           if (kDebugMode) {
                                             print("phoneNO is : $pNum");
                                           }
+                                          MapEntry eNum = tokenList.entries
+                                              .firstWhere((element) =>
+                                                  element.key == 'email');
+                                          if (pNum != null) {
+                                            if (kDebugMode) {
+                                              print('key = ${eNum.key}');
+                                            }
+                                            if (kDebugMode) {
+                                              print('value = ${eNum.value}');
+                                            }
+                                            email = eNum.value;
+                                            if (kDebugMode) {
+                                              print("email is : $email");
+                                            }
+                                          }
+
                                           setState(() {
                                             petOwnerName = username;
                                             adopterId = x!;
@@ -397,6 +403,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                             adopterName = user.username;
                                             // print("My token is $finalToken");
                                           });
+
                                           /// Route to Meeting Scheduler Page Below
                                           // Get.to(MeetingsSchedulingPage(
                                           //   petOwnerId: petOwnerId,
@@ -414,46 +421,17 @@ class _DetailsPageState extends State<DetailsPage> {
                                               "Someone is Interested in your Pet",
                                             );
                                             selectOption(context);
-                                            /// Below Code for WhatsApp
-                                            // var whatsappUrl =
-                                            //     "https://wa.me/$phone?"
-                                            //     "text=Dear%20${petOwnerName},"
-                                            //     "\n\nI%20hope%20this%20message%20finds%20you%20well.%20I%20came%20across%20your%20post%20about%20your%20pet%20who%20needs%20a%20new%20home,%20and%20I%20wanted%20to%20express%20my%20interest%20in%20adopting%20him/her.%20I%20have%20been%20searching%20for%20a%20furry%20friend%20to%20add%20to%20my%20family,%20and%20your%20pet%20seems%20like%20the%20perfect%20fit."
-                                            //     "\n\nI%20have%20experience%20with%20pets%20and%20have%20owned%20several%20dogs%20and%20cats%20in%20the%20past.%20I%20have%20a%20spacious%20home%20with%20a%20big%20backyard%20where%20your%20pet%20can%20play%20and%20get%20plenty%20of%20exercise.%20I%20am%20also%20willing%20to%20provide%20all%20the%20necessary%20care%20and%20attention%20that%20your%20pet%20needs,%20including%20regular%20vet%20check-ups%20and%20grooming."
-                                            //     "\n\nIf%20you%20are%20still%20looking%20for%20a%20new%20home%20for%20your%20pet,%20I%20would%20be%20honored%20to%20give%20him/her%20a%20loving%20and%20caring%20home.%20Please%20let%20me%20know%20if%20you%20are%20willing%20to%20consider%20me%20as%20a%20potential%20adopter.%20I%20would%20be%20more%20than%20happy%20to%20answer%20any%20questions%20you%20may%20have."
-                                            //     "\n\nThank%20you%20for%20considering%20me%20as%20a%20potential%20adopter%20for%20your%20beloved%20pet."
-                                            //     "\n\nBest%20regards,"
-                                            //     "\n\n${adopterName}";
-                                            // await canLaunch(whatsappUrl)
-                                            //     ? await launch(whatsappUrl)
-                                            //     : throw "Could Not Launch Url: $whatsappUrl";
+
                                           } catch (err) {
                                             if (kDebugMode) {
                                               print(err.toString());
                                             }
                                           }
                                         }
-
-                                        // print(element.data());
-                                        // print(UID);
-                                        // print(token);
-                                        // print(tokenList);
-                                        // print(hello);
                                       }
                                     })
                                   });
-
-                          // Create a query against the collection.
-                          // var query = adopterRef.where("username", isEqualTo: "vish").snapshots().toString();
-                          // print(query);
-
-                          // String titleText = 'Title';
-                          // String bodyText = 'Body';
-
-                          // authController.sendPushMessage(token, titleText, bodyText);
                         },
-                        // authController.sendPushMessage(token, body, title),
-
                         child: Expanded(
                           child: Material(
                             borderRadius: BorderRadius.circular(20.0),
@@ -549,7 +527,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           style: const TextStyle(
                             fontSize: 16.0,
                             // color: Colors.pink[400],
-                            color:kLightPrimaryColor,
+                            color: kLightPrimaryColor,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
