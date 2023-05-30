@@ -1,7 +1,7 @@
-Pet Adoption
+PetMe Pet Adoption
 
 Description:
-The "Pet Adoption" project is a comprehensive platform that simplifies the process of pet adoption and provides valuable resources for pet owners. It features a user-friendly application developed using Flutter, Dart, and Firebase, offering a seamless experience for clients looking to adopt a pet. The application includes modules such as a Chatbot, Blog, and Maps, providing quick answers, informative articles, and location-based information on veterinary clinics, pet shops, and pet events.
+The "PetMe" project is a comprehensive platform that simplifies the process of pet adoption and provides valuable resources for pet owners. It features a user-friendly application developed using Flutter, Dart, and Firebase, offering a seamless experience for clients looking to adopt a pet. The application includes modules such as a Chatbot, Blog, and Maps, providing quick answers, informative articles, and location-based information on veterinary clinics, pet shops, and pet events.
 
 Key Features:
 - Chatbot module for instant assistance and personalized recommendations on pet adoption and care.
